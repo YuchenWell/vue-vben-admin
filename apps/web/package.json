@@ -1,11 +1,6 @@
 {
-  "name": "@vben/web-antd",
-  "version": "5.5.4",
-  "author": {
-    "name": "vben",
-    "email": "ann.vben@gmail.com",
-    "url": "https://github.com/anncwb"
-  },
+  "name": "@yyb/web",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "build": "pnpm vite build --mode production",

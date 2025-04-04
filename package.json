@@ -6,7 +6,7 @@
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build",
     "build:analyze": "turbo build:analyze",
-    "build:antd": "pnpm run build --filter=@vben/web-antd",
+    "build:web": "pnpm run build --filter=@yyb",
     "check": "pnpm run check:circular && pnpm run check:dep && pnpm run check:type && pnpm check:cspell",
     "check:circular": "vsh check-circular",
     "check:cspell": "cspell lint **/*.ts **/README.md .changeset/*.md --no-progress",
@@ -14,7 +14,7 @@
     "check:type": "turbo run typecheck",
     "clean": "node ./scripts/clean.mjs",
     "commit": "czg",
-    "dev:web": "pnpm -F @vben/web-antd run dev",
+    "dev:web": "pnpm -F @yyb/web run dev",
     "format": "vsh lint --format",
     "lint": "vsh lint",
     "postinstall": "pnpm -r run stub --if-present",
