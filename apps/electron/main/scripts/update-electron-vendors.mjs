@@ -19,7 +19,7 @@ const browserslistrcPath = path.resolve(
 
 writeFileSync(
   './.electron-vendors.cache.json',
-  JSON.stringify({ chrome, node }, null, 2),
+  JSON.stringify({ chrome, node }),
 );
 
 writeFileSync(browserslistrcPath, `Chrome ${chrome}`, 'utf8');
