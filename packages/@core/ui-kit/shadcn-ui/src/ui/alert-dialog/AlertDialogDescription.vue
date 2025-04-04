@@ -1,3 +1,12 @@
+<template>
+  <AlertDialogDescription
+    v-bind="forwardedProps"
+    :class="cn('text-muted-foreground text-sm', props.class)"
+  >
+    <slot></slot>
+  </AlertDialogDescription>
+</template>
+
 <script lang="ts" setup>
 import type { AlertDialogDescriptionProps } from 'radix-vue';
 
@@ -17,12 +26,3 @@ const delegatedProps = computed(() => {
 
 const forwardedProps = useForwardProps(delegatedProps);
 </script>
-
-<template>
-  <AlertDialogDescription
-    v-bind="forwardedProps"
-    :class="cn('text-muted-foreground text-sm', props.class)"
-  >
-    <slot></slot>
-  </AlertDialogDescription>
-</template>

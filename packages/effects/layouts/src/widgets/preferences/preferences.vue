@@ -1,3 +1,19 @@
+<template>
+  <div>
+    <Drawer v-bind="{ ...$attrs, ...attrs }" v-on="listen" />
+
+    <div @click="() => drawerApi.open()">
+      <slot>
+        <VbenButton
+          :title="$t('preferences.title')"
+          class="bg-primary flex-col-center size-10 cursor-pointer rounded-l-lg rounded-r-none border-none"
+        >
+          <Settings class="size-5" />
+        </VbenButton>
+      </slot>
+    </div>
+  </div>
+</template>
 <script lang="ts" setup>
 import { computed } from 'vue';
 
@@ -54,19 +70,3 @@ const listen = computed(() => {
   return result;
 });
 </script>
-<template>
-  <div>
-    <Drawer v-bind="{ ...$attrs, ...attrs }" v-on="listen" />
-
-    <div @click="() => drawerApi.open()">
-      <slot>
-        <VbenButton
-          :title="$t('preferences.title')"
-          class="bg-primary flex-col-center size-10 cursor-pointer rounded-l-lg rounded-r-none border-none"
-        >
-          <Settings class="size-5" />
-        </VbenButton>
-      </slot>
-    </div>
-  </div>
-</template>

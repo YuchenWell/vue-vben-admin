@@ -1,3 +1,9 @@
+<template>
+  <div :class="cn(badgeVariants({ variant }), props.class)">
+    <slot></slot>
+  </div>
+</template>
+
 <script setup lang="ts">
 import type { BadgeVariants } from './badge';
 
@@ -10,9 +16,3 @@ const props = defineProps<{
   variant?: BadgeVariants['variant'];
 }>();
 </script>
-
-<template>
-  <div :class="cn(badgeVariants({ variant }), props.class)">
-    <slot></slot>
-  </div>
-</template>

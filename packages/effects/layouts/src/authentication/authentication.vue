@@ -1,41 +1,3 @@
-<script setup lang="ts">
-import type { ToolbarType } from './types';
-
-import { preferences, usePreferences } from '@vben/preferences';
-
-import { Copyright } from '../basic/copyright';
-import AuthenticationFormView from './form.vue';
-import SloganIcon from './icons/slogan.vue';
-import Toolbar from './toolbar.vue';
-
-interface Props {
-  appName?: string;
-  logo?: string;
-  pageTitle?: string;
-  pageDescription?: string;
-  sloganImage?: string;
-  toolbar?: boolean;
-  copyright?: boolean;
-  toolbarList?: ToolbarType[];
-  clickLogo?: () => void;
-}
-
-withDefaults(defineProps<Props>(), {
-  appName: '',
-  copyright: true,
-  logo: '',
-  pageDescription: '',
-  pageTitle: '',
-  sloganImage: '',
-  toolbar: true,
-  toolbarList: () => ['color', 'language', 'layout', 'theme'],
-  clickLogo: () => {},
-});
-
-const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
-  usePreferences();
-</script>
-
 <template>
   <div
     :class="[isDark]"
@@ -136,6 +98,44 @@ const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
     </AuthenticationFormView>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { ToolbarType } from './types';
+
+import { preferences, usePreferences } from '@vben/preferences';
+
+import { Copyright } from '../basic/copyright';
+import AuthenticationFormView from './form.vue';
+import SloganIcon from './icons/slogan.vue';
+import Toolbar from './toolbar.vue';
+
+interface Props {
+  appName?: string;
+  logo?: string;
+  pageTitle?: string;
+  pageDescription?: string;
+  sloganImage?: string;
+  toolbar?: boolean;
+  copyright?: boolean;
+  toolbarList?: ToolbarType[];
+  clickLogo?: () => void;
+}
+
+withDefaults(defineProps<Props>(), {
+  appName: '',
+  copyright: true,
+  logo: '',
+  pageDescription: '',
+  pageTitle: '',
+  sloganImage: '',
+  toolbar: true,
+  toolbarList: () => ['color', 'language', 'layout', 'theme'],
+  clickLogo: () => {},
+});
+
+const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
+  usePreferences();
+</script>
 
 <style scoped>
 .login-background {

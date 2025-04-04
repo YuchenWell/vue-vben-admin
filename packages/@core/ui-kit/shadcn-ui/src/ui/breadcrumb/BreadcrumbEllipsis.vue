@@ -1,13 +1,3 @@
-<script lang="ts" setup>
-import { cn } from '@vben-core/shared/utils';
-
-import { MoreHorizontal } from 'lucide-vue-next';
-
-const props = defineProps<{
-  class?: any;
-}>();
-</script>
-
 <template>
   <span
     :class="cn('flex h-9 w-9 items-center justify-center', props.class)"
@@ -20,3 +10,13 @@ const props = defineProps<{
     <span class="sr-only">More</span>
   </span>
 </template>
+
+<script lang="ts" setup>
+import { cn } from '@vben-core/shared/utils';
+
+import { MoreHorizontal } from 'lucide-vue-next';
+
+const props = defineProps<{
+  class?: any;
+}>();
+</script>

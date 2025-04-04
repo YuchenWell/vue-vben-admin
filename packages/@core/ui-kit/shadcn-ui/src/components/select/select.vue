@@ -1,3 +1,15 @@
+<template>
+  <Select>
+    <SelectTrigger :class="props.class">
+      <SelectValue :placeholder="placeholder" />
+    </SelectTrigger>
+    <SelectContent>
+      <template v-for="item in options" :key="item.value">
+        <SelectItem :value="item.value"> {{ item.label }} </SelectItem>
+      </template>
+    </SelectContent>
+  </Select>
+</template>
 <script lang="ts" setup>
 import {
   Select,
@@ -15,18 +27,6 @@ interface Props {
 
 const props = defineProps<Props>();
 </script>
-<template>
-  <Select>
-    <SelectTrigger :class="props.class">
-      <SelectValue :placeholder="placeholder" />
-    </SelectTrigger>
-    <SelectContent>
-      <template v-for="item in options" :key="item.value">
-        <SelectItem :value="item.value"> {{ item.label }} </SelectItem>
-      </template>
-    </SelectContent>
-  </Select>
-</template>
 
 <style lang="scss" scoped>
 button[role='combobox'][data-placeholder] {

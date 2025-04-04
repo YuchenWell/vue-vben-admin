@@ -1,3 +1,18 @@
+<template>
+  <Menu
+    :accordion="accordion"
+    :collapse="collapse"
+    :collapse-show-title="collapseShowTitle"
+    :default-active="defaultActive"
+    :menus="menus"
+    :mode="mode"
+    :rounded="rounded"
+    :theme="theme"
+    @open="handleMenuOpen"
+    @select="handleMenuSelect"
+  />
+</template>
+
 <script lang="ts" setup>
 import type { MenuRecordRaw } from '@vben/types';
 
@@ -27,18 +42,3 @@ function handleMenuOpen(key: string, path: string[]) {
   emit('open', key, path);
 }
 </script>
-
-<template>
-  <Menu
-    :accordion="accordion"
-    :collapse="collapse"
-    :collapse-show-title="collapseShowTitle"
-    :default-active="defaultActive"
-    :menus="menus"
-    :mode="mode"
-    :rounded="rounded"
-    :theme="theme"
-    @open="handleMenuOpen"
-    @select="handleMenuSelect"
-  />
-</template>

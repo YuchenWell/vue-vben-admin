@@ -1,3 +1,30 @@
+<template>
+  <TabsView
+    :active="currentActive"
+    :class="theme"
+    :context-menus="createContextMenus"
+    :draggable="preferences.tabbar.draggable"
+    :show-icon="showIcon"
+    :style-type="preferences.tabbar.styleType"
+    :tabs="currentTabs"
+    :wheelable="preferences.tabbar.wheelable"
+    :middle-click-to-close="preferences.tabbar.middleClickToClose"
+    @close="handleClose"
+    @sort-tabs="tabbarStore.sortTabs"
+    @unpin="unpinTab"
+    @update:active="handleClick"
+  />
+  <div class="flex-center h-full">
+    <TabsToolMore v-if="preferences.tabbar.showMore" :menus="menus" />
+    <TabsToolScreen
+      v-if="preferences.tabbar.showMaximize"
+      :screen="contentIsMaximize"
+      @change="toggleMaximize"
+      @update:screen="toggleMaximize"
+    />
+  </div>
+</template>
+
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
@@ -46,30 +73,3 @@ if (!preferences.tabbar.persist) {
   tabbarStore.closeOtherTabs(route);
 }
 </script>
-
-<template>
-  <TabsView
-    :active="currentActive"
-    :class="theme"
-    :context-menus="createContextMenus"
-    :draggable="preferences.tabbar.draggable"
-    :show-icon="showIcon"
-    :style-type="preferences.tabbar.styleType"
-    :tabs="currentTabs"
-    :wheelable="preferences.tabbar.wheelable"
-    :middle-click-to-close="preferences.tabbar.middleClickToClose"
-    @close="handleClose"
-    @sort-tabs="tabbarStore.sortTabs"
-    @unpin="unpinTab"
-    @update:active="handleClick"
-  />
-  <div class="flex-center h-full">
-    <TabsToolMore v-if="preferences.tabbar.showMore" :menus="menus" />
-    <TabsToolScreen
-      v-if="preferences.tabbar.showMaximize"
-      :screen="contentIsMaximize"
-      @change="toggleMaximize"
-      @update:screen="toggleMaximize"
-    />
-  </div>
-</template>

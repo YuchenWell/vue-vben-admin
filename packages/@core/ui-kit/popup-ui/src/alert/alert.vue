@@ -1,3 +1,69 @@
+<template>
+  <AlertDialog :open="open" @update:open="handleOpenChange">
+    <AlertDialogContent
+      :open="open"
+      :centered="centered"
+      @opened="emits('opened')"
+      :class="
+        cn(
+          containerClass,
+          'left-0 right-0 top-[10vh] mx-auto flex max-h-[80%] flex-col p-0 duration-300 sm:rounded-[var(--radius)] md:w-[520px] md:max-w-[80%]',
+          {
+            'border-border border': bordered,
+            'shadow-3xl': !bordered,
+            'top-1/2 !-translate-y-1/2': centered,
+          },
+        )
+      "
+    >
+      <div :class="cn('relative flex-1 overflow-y-auto p-3', contentClass)">
+        <AlertDialogTitle v-if="title">
+          <div class="flex items-center">
+            <component :is="getIconRender" class="mr-2" />
+            <span class="flex-auto">{{ $t(title) }}</span>
+            <AlertDialogCancel v-if="showCancel">
+              <VbenButton
+                variant="ghost"
+                size="icon"
+                class="rounded-full"
+                :disabled="loading"
+                @click="handleCancel"
+              >
+                <X class="text-muted-foreground size-4" />
+              </VbenButton>
+            </AlertDialogCancel>
+          </div>
+        </AlertDialogTitle>
+        <AlertDialogDescription>
+          <div class="m-4 mb-6 min-h-[30px]">
+            <VbenRenderContent :content="content" render-br />
+          </div>
+          <VbenLoading v-if="loading" :spinning="loading" />
+        </AlertDialogDescription>
+        <div class="flex justify-end gap-x-2">
+          <AlertDialogCancel v-if="showCancel" :disabled="loading">
+            <component
+              :is="components.DefaultButton || VbenButton"
+              variant="ghost"
+              @click="handleCancel"
+            >
+              {{ cancelText || $t('cancel') }}
+            </component>
+          </AlertDialogCancel>
+          <AlertDialogAction>
+            <component
+              :is="components.PrimaryButton || VbenButton"
+              :loading="loading"
+              @click="handleConfirm"
+            >
+              {{ confirmText || $t('confirm') }}
+            </component>
+          </AlertDialogAction>
+        </div>
+      </div>
+    </AlertDialogContent>
+  </AlertDialog>
+</template>
 <script lang="ts" setup>
 import type { Component } from 'vue';
 
@@ -114,69 +180,3 @@ async function handleOpenChange(val: boolean) {
   }
 }
 </script>
-<template>
-  <AlertDialog :open="open" @update:open="handleOpenChange">
-    <AlertDialogContent
-      :open="open"
-      :centered="centered"
-      @opened="emits('opened')"
-      :class="
-        cn(
-          containerClass,
-          'left-0 right-0 top-[10vh] mx-auto flex max-h-[80%] flex-col p-0 duration-300 sm:rounded-[var(--radius)] md:w-[520px] md:max-w-[80%]',
-          {
-            'border-border border': bordered,
-            'shadow-3xl': !bordered,
-            'top-1/2 !-translate-y-1/2': centered,
-          },
-        )
-      "
-    >
-      <div :class="cn('relative flex-1 overflow-y-auto p-3', contentClass)">
-        <AlertDialogTitle v-if="title">
-          <div class="flex items-center">
-            <component :is="getIconRender" class="mr-2" />
-            <span class="flex-auto">{{ $t(title) }}</span>
-            <AlertDialogCancel v-if="showCancel">
-              <VbenButton
-                variant="ghost"
-                size="icon"
-                class="rounded-full"
-                :disabled="loading"
-                @click="handleCancel"
-              >
-                <X class="text-muted-foreground size-4" />
-              </VbenButton>
-            </AlertDialogCancel>
-          </div>
-        </AlertDialogTitle>
-        <AlertDialogDescription>
-          <div class="m-4 mb-6 min-h-[30px]">
-            <VbenRenderContent :content="content" render-br />
-          </div>
-          <VbenLoading v-if="loading" :spinning="loading" />
-        </AlertDialogDescription>
-        <div class="flex justify-end gap-x-2">
-          <AlertDialogCancel v-if="showCancel" :disabled="loading">
-            <component
-              :is="components.DefaultButton || VbenButton"
-              variant="ghost"
-              @click="handleCancel"
-            >
-              {{ cancelText || $t('cancel') }}
-            </component>
-          </AlertDialogCancel>
-          <AlertDialogAction>
-            <component
-              :is="components.PrimaryButton || VbenButton"
-              :loading="loading"
-              @click="handleConfirm"
-            >
-              {{ confirmText || $t('confirm') }}
-            </component>
-          </AlertDialogAction>
-        </div>
-      </div>
-    </AlertDialogContent>
-  </AlertDialog>
-</template>

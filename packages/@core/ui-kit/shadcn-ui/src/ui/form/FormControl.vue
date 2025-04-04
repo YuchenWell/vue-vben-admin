@@ -1,11 +1,3 @@
-<script lang="ts" setup>
-import { Slot } from 'radix-vue';
-
-import { useFormField } from './useFormField';
-
-const { error, formDescriptionId, formItemId, formMessageId } = useFormField();
-</script>
-
 <template>
   <Slot
     :id="formItemId"
@@ -17,3 +9,11 @@ const { error, formDescriptionId, formItemId, formMessageId } = useFormField();
     <slot></slot>
   </Slot>
 </template>
+
+<script lang="ts" setup>
+import { Slot } from 'radix-vue';
+
+import { useFormField } from './useFormField';
+
+const { error, formDescriptionId, formItemId, formMessageId } = useFormField();
+</script>

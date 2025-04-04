@@ -1,21 +1,3 @@
-<script setup lang="ts">
-import type { SeparatorProps } from 'radix-vue';
-
-import { computed } from 'vue';
-
-import { cn } from '@vben-core/shared/utils';
-
-import { Separator } from 'radix-vue';
-
-const props = defineProps<SeparatorProps & { class?: any; label?: string }>();
-
-const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
-
-  return delegated;
-});
-</script>
-
 <template>
   <Separator
     v-bind="delegatedProps"
@@ -42,3 +24,21 @@ const delegatedProps = computed(() => {
     </span>
   </Separator>
 </template>
+
+<script setup lang="ts">
+import type { SeparatorProps } from 'radix-vue';
+
+import { computed } from 'vue';
+
+import { cn } from '@vben-core/shared/utils';
+
+import { Separator } from 'radix-vue';
+
+const props = defineProps<SeparatorProps & { class?: any; label?: string }>();
+
+const delegatedProps = computed(() => {
+  const { class: _, ...delegated } = props;
+
+  return delegated;
+});
+</script>

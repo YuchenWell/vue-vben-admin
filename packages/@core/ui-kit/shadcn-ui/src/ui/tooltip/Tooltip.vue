@@ -1,3 +1,9 @@
+<template>
+  <TooltipRoot v-bind="forwarded">
+    <slot></slot>
+  </TooltipRoot>
+</template>
+
 <script setup lang="ts">
 import type { TooltipRootEmits, TooltipRootProps } from 'radix-vue';
 
@@ -8,9 +14,3 @@ const emits = defineEmits<TooltipRootEmits>();
 
 const forwarded = useForwardPropsEmits(props, emits);
 </script>
-
-<template>
-  <TooltipRoot v-bind="forwarded">
-    <slot></slot>
-  </TooltipRoot>
-</template>

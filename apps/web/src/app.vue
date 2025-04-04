@@ -1,3 +1,11 @@
+<template>
+  <ConfigProvider :locale="antdLocale" :theme="tokenTheme">
+    <App>
+      <RouterView />
+    </App>
+  </ConfigProvider>
+</template>
+
 <script lang="ts" setup>
 import { computed } from 'vue';
 
@@ -29,11 +37,3 @@ const tokenTheme = computed(() => {
   };
 });
 </script>
-
-<template>
-  <ConfigProvider :locale="antdLocale" :theme="tokenTheme">
-    <App>
-      <RouterView />
-    </App>
-  </ConfigProvider>
-</template>

@@ -1,3 +1,25 @@
+<template>
+  <component :is="formComponent" v-bind="formComponentProps">
+    <div ref="wrapperRef" :class="wrapperClass" class="grid">
+      <template v-for="cSchema in computedSchema" :key="cSchema.fieldName">
+        <!-- <div v-if="$slots[cSchema.fieldName]" :class="cSchema.formItemClass">
+          <slot :definition="cSchema" :name="cSchema.fieldName"> </slot>
+        </div> -->
+        <FormField
+          v-bind="cSchema"
+          :class="cSchema.formItemClass"
+          :rules="cSchema.rules"
+        >
+          <template #default="slotProps">
+            <slot v-bind="slotProps" :name="cSchema.fieldName"> </slot>
+          </template>
+        </FormField>
+      </template>
+      <slot :shapes="shapes"></slot>
+    </div>
+  </component>
+</template>
+
 <script setup lang="ts">
 import type { GenericObject } from 'vee-validate';
 import type { ZodTypeAny } from 'zod';
@@ -141,25 +163,3 @@ const computedSchema = computed(
   },
 );
 </script>
-
-<template>
-  <component :is="formComponent" v-bind="formComponentProps">
-    <div ref="wrapperRef" :class="wrapperClass" class="grid">
-      <template v-for="cSchema in computedSchema" :key="cSchema.fieldName">
-        <!-- <div v-if="$slots[cSchema.fieldName]" :class="cSchema.formItemClass">
-          <slot :definition="cSchema" :name="cSchema.fieldName"> </slot>
-        </div> -->
-        <FormField
-          v-bind="cSchema"
-          :class="cSchema.formItemClass"
-          :rules="cSchema.rules"
-        >
-          <template #default="slotProps">
-            <slot v-bind="slotProps" :name="cSchema.fieldName"> </slot>
-          </template>
-        </FormField>
-      </template>
-      <slot :shapes="shapes"></slot>
-    </div>
-  </component>
-</template>

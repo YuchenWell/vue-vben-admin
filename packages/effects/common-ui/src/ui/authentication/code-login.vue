@@ -1,3 +1,36 @@
+<template>
+  <div>
+    <Title>
+      <slot name="title">
+        {{ title || $t('authentication.welcomeBack') }} 📲
+      </slot>
+      <template #desc>
+        <span class="text-muted-foreground">
+          <slot name="subTitle">
+            {{ subTitle || $t('authentication.codeSubtitle') }}
+          </slot>
+        </span>
+      </template>
+    </Title>
+    <Form />
+    <VbenButton
+      :class="{
+        'cursor-wait': loading,
+      }"
+      :loading="loading"
+      class="w-full"
+      @click="handleSubmit"
+    >
+      <slot name="submitButtonText">
+        {{ submitButtonText || $t('common.login') }}
+      </slot>
+    </VbenButton>
+    <VbenButton class="mt-4 w-full" variant="outline" @click="goToLogin()">
+      {{ $t('common.back') }}
+    </VbenButton>
+  </div>
+</template>
+
 <script setup lang="ts">
 import type { Recordable } from '@vben/types';
 
@@ -82,36 +115,3 @@ defineExpose({
   getFormApi: () => formApi,
 });
 </script>
-
-<template>
-  <div>
-    <Title>
-      <slot name="title">
-        {{ title || $t('authentication.welcomeBack') }} 📲
-      </slot>
-      <template #desc>
-        <span class="text-muted-foreground">
-          <slot name="subTitle">
-            {{ subTitle || $t('authentication.codeSubtitle') }}
-          </slot>
-        </span>
-      </template>
-    </Title>
-    <Form />
-    <VbenButton
-      :class="{
-        'cursor-wait': loading,
-      }"
-      :loading="loading"
-      class="w-full"
-      @click="handleSubmit"
-    >
-      <slot name="submitButtonText">
-        {{ submitButtonText || $t('common.login') }}
-      </slot>
-    </VbenButton>
-    <VbenButton class="mt-4 w-full" variant="outline" @click="goToLogin()">
-      {{ $t('common.back') }}
-    </VbenButton>
-  </div>
-</template>

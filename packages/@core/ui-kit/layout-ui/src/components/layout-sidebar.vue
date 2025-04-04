@@ -1,3 +1,72 @@
+<template>
+  <div
+    v-if="domVisible"
+    :class="theme"
+    :style="hiddenSideStyle"
+    class="h-full transition-all duration-150"
+  ></div>
+  <aside
+    :class="[
+      theme,
+      {
+        'bg-sidebar-deep': isSidebarMixed,
+        'bg-sidebar border-border border-r': !isSidebarMixed,
+      },
+    ]"
+    :style="style"
+    class="fixed left-0 top-0 h-full transition-all duration-150"
+    @mouseenter="handleMouseenter"
+    @mouseleave="handleMouseleave"
+  >
+    <SidebarFixedButton
+      v-if="!collapse && !isSidebarMixed && showFixedButton"
+      v-model:expand-on-hover="expandOnHover"
+    />
+    <div v-if="slots.logo" :style="headerStyle">
+      <slot name="logo"></slot>
+    </div>
+    <VbenScrollbar :style="contentStyle" shadow shadow-border>
+      <slot></slot>
+    </VbenScrollbar>
+
+    <div :style="collapseStyle"></div>
+    <SidebarCollapseButton
+      v-if="showCollapseButton && !isSidebarMixed"
+      v-model:collapsed="collapse"
+    />
+    <div
+      v-if="isSidebarMixed"
+      ref="asideRef"
+      :class="{
+        'border-l': extraVisible,
+      }"
+      :style="extraStyle"
+      class="border-border bg-sidebar fixed top-0 h-full overflow-hidden border-r transition-all duration-200"
+    >
+      <SidebarCollapseButton
+        v-if="isSidebarMixed && expandOnHover"
+        v-model:collapsed="extraCollapse"
+      />
+
+      <SidebarFixedButton
+        v-if="!extraCollapse"
+        v-model:expand-on-hover="expandOnHover"
+      />
+      <div v-if="!extraCollapse" :style="extraTitleStyle" class="pl-2">
+        <slot name="extra-title"></slot>
+      </div>
+      <VbenScrollbar
+        :style="extraContentStyle"
+        class="border-border py-2"
+        shadow
+        shadow-border
+      >
+        <slot name="extra"></slot>
+      </VbenScrollbar>
+    </div>
+  </aside>
+</template>
+
 <script setup lang="ts">
 import type { CSSProperties } from 'vue';
 
@@ -251,72 +320,3 @@ function handleMouseleave() {
   extraVisible.value = false;
 }
 </script>
-
-<template>
-  <div
-    v-if="domVisible"
-    :class="theme"
-    :style="hiddenSideStyle"
-    class="h-full transition-all duration-150"
-  ></div>
-  <aside
-    :class="[
-      theme,
-      {
-        'bg-sidebar-deep': isSidebarMixed,
-        'bg-sidebar border-border border-r': !isSidebarMixed,
-      },
-    ]"
-    :style="style"
-    class="fixed left-0 top-0 h-full transition-all duration-150"
-    @mouseenter="handleMouseenter"
-    @mouseleave="handleMouseleave"
-  >
-    <SidebarFixedButton
-      v-if="!collapse && !isSidebarMixed && showFixedButton"
-      v-model:expand-on-hover="expandOnHover"
-    />
-    <div v-if="slots.logo" :style="headerStyle">
-      <slot name="logo"></slot>
-    </div>
-    <VbenScrollbar :style="contentStyle" shadow shadow-border>
-      <slot></slot>
-    </VbenScrollbar>
-
-    <div :style="collapseStyle"></div>
-    <SidebarCollapseButton
-      v-if="showCollapseButton && !isSidebarMixed"
-      v-model:collapsed="collapse"
-    />
-    <div
-      v-if="isSidebarMixed"
-      ref="asideRef"
-      :class="{
-        'border-l': extraVisible,
-      }"
-      :style="extraStyle"
-      class="border-border bg-sidebar fixed top-0 h-full overflow-hidden border-r transition-all duration-200"
-    >
-      <SidebarCollapseButton
-        v-if="isSidebarMixed && expandOnHover"
-        v-model:collapsed="extraCollapse"
-      />
-
-      <SidebarFixedButton
-        v-if="!extraCollapse"
-        v-model:expand-on-hover="expandOnHover"
-      />
-      <div v-if="!extraCollapse" :style="extraTitleStyle" class="pl-2">
-        <slot name="extra-title"></slot>
-      </div>
-      <VbenScrollbar
-        :style="extraContentStyle"
-        class="border-border py-2"
-        shadow
-        shadow-border
-      >
-        <slot name="extra"></slot>
-      </VbenScrollbar>
-    </div>
-  </aside>
-</template>

@@ -1,3 +1,44 @@
+<template>
+  <div class="flex w-full flex-wrap justify-between">
+    <template v-for="theme in builtinThemePresets" :key="theme.type">
+      <div class="flex cursor-pointer flex-col" @click="handleSelect(theme)">
+        <div
+          :class="{
+            'outline-box-active': theme.type === modelValue,
+          }"
+          class="outline-box flex-center group cursor-pointer"
+        >
+          <template v-if="theme.type !== 'custom'">
+            <div
+              :style="{ backgroundColor: theme.color }"
+              class="mx-10 my-2 size-5 rounded-md"
+            ></div>
+          </template>
+          <template v-else>
+            <div class="size-full px-10 py-2" @click.stop="selectColor">
+              <div class="flex-center relative size-5 rounded-sm">
+                <UserRoundPen
+                  class="absolute z-10 size-5 opacity-60 group-hover:opacity-100"
+                />
+                <input
+                  ref="colorInput"
+                  :value="inputValue"
+                  class="absolute inset-0 opacity-0"
+                  type="color"
+                  @input="handleInputChange"
+                />
+              </div>
+            </div>
+          </template>
+        </div>
+        <div class="text-muted-foreground my-2 text-center text-xs">
+          {{ typeView(theme.type) }}
+        </div>
+      </div>
+    </template>
+  </div>
+</template>
+
 <script setup lang="ts">
 import type { BuiltinThemePreset } from '@vben/preferences';
 import type { BuiltinThemeType } from '@vben/types';
@@ -107,44 +148,3 @@ watch(
   },
 );
 </script>
-
-<template>
-  <div class="flex w-full flex-wrap justify-between">
-    <template v-for="theme in builtinThemePresets" :key="theme.type">
-      <div class="flex cursor-pointer flex-col" @click="handleSelect(theme)">
-        <div
-          :class="{
-            'outline-box-active': theme.type === modelValue,
-          }"
-          class="outline-box flex-center group cursor-pointer"
-        >
-          <template v-if="theme.type !== 'custom'">
-            <div
-              :style="{ backgroundColor: theme.color }"
-              class="mx-10 my-2 size-5 rounded-md"
-            ></div>
-          </template>
-          <template v-else>
-            <div class="size-full px-10 py-2" @click.stop="selectColor">
-              <div class="flex-center relative size-5 rounded-sm">
-                <UserRoundPen
-                  class="absolute z-10 size-5 opacity-60 group-hover:opacity-100"
-                />
-                <input
-                  ref="colorInput"
-                  :value="inputValue"
-                  class="absolute inset-0 opacity-0"
-                  type="color"
-                  @input="handleInputChange"
-                />
-              </div>
-            </div>
-          </template>
-        </div>
-        <div class="text-muted-foreground my-2 text-center text-xs">
-          {{ typeView(theme.type) }}
-        </div>
-      </div>
-    </template>
-  </div>
-</template>

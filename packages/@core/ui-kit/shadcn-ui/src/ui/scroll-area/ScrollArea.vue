@@ -1,3 +1,20 @@
+<template>
+  <ScrollAreaRoot
+    v-bind="delegatedProps"
+    :class="cn('relative overflow-hidden', props.class)"
+  >
+    <ScrollAreaViewport
+      as-child
+      class="h-full w-full rounded-[inherit] focus:outline-none"
+      @scroll="onScroll"
+    >
+      <slot></slot>
+    </ScrollAreaViewport>
+    <ScrollBar />
+    <ScrollAreaCorner />
+  </ScrollAreaRoot>
+</template>
+
 <script setup lang="ts">
 import type { ScrollAreaRootProps } from 'radix-vue';
 
@@ -31,20 +48,3 @@ const delegatedProps = computed(() => {
   return delegated;
 });
 </script>
-
-<template>
-  <ScrollAreaRoot
-    v-bind="delegatedProps"
-    :class="cn('relative overflow-hidden', props.class)"
-  >
-    <ScrollAreaViewport
-      as-child
-      class="h-full w-full rounded-[inherit] focus:outline-none"
-      @scroll="onScroll"
-    >
-      <slot></slot>
-    </ScrollAreaViewport>
-    <ScrollBar />
-    <ScrollAreaCorner />
-  </ScrollAreaRoot>
-</template>

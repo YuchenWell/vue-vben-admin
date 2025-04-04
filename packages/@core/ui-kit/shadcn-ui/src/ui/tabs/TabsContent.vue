@@ -1,3 +1,17 @@
+<template>
+  <TabsContent
+    :class="
+      cn(
+        'ring-offset-background focus-visible:ring-ring mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
+        props.class,
+      )
+    "
+    v-bind="delegatedProps"
+  >
+    <slot></slot>
+  </TabsContent>
+</template>
+
 <script setup lang="ts">
 import type { TabsContentProps } from 'radix-vue';
 
@@ -15,17 +29,3 @@ const delegatedProps = computed(() => {
   return delegated;
 });
 </script>
-
-<template>
-  <TabsContent
-    :class="
-      cn(
-        'ring-offset-background focus-visible:ring-ring mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
-        props.class,
-      )
-    "
-    v-bind="delegatedProps"
-  >
-    <slot></slot>
-  </TabsContent>
-</template>

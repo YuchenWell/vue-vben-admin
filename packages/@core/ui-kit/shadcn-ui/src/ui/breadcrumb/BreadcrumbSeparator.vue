@@ -1,13 +1,3 @@
-<script lang="ts" setup>
-import { cn } from '@vben-core/shared/utils';
-
-import { ChevronRight } from 'lucide-vue-next';
-
-const props = defineProps<{
-  class?: any;
-}>();
-</script>
-
 <template>
   <li
     :class="cn('[&>svg]:size-3.5', props.class)"
@@ -19,3 +9,13 @@ const props = defineProps<{
     </slot>
   </li>
 </template>
+
+<script lang="ts" setup>
+import { cn } from '@vben-core/shared/utils';
+
+import { ChevronRight } from 'lucide-vue-next';
+
+const props = defineProps<{
+  class?: any;
+}>();
+</script>

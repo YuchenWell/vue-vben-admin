@@ -1,3 +1,75 @@
+<template>
+  <div
+    :class="
+      cn(
+        'col-span-full w-full text-right',
+        rootProps.compact ? 'pb-2' : 'pb-6',
+        rootProps.actionWrapperClass,
+      )
+    "
+    :style="queryFormStyle"
+  >
+    <template v-if="rootProps.actionButtonsReverse">
+      <!-- 提交按钮前 -->
+      <slot name="submit-before"></slot>
+
+      <component
+        :is="COMPONENT_MAP.PrimaryButton"
+        v-if="submitButtonOptions.show"
+        class="ml-3"
+        type="button"
+        @click="handleSubmit"
+        v-bind="submitButtonOptions"
+      >
+        {{ submitButtonOptions.content }}
+      </component>
+    </template>
+
+    <!-- 重置按钮前 -->
+    <slot name="reset-before"></slot>
+
+    <component
+      :is="COMPONENT_MAP.DefaultButton"
+      v-if="resetButtonOptions.show"
+      class="ml-3"
+      type="button"
+      @click="handleReset"
+      v-bind="resetButtonOptions"
+    >
+      {{ resetButtonOptions.content }}
+    </component>
+
+    <template v-if="!rootProps.actionButtonsReverse">
+      <!-- 提交按钮前 -->
+      <slot name="submit-before"></slot>
+
+      <component
+        :is="COMPONENT_MAP.PrimaryButton"
+        v-if="submitButtonOptions.show"
+        class="ml-3"
+        type="button"
+        @click="handleSubmit"
+        v-bind="submitButtonOptions"
+      >
+        {{ submitButtonOptions.content }}
+      </component>
+    </template>
+
+    <!-- 展开按钮前 -->
+    <slot name="expand-before"></slot>
+
+    <VbenExpandableArrow
+      v-if="rootProps.showCollapseButton"
+      v-model:model-value="collapsed"
+      class="ml-2"
+    >
+      <span>{{ collapsed ? $t('expand') : $t('collapse') }}</span>
+    </VbenExpandableArrow>
+
+    <!-- 展开按钮后 -->
+    <slot name="expand-after"></slot>
+  </div>
+</template>
 <script setup lang="ts">
 import { computed, toRaw, unref, watch } from 'vue';
 
@@ -86,75 +158,3 @@ defineExpose({
   handleSubmit,
 });
 </script>
-<template>
-  <div
-    :class="
-      cn(
-        'col-span-full w-full text-right',
-        rootProps.compact ? 'pb-2' : 'pb-6',
-        rootProps.actionWrapperClass,
-      )
-    "
-    :style="queryFormStyle"
-  >
-    <template v-if="rootProps.actionButtonsReverse">
-      <!-- 提交按钮前 -->
-      <slot name="submit-before"></slot>
-
-      <component
-        :is="COMPONENT_MAP.PrimaryButton"
-        v-if="submitButtonOptions.show"
-        class="ml-3"
-        type="button"
-        @click="handleSubmit"
-        v-bind="submitButtonOptions"
-      >
-        {{ submitButtonOptions.content }}
-      </component>
-    </template>
-
-    <!-- 重置按钮前 -->
-    <slot name="reset-before"></slot>
-
-    <component
-      :is="COMPONENT_MAP.DefaultButton"
-      v-if="resetButtonOptions.show"
-      class="ml-3"
-      type="button"
-      @click="handleReset"
-      v-bind="resetButtonOptions"
-    >
-      {{ resetButtonOptions.content }}
-    </component>
-
-    <template v-if="!rootProps.actionButtonsReverse">
-      <!-- 提交按钮前 -->
-      <slot name="submit-before"></slot>
-
-      <component
-        :is="COMPONENT_MAP.PrimaryButton"
-        v-if="submitButtonOptions.show"
-        class="ml-3"
-        type="button"
-        @click="handleSubmit"
-        v-bind="submitButtonOptions"
-      >
-        {{ submitButtonOptions.content }}
-      </component>
-    </template>
-
-    <!-- 展开按钮前 -->
-    <slot name="expand-before"></slot>
-
-    <VbenExpandableArrow
-      v-if="rootProps.showCollapseButton"
-      v-model:model-value="collapsed"
-      class="ml-2"
-    >
-      <span>{{ collapsed ? $t('expand') : $t('collapse') }}</span>
-    </VbenExpandableArrow>
-
-    <!-- 展开按钮后 -->
-    <slot name="expand-after"></slot>
-  </div>
-</template>

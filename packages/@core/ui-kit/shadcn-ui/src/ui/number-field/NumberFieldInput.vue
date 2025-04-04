@@ -1,9 +1,3 @@
-<script setup lang="ts">
-import { cn } from '@vben-core/shared/utils';
-
-import { NumberFieldInput } from 'radix-vue';
-</script>
-
 <template>
   <NumberFieldInput
     :class="
@@ -14,3 +8,9 @@ import { NumberFieldInput } from 'radix-vue';
     data-slot="input"
   />
 </template>
+
+<script setup lang="ts">
+import { cn } from '@vben-core/shared/utils';
+
+import { NumberFieldInput } from 'radix-vue';
+</script>

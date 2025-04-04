@@ -1,36 +1,3 @@
-<script setup lang="ts">
-import type { MenuRecordRaw } from '@vben-core/typings';
-
-import { computed } from 'vue';
-
-import { MenuBadge, MenuItem, SubMenu as SubMenuComp } from './components';
-// eslint-disable-next-line import/no-self-import
-import SubMenu from './sub-menu.vue';
-
-interface Props {
-  /**
-   * 菜单项
-   */
-  menu: MenuRecordRaw;
-}
-
-defineOptions({
-  name: 'SubMenuUi',
-});
-
-const props = withDefaults(defineProps<Props>(), {});
-
-/**
- * 判断是否有子节点，动态渲染 menu-item/sub-menu-item
- */
-const hasChildren = computed(() => {
-  const { menu } = props;
-  return (
-    Reflect.has(menu, 'children') && !!menu.children && menu.children.length > 0
-  );
-});
-</script>
-
 <template>
   <MenuItem
     v-if="!hasChildren"
@@ -69,3 +36,36 @@ const hasChildren = computed(() => {
     </template>
   </SubMenuComp>
 </template>
+
+<script setup lang="ts">
+import type { MenuRecordRaw } from '@vben-core/typings';
+
+import { computed } from 'vue';
+
+import { MenuBadge, MenuItem, SubMenu as SubMenuComp } from './components';
+// eslint-disable-next-line import/no-self-import
+import SubMenu from './sub-menu.vue';
+
+interface Props {
+  /**
+   * 菜单项
+   */
+  menu: MenuRecordRaw;
+}
+
+defineOptions({
+  name: 'SubMenuUi',
+});
+
+const props = withDefaults(defineProps<Props>(), {});
+
+/**
+ * 判断是否有子节点，动态渲染 menu-item/sub-menu-item
+ */
+const hasChildren = computed(() => {
+  const { menu } = props;
+  return (
+    Reflect.has(menu, 'children') && !!menu.children && menu.children.length > 0
+  );
+});
+</script>

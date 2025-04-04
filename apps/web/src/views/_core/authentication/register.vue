@@ -1,3 +1,11 @@
+<template>
+  <AuthenticationRegister
+    :form-schema="formSchema"
+    :loading="loading"
+    @submit="handleSubmit"
+  />
+</template>
+
 <script lang="ts" setup>
 import type { VbenFormSchema } from '@vben/common-ui';
 import type { Recordable } from '@vben/types';
@@ -86,11 +94,3 @@ function handleSubmit(value: Recordable<any>) {
   console.log('register submit:', value);
 }
 </script>
-
-<template>
-  <AuthenticationRegister
-    :form-schema="formSchema"
-    :loading="loading"
-    @submit="handleSubmit"
-  />
-</template>

@@ -1,14 +1,3 @@
-<script setup lang="ts">
-import { MdiGithub, MdiGoogle, MdiQqchat, MdiWechat } from '@vben/icons';
-import { $t } from '@vben/locales';
-
-import { VbenIconButton } from '@vben-core/shadcn-ui';
-
-defineOptions({
-  name: 'ThirdPartyLogin',
-});
-</script>
-
 <template>
   <div class="w-full sm:mx-auto md:max-w-md">
     <div class="mt-4 flex items-center justify-between">
@@ -35,3 +24,14 @@ defineOptions({
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { MdiGithub, MdiGoogle, MdiQqchat, MdiWechat } from '@vben/icons';
+import { $t } from '@vben/locales';
+
+import { VbenIconButton } from '@vben-core/shadcn-ui';
+
+defineOptions({
+  name: 'ThirdPartyLogin',
+});
+</script>

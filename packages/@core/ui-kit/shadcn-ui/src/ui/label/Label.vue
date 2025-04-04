@@ -1,3 +1,17 @@
+<template>
+  <Label
+    v-bind="delegatedProps"
+    :class="
+      cn(
+        'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
+        props.class,
+      )
+    "
+  >
+    <slot></slot>
+  </Label>
+</template>
+
 <script setup lang="ts">
 import type { LabelProps } from 'radix-vue';
 
@@ -15,17 +29,3 @@ const delegatedProps = computed(() => {
   return delegated;
 });
 </script>
-
-<template>
-  <Label
-    v-bind="delegatedProps"
-    :class="
-      cn(
-        'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
-        props.class,
-      )
-    "
-  >
-    <slot></slot>
-  </Label>
-</template>

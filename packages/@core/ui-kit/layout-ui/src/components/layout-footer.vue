@@ -1,3 +1,12 @@
+<template>
+  <footer
+    :style="style"
+    class="bg-background-deep bottom-0 w-full transition-all duration-200"
+  >
+    <slot></slot>
+  </footer>
+</template>
+
 <script setup lang="ts">
 import type { CSSProperties } from 'vue';
 
@@ -33,12 +42,3 @@ const style = computed((): CSSProperties => {
   };
 });
 </script>
-
-<template>
-  <footer
-    :style="style"
-    class="bg-background-deep bottom-0 w-full transition-all duration-200"
-  >
-    <slot></slot>
-  </footer>
-</template>

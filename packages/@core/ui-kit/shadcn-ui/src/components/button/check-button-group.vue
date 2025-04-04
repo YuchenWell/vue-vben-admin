@@ -1,3 +1,36 @@
+<template>
+  <VbenButtonGroup
+    :size="props.size"
+    :gap="props.gap"
+    class="vben-check-button-group"
+  >
+    <Button
+      v-for="(btn, index) in props.options"
+      :key="index"
+      :class="cn('border', props.btnClass)"
+      :disabled="
+        props.disabled ||
+        loadingValues.includes(btn.value) ||
+        (!props.multiple && loadingValues.length > 0)
+      "
+      v-bind="btnDefaultProps"
+      :variant="innerValue.includes(btn.value) ? 'default' : 'outline'"
+      @click="onBtnClick(btn.value)"
+    >
+      <div class="icon-wrapper" v-if="props.showIcon">
+        <LoaderCircle
+          class="animate-spin"
+          v-if="loadingValues.includes(btn.value)"
+        />
+        <CircleCheckBig v-else-if="innerValue.includes(btn.value)" />
+        <Circle v-else />
+      </div>
+      <slot name="option" :label="btn.label" :value="btn.value">
+        <VbenRenderContent :content="btn.label" />
+      </slot>
+    </Button>
+  </VbenButtonGroup>
+</template>
 <script lang="ts" setup>
 import type { Arrayable } from '@vueuse/core';
 
@@ -93,39 +126,6 @@ async function onBtnClick(value: ValueType) {
   emit('btnClick', value);
 }
 </script>
-<template>
-  <VbenButtonGroup
-    :size="props.size"
-    :gap="props.gap"
-    class="vben-check-button-group"
-  >
-    <Button
-      v-for="(btn, index) in props.options"
-      :key="index"
-      :class="cn('border', props.btnClass)"
-      :disabled="
-        props.disabled ||
-        loadingValues.includes(btn.value) ||
-        (!props.multiple && loadingValues.length > 0)
-      "
-      v-bind="btnDefaultProps"
-      :variant="innerValue.includes(btn.value) ? 'default' : 'outline'"
-      @click="onBtnClick(btn.value)"
-    >
-      <div class="icon-wrapper" v-if="props.showIcon">
-        <LoaderCircle
-          class="animate-spin"
-          v-if="loadingValues.includes(btn.value)"
-        />
-        <CircleCheckBig v-else-if="innerValue.includes(btn.value)" />
-        <Circle v-else />
-      </div>
-      <slot name="option" :label="btn.label" :value="btn.value">
-        <VbenRenderContent :content="btn.label" />
-      </slot>
-    </Button>
-  </VbenButtonGroup>
-</template>
 <style lang="scss" scoped>
 .vben-check-button-group {
   &:deep(.size-large) button {

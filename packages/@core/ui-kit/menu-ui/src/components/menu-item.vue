@@ -1,3 +1,43 @@
+<template>
+  <li
+    :class="[
+      rootMenu.theme,
+      b(),
+      is('active', active),
+      is('disabled', disabled),
+      is('collapse-show-title', collapseShowTitle),
+    ]"
+    role="menuitem"
+    @click.stop="handleClick"
+  >
+    <VbenTooltip
+      v-if="showTooltip"
+      :content-class="[rootMenu.theme]"
+      side="right"
+    >
+      <template #trigger>
+        <div :class="[nsMenu.be('tooltip', 'trigger')]">
+          <VbenIcon :class="nsMenu.e('icon')" :icon="menuIcon" fallback />
+          <slot></slot>
+          <span v-if="collapseShowTitle" :class="nsMenu.e('name')">
+            <slot name="title"></slot>
+          </span>
+        </div>
+      </template>
+      <slot name="title"></slot>
+    </VbenTooltip>
+    <div v-show="!showTooltip" :class="[e('content')]">
+      <MenuBadge
+        v-if="rootMenu.props.mode !== 'horizontal'"
+        class="right-2"
+        v-bind="props"
+      />
+      <VbenIcon :class="nsMenu.e('icon')" :icon="menuIcon" />
+      <slot></slot>
+      <slot name="title"></slot>
+    </div>
+  </li>
+</template>
 <script lang="ts" setup>
 import type { MenuItemProps, MenuItemRegistered } from '../types';
 
@@ -80,43 +120,3 @@ onBeforeUnmount(() => {
   rootMenu?.removeMenuItem?.(item);
 });
 </script>
-<template>
-  <li
-    :class="[
-      rootMenu.theme,
-      b(),
-      is('active', active),
-      is('disabled', disabled),
-      is('collapse-show-title', collapseShowTitle),
-    ]"
-    role="menuitem"
-    @click.stop="handleClick"
-  >
-    <VbenTooltip
-      v-if="showTooltip"
-      :content-class="[rootMenu.theme]"
-      side="right"
-    >
-      <template #trigger>
-        <div :class="[nsMenu.be('tooltip', 'trigger')]">
-          <VbenIcon :class="nsMenu.e('icon')" :icon="menuIcon" fallback />
-          <slot></slot>
-          <span v-if="collapseShowTitle" :class="nsMenu.e('name')">
-            <slot name="title"></slot>
-          </span>
-        </div>
-      </template>
-      <slot name="title"></slot>
-    </VbenTooltip>
-    <div v-show="!showTooltip" :class="[e('content')]">
-      <MenuBadge
-        v-if="rootMenu.props.mode !== 'horizontal'"
-        class="right-2"
-        v-bind="props"
-      />
-      <VbenIcon :class="nsMenu.e('icon')" :icon="menuIcon" />
-      <slot></slot>
-      <slot name="title"></slot>
-    </div>
-  </li>
-</template>

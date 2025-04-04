@@ -1,3 +1,20 @@
+<template>
+  <SelectTrigger
+    v-bind="forwardedProps"
+    :class="
+      cn(
+        'border-input ring-offset-background placeholder:text-muted-foreground focus:ring-ring flex h-10 w-full items-center justify-between whitespace-nowrap rounded-md border bg-transparent px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+        props.class,
+      )
+    "
+  >
+    <slot></slot>
+    <SelectIcon as-child>
+      <ChevronDown class="h-4 w-4 opacity-50" />
+    </SelectIcon>
+  </SelectTrigger>
+</template>
+
 <script setup lang="ts">
 import type { SelectTriggerProps } from 'radix-vue';
 
@@ -18,20 +35,3 @@ const delegatedProps = computed(() => {
 
 const forwardedProps = useForwardProps(delegatedProps);
 </script>
-
-<template>
-  <SelectTrigger
-    v-bind="forwardedProps"
-    :class="
-      cn(
-        'border-input ring-offset-background placeholder:text-muted-foreground focus:ring-ring flex h-10 w-full items-center justify-between whitespace-nowrap rounded-md border bg-transparent px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
-        props.class,
-      )
-    "
-  >
-    <slot></slot>
-    <SelectIcon as-child>
-      <ChevronDown class="h-4 w-4 opacity-50" />
-    </SelectIcon>
-  </SelectTrigger>
-</template>

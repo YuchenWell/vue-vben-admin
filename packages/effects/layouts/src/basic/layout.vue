@@ -1,181 +1,3 @@
-<script lang="ts" setup>
-import type { SetupContext } from 'vue';
-
-import type { MenuRecordRaw } from '@vben/types';
-
-import { computed, useSlots, watch } from 'vue';
-
-import { useRefresh } from '@vben/hooks';
-import { $t, i18n } from '@vben/locales';
-import {
-  preferences,
-  updatePreferences,
-  usePreferences,
-} from '@vben/preferences';
-import { useLockStore } from '@vben/stores';
-import { cloneDeep, mapTree } from '@vben/utils';
-
-import { VbenAdminLayout } from '@vben-core/layout-ui';
-import { VbenBackTop, VbenLogo } from '@vben-core/shadcn-ui';
-
-import { Breadcrumb, CheckUpdates, Preferences } from '../widgets';
-import { LayoutContent, LayoutContentSpinner } from './content';
-import { Copyright } from './copyright';
-import { LayoutFooter } from './footer';
-import { LayoutHeader } from './header';
-import {
-  LayoutExtraMenu,
-  LayoutMenu,
-  LayoutMixedMenu,
-  useExtraMenu,
-  useMixedMenu,
-} from './menu';
-import { LayoutTabbar } from './tabbar';
-
-defineOptions({ name: 'BasicLayout' });
-
-const emit = defineEmits<{ clearPreferencesAndLogout: []; clickLogo: [] }>();
-
-const {
-  isDark,
-  isHeaderNav,
-  isMixedNav,
-  isMobile,
-  isSideMixedNav,
-  isHeaderMixedNav,
-  isHeaderSidebarNav,
-  layout,
-  preferencesButtonPosition,
-  sidebarCollapsed,
-  theme,
-} = usePreferences();
-const lockStore = useLockStore();
-const { refresh } = useRefresh();
-
-const sidebarTheme = computed(() => {
-  const dark = isDark.value || preferences.theme.semiDarkSidebar;
-  return dark ? 'dark' : 'light';
-});
-
-const headerTheme = computed(() => {
-  const dark = isDark.value || preferences.theme.semiDarkHeader;
-  return dark ? 'dark' : 'light';
-});
-
-const logoClass = computed(() => {
-  const { collapsedShowTitle } = preferences.sidebar;
-  const classes: string[] = [];
-
-  if (collapsedShowTitle && sidebarCollapsed.value && !isMixedNav.value) {
-    classes.push('mx-auto');
-  }
-
-  if (isSideMixedNav.value) {
-    classes.push('flex-center');
-  }
-
-  return classes.join(' ');
-});
-
-const isMenuRounded = computed(() => {
-  return preferences.navigation.styleType === 'rounded';
-});
-
-const logoCollapsed = computed(() => {
-  if (isMobile.value && sidebarCollapsed.value) {
-    return true;
-  }
-  if (isHeaderNav.value || isMixedNav.value || isHeaderSidebarNav.value) {
-    return false;
-  }
-  return (
-    sidebarCollapsed.value || isSideMixedNav.value || isHeaderMixedNav.value
-  );
-});
-
-const showHeaderNav = computed(() => {
-  return (
-    !isMobile.value &&
-    (isHeaderNav.value || isMixedNav.value || isHeaderMixedNav.value)
-  );
-});
-
-const {
-  handleMenuSelect,
-  handleMenuOpen,
-  headerActive,
-  headerMenus,
-  sidebarActive,
-  sidebarMenus,
-  mixHeaderMenus,
-  sidebarVisible,
-} = useMixedMenu();
-
-// 侧边多列菜单
-const {
-  extraActiveMenu,
-  extraMenus,
-  handleDefaultSelect,
-  handleMenuMouseEnter,
-  handleMixedMenuSelect,
-  handleSideMouseLeave,
-  sidebarExtraVisible,
-} = useExtraMenu(mixHeaderMenus);
-
-/**
- * 包装菜单，翻译菜单名称
- * @param menus 原始菜单数据
- * @param deep 是否深度包装。对于双列布局，只需要包装第一层，因为更深层的数据会在扩展菜单中重新包装
- */
-function wrapperMenus(menus: MenuRecordRaw[], deep: boolean = true) {
-  return deep
-    ? mapTree(menus, (item) => {
-        return { ...cloneDeep(item), name: $t(item.name) };
-      })
-    : menus.map((item) => {
-        return { ...cloneDeep(item), name: $t(item.name) };
-      });
-}
-
-function toggleSidebar() {
-  updatePreferences({
-    sidebar: {
-      hidden: !preferences.sidebar.hidden,
-    },
-  });
-}
-
-function clearPreferencesAndLogout() {
-  emit('clearPreferencesAndLogout');
-}
-
-function clickLogo() {
-  emit('clickLogo');
-}
-
-watch(
-  () => preferences.app.layout,
-  async (val) => {
-    if (val === 'sidebar-mixed-nav' && preferences.sidebar.hidden) {
-      updatePreferences({
-        sidebar: {
-          hidden: false,
-        },
-      });
-    }
-  },
-);
-
-// 语言更新后，刷新页面
-// i18n.global.locale会在preference.app.locale变更之后才会更新，因此watchpreference.app.locale是不合适的，刷新页面时可能语言配置尚未完全加载完成
-watch(i18n.global.locale, refresh, { flush: 'post' });
-
-const slots: SetupContext['slots'] = useSlots();
-const headerSlots = computed(() => {
-  return Object.keys(slots).filter((key) => key.startsWith('header-'));
-});
-</script>
-
 <template>
   <VbenAdminLayout
     v-model:sidebar-extra-visible="sidebarExtraVisible"
@@ -361,3 +183,181 @@ const headerSlots = computed(() => {
     </template>
   </VbenAdminLayout>
 </template>
+
+<script lang="ts" setup>
+import type { SetupContext } from 'vue';
+
+import type { MenuRecordRaw } from '@vben/types';
+
+import { computed, useSlots, watch } from 'vue';
+
+import { useRefresh } from '@vben/hooks';
+import { $t, i18n } from '@vben/locales';
+import {
+  preferences,
+  updatePreferences,
+  usePreferences,
+} from '@vben/preferences';
+import { useLockStore } from '@vben/stores';
+import { cloneDeep, mapTree } from '@vben/utils';
+
+import { VbenAdminLayout } from '@vben-core/layout-ui';
+import { VbenBackTop, VbenLogo } from '@vben-core/shadcn-ui';
+
+import { Breadcrumb, CheckUpdates, Preferences } from '../widgets';
+import { LayoutContent, LayoutContentSpinner } from './content';
+import { Copyright } from './copyright';
+import { LayoutFooter } from './footer';
+import { LayoutHeader } from './header';
+import {
+  LayoutExtraMenu,
+  LayoutMenu,
+  LayoutMixedMenu,
+  useExtraMenu,
+  useMixedMenu,
+} from './menu';
+import { LayoutTabbar } from './tabbar';
+
+defineOptions({ name: 'BasicLayout' });
+
+const emit = defineEmits<{ clearPreferencesAndLogout: []; clickLogo: [] }>();
+
+const {
+  isDark,
+  isHeaderNav,
+  isMixedNav,
+  isMobile,
+  isSideMixedNav,
+  isHeaderMixedNav,
+  isHeaderSidebarNav,
+  layout,
+  preferencesButtonPosition,
+  sidebarCollapsed,
+  theme,
+} = usePreferences();
+const lockStore = useLockStore();
+const { refresh } = useRefresh();
+
+const sidebarTheme = computed(() => {
+  const dark = isDark.value || preferences.theme.semiDarkSidebar;
+  return dark ? 'dark' : 'light';
+});
+
+const headerTheme = computed(() => {
+  const dark = isDark.value || preferences.theme.semiDarkHeader;
+  return dark ? 'dark' : 'light';
+});
+
+const logoClass = computed(() => {
+  const { collapsedShowTitle } = preferences.sidebar;
+  const classes: string[] = [];
+
+  if (collapsedShowTitle && sidebarCollapsed.value && !isMixedNav.value) {
+    classes.push('mx-auto');
+  }
+
+  if (isSideMixedNav.value) {
+    classes.push('flex-center');
+  }
+
+  return classes.join(' ');
+});
+
+const isMenuRounded = computed(() => {
+  return preferences.navigation.styleType === 'rounded';
+});
+
+const logoCollapsed = computed(() => {
+  if (isMobile.value && sidebarCollapsed.value) {
+    return true;
+  }
+  if (isHeaderNav.value || isMixedNav.value || isHeaderSidebarNav.value) {
+    return false;
+  }
+  return (
+    sidebarCollapsed.value || isSideMixedNav.value || isHeaderMixedNav.value
+  );
+});
+
+const showHeaderNav = computed(() => {
+  return (
+    !isMobile.value &&
+    (isHeaderNav.value || isMixedNav.value || isHeaderMixedNav.value)
+  );
+});
+
+const {
+  handleMenuSelect,
+  handleMenuOpen,
+  headerActive,
+  headerMenus,
+  sidebarActive,
+  sidebarMenus,
+  mixHeaderMenus,
+  sidebarVisible,
+} = useMixedMenu();
+
+// 侧边多列菜单
+const {
+  extraActiveMenu,
+  extraMenus,
+  handleDefaultSelect,
+  handleMenuMouseEnter,
+  handleMixedMenuSelect,
+  handleSideMouseLeave,
+  sidebarExtraVisible,
+} = useExtraMenu(mixHeaderMenus);
+
+/**
+ * 包装菜单，翻译菜单名称
+ * @param menus 原始菜单数据
+ * @param deep 是否深度包装。对于双列布局，只需要包装第一层，因为更深层的数据会在扩展菜单中重新包装
+ */
+function wrapperMenus(menus: MenuRecordRaw[], deep: boolean = true) {
+  return deep
+    ? mapTree(menus, (item) => {
+        return { ...cloneDeep(item), name: $t(item.name) };
+      })
+    : menus.map((item) => {
+        return { ...cloneDeep(item), name: $t(item.name) };
+      });
+}
+
+function toggleSidebar() {
+  updatePreferences({
+    sidebar: {
+      hidden: !preferences.sidebar.hidden,
+    },
+  });
+}
+
+function clearPreferencesAndLogout() {
+  emit('clearPreferencesAndLogout');
+}
+
+function clickLogo() {
+  emit('clickLogo');
+}
+
+watch(
+  () => preferences.app.layout,
+  async (val) => {
+    if (val === 'sidebar-mixed-nav' && preferences.sidebar.hidden) {
+      updatePreferences({
+        sidebar: {
+          hidden: false,
+        },
+      });
+    }
+  },
+);
+
+// 语言更新后，刷新页面
+// i18n.global.locale会在preference.app.locale变更之后才会更新，因此watchpreference.app.locale是不合适的，刷新页面时可能语言配置尚未完全加载完成
+watch(i18n.global.locale, refresh, { flush: 'post' });
+
+const slots: SetupContext['slots'] = useSlots();
+const headerSlots = computed(() => {
+  return Object.keys(slots).filter((key) => key.startsWith('header-'));
+});
+</script>

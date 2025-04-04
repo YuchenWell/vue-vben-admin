@@ -1,3 +1,11 @@
+<template>
+  <Menu v-bind="forward">
+    <template v-for="menu in menus" :key="menu.path">
+      <SubMenu :menu="menu" />
+    </template>
+  </Menu>
+</template>
+
 <script setup lang="ts">
 import type { MenuRecordRaw } from '@vben-core/typings';
 
@@ -28,11 +36,3 @@ const forward = useForwardProps(props);
 //   'update:selectedKeys': [key: Key[]];
 // }>();
 </script>
-
-<template>
-  <Menu v-bind="forward">
-    <template v-for="menu in menus" :key="menu.path">
-      <SubMenu :menu="menu" />
-    </template>
-  </Menu>
-</template>

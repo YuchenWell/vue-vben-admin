@@ -1,3 +1,11 @@
+<template>
+  <AuthenticationCodeLogin
+    :form-schema="formSchema"
+    :loading="loading"
+    @submit="handleLogin"
+  />
+</template>
+
 <script lang="ts" setup>
 import type { VbenFormSchema } from '@vben/common-ui';
 import type { Recordable } from '@vben/types';
@@ -59,11 +67,3 @@ async function handleLogin(values: Recordable<any>) {
   console.log(values);
 }
 </script>
-
-<template>
-  <AuthenticationCodeLogin
-    :form-schema="formSchema"
-    :loading="loading"
-    @submit="handleLogin"
-  />
-</template>

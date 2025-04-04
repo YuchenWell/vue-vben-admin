@@ -1,3 +1,53 @@
+<template>
+  <Page v-bind="delegatedProps">
+    <!-- 继承默认的slot -->
+    <template
+      v-for="slotName in delegatedSlots"
+      :key="slotName"
+      #[slotName]="slotProps"
+    >
+      <slot :name="slotName" v-bind="slotProps"></slot>
+    </template>
+
+    <ResizablePanelGroup class="w-full" direction="horizontal">
+      <ResizablePanel
+        ref="leftPanelRef"
+        :collapsed-size="leftCollapsedWidth"
+        :collapsible="leftCollapsible"
+        :default-size="leftWidth"
+        :max-size="leftMaxWidth"
+        :min-size="leftMinWidth"
+      >
+        <template #default="slotProps">
+          <slot
+            name="left"
+            v-bind="{
+              ...slotProps,
+              expand: expandLeft,
+              collapse: collapseLeft,
+            }"
+          ></slot>
+        </template>
+      </ResizablePanel>
+      <ResizableHandle
+        v-if="resizable"
+        :style="{ backgroundColor: splitLine ? undefined : 'transparent' }"
+        :with-handle="splitHandle"
+      />
+      <ResizablePanel
+        :collapsed-size="rightCollapsedWidth"
+        :collapsible="rightCollapsible"
+        :default-size="rightWidth"
+        :max-size="rightMaxWidth"
+        :min-size="rightMinWidth"
+      >
+        <template #default>
+          <slot></slot>
+        </template>
+      </ResizablePanel>
+    </ResizablePanelGroup>
+  </Page>
+</template>
 <script lang="ts" setup>
 import type { ColPageProps } from './types';
 
@@ -55,53 +105,3 @@ defineExpose({
   collapseLeft,
 });
 </script>
-<template>
-  <Page v-bind="delegatedProps">
-    <!-- 继承默认的slot -->
-    <template
-      v-for="slotName in delegatedSlots"
-      :key="slotName"
-      #[slotName]="slotProps"
-    >
-      <slot :name="slotName" v-bind="slotProps"></slot>
-    </template>
-
-    <ResizablePanelGroup class="w-full" direction="horizontal">
-      <ResizablePanel
-        ref="leftPanelRef"
-        :collapsed-size="leftCollapsedWidth"
-        :collapsible="leftCollapsible"
-        :default-size="leftWidth"
-        :max-size="leftMaxWidth"
-        :min-size="leftMinWidth"
-      >
-        <template #default="slotProps">
-          <slot
-            name="left"
-            v-bind="{
-              ...slotProps,
-              expand: expandLeft,
-              collapse: collapseLeft,
-            }"
-          ></slot>
-        </template>
-      </ResizablePanel>
-      <ResizableHandle
-        v-if="resizable"
-        :style="{ backgroundColor: splitLine ? undefined : 'transparent' }"
-        :with-handle="splitHandle"
-      />
-      <ResizablePanel
-        :collapsed-size="rightCollapsedWidth"
-        :collapsible="rightCollapsible"
-        :default-size="rightWidth"
-        :max-size="rightMaxWidth"
-        :min-size="rightMinWidth"
-      >
-        <template #default>
-          <slot></slot>
-        </template>
-      </ResizablePanel>
-    </ResizablePanelGroup>
-  </Page>
-</template>

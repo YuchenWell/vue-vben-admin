@@ -1,3 +1,19 @@
+<template>
+  <header
+    :class="theme"
+    :style="style"
+    class="border-border bg-header top-0 flex w-full flex-[0_0_auto] items-center border-b pl-2 transition-[margin-top] duration-200"
+  >
+    <div v-if="slots.logo" :style="logoStyle">
+      <slot name="logo"></slot>
+    </div>
+
+    <slot name="toggle-button"> </slot>
+
+    <slot></slot>
+  </header>
+</template>
+
 <script setup lang="ts">
 import type { CSSProperties } from 'vue';
 
@@ -59,19 +75,3 @@ const logoStyle = computed((): CSSProperties => {
   };
 });
 </script>
-
-<template>
-  <header
-    :class="theme"
-    :style="style"
-    class="border-border bg-header top-0 flex w-full flex-[0_0_auto] items-center border-b pl-2 transition-[margin-top] duration-200"
-  >
-    <div v-if="slots.logo" :style="logoStyle">
-      <slot name="logo"></slot>
-    </div>
-
-    <slot name="toggle-button"> </slot>
-
-    <slot></slot>
-  </header>
-</template>

@@ -1,11 +1,3 @@
-<script setup lang="ts">
-import { cn } from '@vben-core/shared/utils';
-
-const props = defineProps<{
-  class?: any;
-}>();
-</script>
-
 <template>
   <span
     :class="
@@ -15,3 +7,11 @@ const props = defineProps<{
     <slot></slot>
   </span>
 </template>
+
+<script setup lang="ts">
+import { cn } from '@vben-core/shared/utils';
+
+const props = defineProps<{
+  class?: any;
+}>();
+</script>

@@ -1,3 +1,33 @@
+<template>
+  <SwitchItem v-model="widgetGlobalSearch">
+    {{ $t('preferences.widget.globalSearch') }}
+  </SwitchItem>
+  <SwitchItem v-model="widgetThemeToggle">
+    {{ $t('preferences.widget.themeToggle') }}
+  </SwitchItem>
+  <SwitchItem v-model="widgetLanguageToggle">
+    {{ $t('preferences.widget.languageToggle') }}
+  </SwitchItem>
+  <SwitchItem v-model="widgetFullscreen">
+    {{ $t('preferences.widget.fullscreen') }}
+  </SwitchItem>
+  <SwitchItem v-model="widgetNotification">
+    {{ $t('preferences.widget.notification') }}
+  </SwitchItem>
+  <SwitchItem v-model="widgetLockScreen">
+    {{ $t('preferences.widget.lockScreen') }}
+  </SwitchItem>
+  <SwitchItem v-model="widgetSidebarToggle">
+    {{ $t('preferences.widget.sidebarToggle') }}
+  </SwitchItem>
+  <SwitchItem v-model="widgetRefresh">
+    {{ $t('preferences.widget.refresh') }}
+  </SwitchItem>
+  <SelectItem v-model="appPreferencesButtonPosition" :items="positionItems">
+    {{ $t('preferences.position.title') }}
+  </SelectItem>
+</template>
+
 <script setup lang="ts">
 import type { SelectOption } from '@vben/types';
 
@@ -39,33 +69,3 @@ const positionItems = computed((): SelectOption[] => [
   },
 ]);
 </script>
-
-<template>
-  <SwitchItem v-model="widgetGlobalSearch">
-    {{ $t('preferences.widget.globalSearch') }}
-  </SwitchItem>
-  <SwitchItem v-model="widgetThemeToggle">
-    {{ $t('preferences.widget.themeToggle') }}
-  </SwitchItem>
-  <SwitchItem v-model="widgetLanguageToggle">
-    {{ $t('preferences.widget.languageToggle') }}
-  </SwitchItem>
-  <SwitchItem v-model="widgetFullscreen">
-    {{ $t('preferences.widget.fullscreen') }}
-  </SwitchItem>
-  <SwitchItem v-model="widgetNotification">
-    {{ $t('preferences.widget.notification') }}
-  </SwitchItem>
-  <SwitchItem v-model="widgetLockScreen">
-    {{ $t('preferences.widget.lockScreen') }}
-  </SwitchItem>
-  <SwitchItem v-model="widgetSidebarToggle">
-    {{ $t('preferences.widget.sidebarToggle') }}
-  </SwitchItem>
-  <SwitchItem v-model="widgetRefresh">
-    {{ $t('preferences.widget.refresh') }}
-  </SwitchItem>
-  <SelectItem v-model="appPreferencesButtonPosition" :items="positionItems">
-    {{ $t('preferences.position.title') }}
-  </SelectItem>
-</template>
