@@ -1,9 +1,11 @@
 {
-  "name": "vben-admin-monorepo",
-  "version": "5.5.4",
+  "name": "yyb-client",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
   "scripts": {
+    "dev:web": "pnpm -F @yyb/web run dev",
+    "dev:app": "tsx scripts/run-app/watch.ts",
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build",
     "build:analyze": "turbo build:analyze",
     "build:web": "pnpm run build --filter=@yyb",
@@ -14,7 +16,6 @@
     "check:type": "turbo run typecheck",
     "clean": "node ./scripts/clean.mjs",
     "commit": "czg",
-    "dev:web": "pnpm -F @yyb/web run dev",
     "format": "vsh lint --format",
     "lint": "vsh lint",
     "postinstall": "pnpm -r run stub --if-present",
@@ -27,9 +28,6 @@
     "update:deps": "npx taze -r -w"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "catalog:",
-    "@changesets/cli": "catalog:",
-    "@playwright/test": "catalog:",
     "@types/node": "catalog:",
     "@vben/commitlint-config": "workspace:*",
     "@vben/eslint-config": "workspace:*",
@@ -45,9 +43,11 @@
     "autoprefixer": "catalog:",
     "cross-env": "catalog:",
     "cspell": "catalog:",
+    "electron": "catalog:",
     "happy-dom": "catalog:",
     "is-ci": "catalog:",
     "lint-staged": "catalog:",
+    "minimist": "catalog:",
     "playwright": "catalog:",
     "rimraf": "catalog:",
     "simple-git-hooks": "catalog:",
