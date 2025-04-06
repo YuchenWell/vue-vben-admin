@@ -13,8 +13,8 @@ async function createWindow() {
     show: false,
     webPreferences: {
       preload: isPackaged
-        ? join(__dirname, './electron-preload/index.cjs')
-        : join(__dirname, '../../electron-preload/dist/index.cjs'),
+        ? join(__dirname, './preload/index.cjs')
+        : join(__dirname, '../../preload/dist/index.cjs'),
       webviewTag: false,
     },
   });

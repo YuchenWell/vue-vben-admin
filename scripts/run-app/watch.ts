@@ -148,14 +148,13 @@ async function main() {
   try {
     log('正在启动开发服务器...');
 
-    const rendererWatchServer = await createServer({
+    const rendererDevServer = await createServer({
       configFile: 'apps/web/vite.config.mts',
       logLevel,
       mode,
-    }).then((server) => {
-      server.listen();
-      return server;
     });
+
+    const rendererWatchServer = await rendererDevServer.listen();
 
     log('开发服务器启动成功');
 

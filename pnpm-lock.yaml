@@ -78,6 +78,9 @@ catalogs:
     '@types/lodash.set':
       specifier: ^4.3.9
       version: 4.3.9
+    '@types/minimist':
+      specifier: ^1.2.5
+      version: 1.2.5
     '@types/node':
       specifier: ^22.14.0
       version: 22.14.0
@@ -490,6 +493,9 @@ importers:
 
   .:
     devDependencies:
+      '@types/minimist':
+        specifier: 'catalog:'
+        version: 1.2.5
       '@types/node':
         specifier: 'catalog:'
         version: 22.14.0
@@ -3778,6 +3784,9 @@ packages:
 
   '@types/minimatch@3.0.5':
     resolution: {integrity: sha512-Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==}
+
+  '@types/minimist@1.2.5':
+    resolution: {integrity: sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==}
 
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
@@ -12005,6 +12014,8 @@ snapshots:
   '@types/lodash@4.17.16': {}
 
   '@types/minimatch@3.0.5': {}
+
+  '@types/minimist@1.2.5': {}
 
   '@types/ms@2.1.0': {}
 

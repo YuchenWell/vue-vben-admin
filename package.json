@@ -28,6 +28,7 @@
     "update:deps": "npx taze -r -w"
   },
   "devDependencies": {
+    "@types/minimist": "catalog:",
     "@types/node": "catalog:",
     "@vben/commitlint-config": "workspace:*",
     "@vben/eslint-config": "workspace:*",
