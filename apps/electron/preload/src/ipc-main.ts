@@ -22,7 +22,7 @@ export class IPCMain<
 
   off<T extends keyof MessageType>(action: T): void {
     if (this.listeners[action]) {
-      delete this.listeners[action];
+      Reflect.deleteProperty(this.listeners, action);
     }
   }
 
@@ -30,7 +30,7 @@ export class IPCMain<
     name: T,
     fn: (...args: Parameters<MessageType[T]>) => ReturnType<MessageType[T]>,
   ): void {
-    console.log('on', name);
+    // console.log('on', name);
     if (this.listeners[name])
       throw new Error(`消息处理器 ${String(name)} 已存在`);
     this.listeners[name] = fn;

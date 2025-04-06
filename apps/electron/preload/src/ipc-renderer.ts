@@ -50,7 +50,7 @@ export class IPCRenderer<
             return resolve(data.result);
           } else {
             //  主进程如果返回错误的话，在这里显示到 UI 上
-            console.log(data.error);
+            console.warn(data.error);
             return reject(data.error);
           }
         })

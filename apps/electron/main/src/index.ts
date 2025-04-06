@@ -2,9 +2,9 @@ import { exit, platform } from 'node:process';
 
 import { app } from 'electron';
 
-import './ipc';
+import { restoreOrCreateWindow } from './main-window';
 
-import { restoreOrCreateWindow } from '/@/mainWindow';
+import './ipc';
 
 /**
  * 防止多实例

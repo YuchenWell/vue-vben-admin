@@ -6,7 +6,7 @@ import type { MainMessage, RenderMessage } from './types';
 
 import { contextBridge } from 'electron';
 
-import { IPCRenderer } from './ipcRenderer';
+import { IPCRenderer } from './ipc-renderer';
 
 export * from './types';
 

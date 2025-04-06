@@ -1,3 +1,3 @@
 export * from './common';
-export * from './mainMessage';
-export * from './renderMessage';
+export * from './main-message';
+export * from './render-message';

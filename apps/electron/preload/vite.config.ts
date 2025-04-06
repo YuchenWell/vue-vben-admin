@@ -23,7 +23,7 @@ const config: UserConfig = {
     assetsDir: '.',
     minify: process.env.MODE !== 'development',
     lib: {
-      entry: ['src/index.ts', 'src/ipcMain.ts'],
+      entry: ['src/index.ts', 'src/ipc-main.ts'],
       formats: ['cjs'],
     },
     rollupOptions: {
