@@ -22,6 +22,7 @@ function getConfFiles() {
   const script = process.env.npm_lifecycle_script as string;
   const reg = /--mode ([\d_a-z]+)/;
   const result = reg.exec(script);
+
   let mode = 'production';
   if (result) {
     mode = result[1] as string;
@@ -37,12 +38,13 @@ function getConfFiles() {
 async function loadEnv<T = Record<string, string>>(
   match = 'VITE_GLOB_',
   confFiles = getConfFiles(),
+  root = process.cwd(),
 ) {
   let envConfig = {};
 
   for (const confFile of confFiles) {
     try {
-      const confFilePath = join(process.cwd(), confFile);
+      const confFilePath = join(root, confFile);
       if (existsSync(confFilePath)) {
         const envPath = await fs.readFile(confFilePath, {
           encoding: 'utf8',
@@ -64,8 +66,11 @@ async function loadEnv<T = Record<string, string>>(
 }
 
 async function loadAndConvertEnv(
-  match = 'VITE_',
-  confFiles = getConfFiles(),
+  options: {
+    confFiles?: string[];
+    match?: string;
+    root?: string;
+  } = {},
 ): Promise<
   Partial<ApplicationPluginOptions> & {
     appTitle: string;
@@ -73,7 +78,13 @@ async function loadAndConvertEnv(
     port: number;
   }
 > {
-  const envConfig = await loadEnv(match, confFiles);
+  const {
+    confFiles = getConfFiles(),
+    match = 'VITE_GLOB_',
+    root = process.cwd(),
+  } = options;
+
+  const envConfig = await loadEnv(match, confFiles, root);
 
   const {
     VITE_APP_TITLE,
@@ -99,7 +110,7 @@ async function loadAndConvertEnv(
     compressTypes,
     devtools: getBoolean(VITE_DEVTOOLS),
     injectAppLoading: getBoolean(VITE_INJECT_APP_LOADING),
-    port: getNumber(VITE_PORT, 5173),
+    port: getNumber(VITE_PORT, 5666),
     pwa: getBoolean(VITE_PWA),
     visualizer: getBoolean(VITE_VISUALIZER),
   };

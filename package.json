@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev:web": "pnpm -F @yyb/web run dev",
-    "dev:app": "tsx scripts/run-app/watch.ts",
+    "dev:app": "tsx scripts/run-app-dev/index.ts --mode development",
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build",
     "build:analyze": "turbo build:analyze",
     "build:web": "pnpm run build --filter=@yyb",
