@@ -9,25 +9,38 @@ type TabOption = BasicOption;
 
 interface BasicUserInfo {
   /**
-   * 头像
+   * 邮箱
    */
-  avatar: string;
+  email: string;
+
   /**
-   * 用户昵称
+   * 权限
    */
-  realName: string;
+  permissions?: string[];
+  /**
+   * 手机号
+   */
+  phone: string;
+
   /**
    * 用户角色
    */
   roles?: string[];
+
+  /**
+   * 员工编号
+   */
+  staffNo: string;
+
   /**
    * 用户id
    */
   userId: string;
+
   /**
    * 用户名
    */
-  username: string;
+  userName: string;
 }
 
 type ClassType = Array<object | string> | object | string;

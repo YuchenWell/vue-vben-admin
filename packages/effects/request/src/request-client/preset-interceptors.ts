@@ -2,14 +2,14 @@ import type { RequestClient } from './request-client';
 import type { MakeErrorMessageFn, ResponseInterceptorConfig } from './types';
 
 import { $t } from '@vben/locales';
-import { isFunction } from '@vben/utils';
+import { isFunction, isString } from '@vben/utils';
 
 import axios from 'axios';
 
 export const defaultResponseInterceptor = ({
   codeField = 'code',
   dataField = 'data',
-  successCode = 0,
+  successCode = 200,
 }: {
   /** 响应数据中代表访问结果的字段名 */
   codeField: string;
@@ -39,6 +39,7 @@ export const defaultResponseInterceptor = ({
             : responseData[dataField];
         }
       }
+
       throw Object.assign({}, response, { response });
     },
   };
@@ -70,6 +71,7 @@ export const authenticateResponseInterceptor = ({
         await doReAuthenticate();
         throw error;
       }
+
       // 如果正在刷新 token，则将请求加入队列，等待刷新完成
       if (client.isRefreshing) {
         return new Promise((resolve) => {
@@ -115,6 +117,11 @@ export const errorMessageResponseInterceptor = (
   return {
     rejected: (error: any) => {
       if (axios.isCancel(error)) {
+        return Promise.reject(error);
+      }
+
+      if (error.data?.msg && isString(error.data.msg)) {
+        makeErrorMessage?.(error.data.msg, error);
         return Promise.reject(error);
       }
 

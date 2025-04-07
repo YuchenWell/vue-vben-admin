@@ -8,12 +8,19 @@
         <Toolbar :toolbar-list="toolbarList" />
       </slot>
     </template>
+
     <!-- 左侧认证面板 -->
     <AuthenticationFormView
       v-if="authPanelLeft"
       class="min-h-full w-2/5 flex-1"
       transition-name="slide-left"
     >
+      <slot name="appLogo">
+        <div class="absolute left-6 top-10 z-10">
+          <AppLogo />
+        </div>
+      </slot>
+
       <template v-if="copyright" #copyright>
         <slot name="copyright">
           <Copyright
@@ -24,29 +31,13 @@
       </template>
     </AuthenticationFormView>
 
-    <!-- 头部 Logo 和应用名称 -->
-    <div
-      v-if="logo || appName"
-      class="absolute left-0 top-0 z-10 flex flex-1"
-      @click="clickLogo"
-    >
-      <div
-        class="text-foreground lg:text-foreground ml-4 mt-4 flex flex-1 items-center sm:left-6 sm:top-6"
-      >
-        <img v-if="logo" :alt="appName" :src="logo" class="mr-2" width="42" />
-        <p v-if="appName" class="m-0 text-xl font-medium">
-          {{ appName }}
-        </p>
-      </div>
-    </div>
-
     <!-- 系统介绍 -->
     <div v-if="!authPanelCenter" class="relative hidden w-0 flex-1 lg:block">
       <div
         class="bg-background-deep absolute inset-0 h-full w-full dark:bg-[#070709]"
       >
         <div class="login-background absolute left-0 top-0 size-full"></div>
-        <div class="flex-col-center -enter-x mr-20 h-full">
+        <div class="flex-col-center -enter-x h-full">
           <template v-if="sloganImage">
             <img
               :alt="appName"
@@ -55,11 +46,15 @@
             />
           </template>
           <SloganIcon v-else :alt="appName" class="animate-float h-64 w-2/5" />
-          <div class="text-1xl text-foreground mt-6 font-sans lg:text-2xl">
-            {{ pageTitle }}
+          <div
+            class="text-1xl text-foreground mt-2 font-sans font-bold lg:text-2xl"
+          >
+            {{ $t('authentication.sloganFirstRow') }}
           </div>
-          <div class="dark:text-muted-foreground mt-2">
-            {{ pageDescription }}
+          <div
+            class="text-1xl text-foreground mt-2 font-sans font-bold lg:text-2xl"
+          >
+            {{ $t('authentication.sloganSecondRow') }}
           </div>
         </div>
       </div>
@@ -85,8 +80,14 @@
     <!-- 右侧认证面板 -->
     <AuthenticationFormView
       v-if="authPanelRight"
-      class="min-h-full w-[34%] flex-1"
+      class="min-h-full w-[70%] flex-1"
     >
+      <slot name="appLogo">
+        <div class="absolute left-12 top-10 z-10">
+          <AppLogo />
+        </div>
+      </slot>
+
       <template v-if="copyright" #copyright>
         <slot name="copyright">
           <Copyright
@@ -104,6 +105,7 @@ import type { ToolbarType } from './types';
 
 import { preferences, usePreferences } from '@vben/preferences';
 
+import { AppLogo } from '../basic/app-logo';
 import { Copyright } from '../basic/copyright';
 import AuthenticationFormView from './form.vue';
 import SloganIcon from './icons/slogan.vue';
@@ -111,26 +113,18 @@ import Toolbar from './toolbar.vue';
 
 interface Props {
   appName?: string;
-  logo?: string;
-  pageTitle?: string;
-  pageDescription?: string;
   sloganImage?: string;
   toolbar?: boolean;
   copyright?: boolean;
   toolbarList?: ToolbarType[];
-  clickLogo?: () => void;
 }
 
 withDefaults(defineProps<Props>(), {
   appName: '',
   copyright: true,
-  logo: '',
-  pageDescription: '',
-  pageTitle: '',
   sloganImage: '',
   toolbar: true,
-  toolbarList: () => ['color', 'language', 'layout', 'theme'],
-  clickLogo: () => {},
+  toolbarList: () => ['language'],
 });
 
 const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =

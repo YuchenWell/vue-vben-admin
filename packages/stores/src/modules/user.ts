@@ -3,17 +3,17 @@ import { acceptHMRUpdate, defineStore } from 'pinia';
 interface BasicUserInfo {
   [key: string]: any;
   /**
-   * 头像
+   * 权限
    */
-  avatar: string;
-  /**
-   * 用户昵称
-   */
-  realName: string;
+  permissions?: string[];
   /**
    * 用户角色
    */
   roles?: string[];
+  /**
+   * 员工编号
+   */
+  staffNo: string;
   /**
    * 用户id
    */
@@ -21,7 +21,7 @@ interface BasicUserInfo {
   /**
    * 用户名
    */
-  username: string;
+  userName: string;
 }
 
 interface AccessState {
