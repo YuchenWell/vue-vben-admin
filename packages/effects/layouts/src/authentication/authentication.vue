@@ -17,7 +17,7 @@
     >
       <slot name="appLogo">
         <div class="absolute left-6 top-10 z-10">
-          <AppLogo />
+          <AppFullLogo width="220" />
         </div>
       </slot>
 
@@ -84,7 +84,7 @@
     >
       <slot name="appLogo">
         <div class="absolute left-12 top-10 z-10">
-          <AppLogo />
+          <AppFullLogo width="220" />
         </div>
       </slot>
 
@@ -105,7 +105,7 @@ import type { ToolbarType } from './types';
 
 import { preferences, usePreferences } from '@vben/preferences';
 
-import { AppLogo } from '../basic/app-logo';
+import { AppFullLogo } from '../basic/app-logo';
 import { Copyright } from '../basic/copyright';
 import AuthenticationFormView from './form.vue';
 import SloganIcon from './icons/slogan.vue';

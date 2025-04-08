@@ -42,16 +42,18 @@
   >
     <!-- logo -->
     <template #logo>
-      <VbenLogo
-        v-if="preferences.logo.enable"
-        :class="logoClass"
-        :collapsed="logoCollapsed"
-        :src="preferences.logo.source"
-        :text="preferences.app.name"
-        :theme="showHeaderNav ? headerTheme : theme"
+      <AppSmallLogo
         @click="clickLogo"
+        class="h-full w-full object-contain object-center px-2 py-2"
+        v-if="logoCollapsed"
+      />
+      <AppFullLogo
+        @click="clickLogo"
+        class="h-full w-full object-contain object-left px-2 py-2"
+        v-if="!logoCollapsed"
       />
     </template>
+
     <!-- 头部区域 -->
     <template #header>
       <LayoutHeader
@@ -205,6 +207,7 @@ import { VbenAdminLayout } from '@vben-core/layout-ui';
 import { VbenBackTop, VbenLogo } from '@vben-core/shadcn-ui';
 
 import { Breadcrumb, CheckUpdates, Preferences } from '../widgets';
+import { AppFullLogo, AppSmallLogo } from './app-logo';
 import { LayoutContent, LayoutContentSpinner } from './content';
 import { Copyright } from './copyright';
 import { LayoutFooter } from './footer';
@@ -246,21 +249,6 @@ const sidebarTheme = computed(() => {
 const headerTheme = computed(() => {
   const dark = isDark.value || preferences.theme.semiDarkHeader;
   return dark ? 'dark' : 'light';
-});
-
-const logoClass = computed(() => {
-  const { collapsedShowTitle } = preferences.sidebar;
-  const classes: string[] = [];
-
-  if (collapsedShowTitle && sidebarCollapsed.value && !isMixedNav.value) {
-    classes.push('mx-auto');
-  }
-
-  if (isSideMixedNav.value) {
-    classes.push('flex-center');
-  }
-
-  return classes.join(' ');
 });
 
 const isMenuRounded = computed(() => {

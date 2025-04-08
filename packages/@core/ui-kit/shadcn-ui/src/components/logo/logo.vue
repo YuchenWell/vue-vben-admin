@@ -12,12 +12,6 @@
         :size="logoSize"
         class="relative rounded-none bg-transparent"
       />
-      <span
-        v-if="!collapsed"
-        class="text-foreground truncate text-nowrap font-semibold"
-      >
-        {{ text }}
-      </span>
     </a>
   </div>
 </template>

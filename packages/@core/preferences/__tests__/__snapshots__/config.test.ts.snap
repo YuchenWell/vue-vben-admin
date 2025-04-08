@@ -94,7 +94,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
   "theme": {
     "builtinType": "default",
     "colorDestructive": "hsl(348 100% 61%)",
-    "colorPrimary": "hsl(219 99% 53%)",
+    "colorPrimary": "hsl(219.16 99.17% 52.75%)",
     "colorSuccess": "hsl(144 57% 58%)",
     "colorWarning": "hsl(42 84% 61%)",
     "mode": "dark",

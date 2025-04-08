@@ -115,7 +115,9 @@ interface LogoPreferences {
   /** logo是否可见 */
   enable: boolean;
   /** logo地址 */
-  source: string;
+  fullSource: string;
+  /** logo地址 */
+  smallSource: string;
 }
 
 interface NavigationPreferences {

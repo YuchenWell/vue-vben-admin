@@ -31,7 +31,7 @@
 
   /* 主题颜色 */
 
-  --primary: 219 99% 53%;
+  --primary: 219.16 99.17% 52.75%;
   --primary-foreground: 0 0% 98%;
 
   /* Used for destructive actions such as <Button variant="destructive"> */
@@ -72,7 +72,7 @@
   --heavy-foreground: var(--accent-foreground);
 
   /* Default border color */
-  --border: 240 5.9% 90%;
+  --border: 220 10.04% 90.98%;
 
   /* Border color for inputs such as <Input />, <Select />, <Textarea /> */
   --input: 240deg 5.88% 90%;
@@ -92,7 +92,7 @@
   --overlay-content: 0 0% 95% / 45%;
 
   /* 基本文字大小 */
-  --font-size-base: 16px;
+  --font-size-base: 13px;
 
   /* =============component & UI============= */
 
