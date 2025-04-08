@@ -21,7 +21,7 @@
     :sidebar-hidden="preferences.sidebar.hidden"
     :sidebar-theme="sidebarTheme"
     :sidebar-width="preferences.sidebar.width"
-    :tabbar-enable="preferences.tabbar.enable"
+    :tabbar-enable="preferences.tabbar.enable && !preferences.tabbar.inHeader"
     :tabbar-height="preferences.tabbar.height"
     @side-mouse-leave="handleSideMouseLeave"
     @toggle-sidebar="toggleSidebar"
@@ -71,6 +71,7 @@
             :type="preferences.breadcrumb.styleType"
           />
         </template>
+
         <template v-if="showHeaderNav" #menu>
           <LayoutMenu
             :default-active="headerActive"
@@ -82,13 +83,23 @@
             @select="handleMenuSelect"
           />
         </template>
+
+        <template
+          #tabbar
+          v-if="preferences.tabbar.enable && preferences.tabbar.inHeader"
+        >
+          <LayoutTabbar
+            :show-icon="preferences.tabbar.showIcon"
+            :theme="theme"
+          />
+        </template>
         <template #user-dropdown>
           <slot name="user-dropdown"></slot>
         </template>
         <template #notification>
           <slot name="notification"></slot>
         </template>
-        <template v-for="item in headerSlots" #[item]>
+        <template v-for="(item, index) in headerSlots" :key="index" #[item]>
           <slot :name="item"></slot>
         </template>
       </LayoutHeader>
@@ -139,7 +150,7 @@
 
     <template #tabbar>
       <LayoutTabbar
-        v-if="preferences.tabbar.enable"
+        v-if="preferences.tabbar.enable && !preferences.tabbar.inHeader"
         :show-icon="preferences.tabbar.showIcon"
         :theme="theme"
       />

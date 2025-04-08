@@ -53,7 +53,7 @@
 
           <span class="flex-1">{{ item.name }}</span>
           <div
-            class="flex-center dark:hover:bg-accent hover:text-primary-foreground rounded-full p-1 hover:scale-110"
+            class="flex-center dark:hover:bg-accent hover:text-primary-foreground p-1 hover:scale-110"
             @click.stop="removeItem(index)"
           >
             <X class="size-4" />

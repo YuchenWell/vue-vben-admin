@@ -55,7 +55,7 @@ withDefaults(defineProps<{ shouldOnHover?: boolean }>(), {
   shouldOnHover: false,
 });
 
-function handleChange(isDark: boolean) {
+function handleChange(isDark: boolean = false) {
   updatePreferences({
     theme: { mode: isDark ? 'dark' : 'light' },
   });

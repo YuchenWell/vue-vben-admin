@@ -10,7 +10,7 @@
         >
           <div
             :style="{ backgroundColor: preset.color }"
-            class="flex-center relative size-5 rounded-full hover:scale-110"
+            class="flex-center relative size-5 hover:scale-110"
           >
             <svg
               v-if="preferences.theme.builtinType === preset.type"

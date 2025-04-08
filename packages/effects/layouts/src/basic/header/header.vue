@@ -3,29 +3,31 @@
     v-for="slot in leftSlots.filter((item) => item.index < REFERENCE_VALUE)"
     :key="slot.name"
   >
-    <slot :name="slot.name">
-      <template v-if="slot.name === 'refresh'">
-        <VbenIconButton class="my-0 mr-1 rounded-md" @click="refresh">
-          <RotateCw class="size-4" />
-        </VbenIconButton>
-      </template>
-    </slot>
+    <slot :name="slot.name"> </slot>
   </template>
+
   <div class="flex-center hidden lg:block">
     <slot name="breadcrumb"></slot>
   </div>
+
+  <div class="inline-flex h-full w-full">
+    <slot name="tabbar"></slot>
+  </div>
+
   <template
     v-for="slot in leftSlots.filter((item) => item.index > REFERENCE_VALUE)"
     :key="slot.name"
   >
     <slot :name="slot.name"></slot>
   </template>
+
   <div
     :class="`menu-align-${preferences.header.menuAlign}`"
     class="flex h-full min-w-0 flex-1 items-center"
   >
     <slot name="menu"></slot>
   </div>
+
   <div class="flex h-full min-w-0 flex-shrink-0 items-center">
     <template v-for="slot in rightSlots" :key="slot.name">
       <slot :name="slot.name">
@@ -51,6 +53,12 @@
         </template>
         <template v-else-if="slot.name === 'fullscreen'">
           <VbenFullScreen class="mr-1" />
+        </template>
+
+        <template v-else-if="slot.name === 'refresh'">
+          <VbenIconButton class="my-0 mr-1 rounded-md" @click="refresh">
+            <RotateCw class="size-4" />
+          </VbenIconButton>
         </template>
       </slot>
     </template>
@@ -138,24 +146,25 @@ const rightSlots = computed(() => {
     });
   }
 
+  if (preferences.widget.refresh) {
+    list.push({
+      index: REFERENCE_VALUE + 60,
+      name: 'refresh',
+    });
+  }
+
   Object.keys(slots).forEach((key) => {
     const name = key.split('-');
     if (key.startsWith('header-right')) {
       list.push({ index: Number(name[2]), name: key });
     }
   });
+
   return list.sort((a, b) => a.index - b.index);
 });
 
 const leftSlots = computed(() => {
   const list: Array<{ index: number; name: string }> = [];
-
-  if (preferences.widget.refresh) {
-    list.push({
-      index: 0,
-      name: 'refresh',
-    });
-  }
 
   Object.keys(slots).forEach((key) => {
     const name = key.split('-');

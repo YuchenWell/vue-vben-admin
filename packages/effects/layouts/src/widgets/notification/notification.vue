@@ -38,9 +38,7 @@
                 class="bg-primary absolute right-2 top-2 h-2 w-2 rounded"
               ></span>
 
-              <span
-                class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"
-              >
+              <span class="relative flex h-10 w-10 shrink-0 overflow-hidden">
                 <img
                   :src="item.avatar"
                   class="aspect-square h-full w-full object-cover"

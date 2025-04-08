@@ -1,7 +1,7 @@
 <template>
   <VbenButton
     v-if="!showTooltip"
-    :class="cn('rounded-full', props.class)"
+    :class="cn(props.class)"
     :disabled="disabled"
     :variant="variant"
     size="icon"
@@ -17,7 +17,7 @@
   >
     <template #trigger>
       <VbenButton
-        :class="cn('rounded-full', props.class)"
+        :class="cn(props.class)"
         :disabled="disabled"
         :variant="variant"
         size="icon"

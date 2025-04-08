@@ -172,6 +172,8 @@ interface TabbarPreferences {
   enable: boolean;
   /** 标签页高度 */
   height: number;
+  /** 是否在header中显示标签栏 */
+  inHeader: boolean;
   /** 开启标签页缓存功能 */
   keepAlive: boolean;
   /** 限制最大数量 */
