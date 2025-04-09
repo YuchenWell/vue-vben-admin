@@ -1,0 +1,11 @@
+{
+  "name": "@vben-core/enums",
+  "version": "5.5.4",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  }
+}
