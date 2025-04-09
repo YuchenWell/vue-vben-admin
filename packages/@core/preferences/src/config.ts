@@ -61,7 +61,7 @@ const defaultPreferences: Preferences = {
   },
   shortcutKeys: {
     enable: true,
-    globalLockScreen: false,
+    globalLockScreen: true,
     globalLogout: true,
     globalPreferences: false,
     globalSearch: true,
@@ -114,7 +114,7 @@ const defaultPreferences: Preferences = {
     fullscreen: true,
     globalSearch: true,
     languageToggle: true,
-    lockScreen: false,
+    lockScreen: true,
     notification: false,
     refresh: true,
     sidebarToggle: true,
