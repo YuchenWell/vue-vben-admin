@@ -30,14 +30,14 @@ async function generateAccess(options: GenerateMenuAndRoutesOptions) {
       fetchMenuListAsync: async () => {
         message.loading({
           content: `${$t('common.loadingMenu')}...`,
-          duration: 1.5,
+          duration: 0.5,
         });
         return await getAllMenusApi();
       },
       fetchUserMenuListAsync: async () => {
         message.loading({
           content: `${$t('common.loadingMenu')}...`,
-          duration: 1.5,
+          duration: 0.5,
         });
         return await getUserMenusApi();
       },

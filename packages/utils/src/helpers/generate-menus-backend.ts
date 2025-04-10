@@ -80,12 +80,12 @@ const buildMenu = (
     : [];
 
   const menuRecordRaw: MenuRecordRaw = {
-    activeIcon: userMenu.icon ?? '',
+    activeIcon: routeMeta?.activeIcon ?? '',
     badge: routeMeta?.badge,
     badgeType: routeMeta?.badgeType,
     badgeVariants: routeMeta?.badgeVariants,
     children,
-    icon: userMenu.icon ?? '',
+    icon: routeMeta?.icon ?? '',
     name: userMenu.menuName || routeMeta?.title || '',
     order: userMenu.menuSort,
     parent: parentPath,

@@ -263,7 +263,7 @@ const headerSlots = computed(() => {
         <template #notification>
           <slot name="notification"></slot>
         </template>
-        <template v-for="(item, index) in headerSlots" :key="index" #[item]>
+        <template v-for="(item, _index) in headerSlots" :key="_index" #[item]>
           <slot :name="item"></slot>
         </template>
       </LayoutHeader>
