@@ -309,7 +309,11 @@ const headerSlots = computed(() => {
         v-if="preferences.logo.enable"
         :text="preferences.app.name"
         :theme="theme"
-      />
+      >
+        <template v-if="$slots['logo-text']" #text>
+          <slot name="logo-text"></slot>
+        </template>
+      </VbenLogo>
     </template>
 
     <template #tabbar>
