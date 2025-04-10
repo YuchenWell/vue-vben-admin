@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "dev": "pnpm dev:web",
     "dev:web": "pnpm -F @yyb/web run dev",
     "dev:app": "tsx scripts/run-app-dev/index.ts --mode development",
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build",
