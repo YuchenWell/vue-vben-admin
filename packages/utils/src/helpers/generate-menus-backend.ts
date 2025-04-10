@@ -2,7 +2,7 @@ import type { RouteRecordRaw } from 'vue-router';
 
 import type {
   GenerateMenuAndRoutesOptions,
-  MenuInfo,
+  MenuDto,
   MenuRecordRaw,
 } from '@vben-core/typings';
 
@@ -16,17 +16,17 @@ async function generateMenusByBackend(
   routes: RouteRecordRaw[],
   options: GenerateMenuAndRoutesOptions,
 ): Promise<MenuRecordRaw[]> {
-  const { fetchUserMenuListAsync } = options;
+  const { getBackendMenuListAsync } = options;
 
-  if (!fetchUserMenuListAsync) {
-    throw new Error('fetchUserMenuListAsync is required');
+  if (!getBackendMenuListAsync) {
+    throw new Error('getBackendMenuListAsync is required');
   }
 
-  const userMenus = await fetchUserMenuListAsync();
+  const menuDtos = await getBackendMenuListAsync();
 
   const permissionRouteMap = getRouteByPermissionMap(routes);
 
-  const menus: MenuRecordRaw[] = userMenus
+  const menus: MenuRecordRaw[] = menuDtos
     .map((menu) => buildMenu(menu, permissionRouteMap))
     .filter((menu) => !!menu)
     .sort((a, b) => (a?.order ?? 999) - (b?.order ?? 999));
@@ -51,14 +51,14 @@ const getRouteByPermissionMap = (
 };
 
 const buildMenu = (
-  userMenu: MenuInfo,
+  menuDto: MenuDto,
   permissionRouteMap: Map<string, RouteRecordRaw>,
   parentPath?: string,
 ): MenuRecordRaw | null => {
-  const route = permissionRouteMap.get(userMenu.permission);
+  const route = permissionRouteMap.get(menuDto.permission);
 
   if (!route) {
-    console.error(`权限 ${userMenu.permission} 没有找到对应的路由`);
+    console.error(`权限 ${menuDto.permission} 没有找到对应的路由`);
     return null;
   }
 
@@ -69,12 +69,12 @@ const buildMenu = (
   const resultPath = routeMeta?.hideChildrenInMenu ? redirect || path : path;
 
   // 将菜单的所有父级和父级菜单记录到菜单项内
-  if (userMenu.menus && userMenu.menus.length > 0) {
-    userMenu.menus.forEach((child) => (child.parent = path));
+  if (menuDto.menus && menuDto.menus.length > 0) {
+    menuDto.menus.forEach((child) => (child.parent = path));
   }
 
-  const children: MenuRecordRaw[] = userMenu.menus
-    ? userMenu.menus
+  const children: MenuRecordRaw[] = menuDto.menus
+    ? menuDto.menus
         .map((child) => buildMenu(child, permissionRouteMap, path))
         .filter((child) => !!child)
     : [];
@@ -86,8 +86,8 @@ const buildMenu = (
     badgeVariants: routeMeta?.badgeVariants,
     children,
     icon: routeMeta?.icon ?? '',
-    name: userMenu.menuName || routeMeta?.title || '',
-    order: userMenu.menuSort,
+    name: menuDto.menuName || routeMeta?.title || '',
+    order: menuDto.menuSort,
     parent: parentPath,
     path: resultPath as string,
     show: !route?.meta?.hideInMenu,

@@ -1,4 +1,4 @@
-import type { MenuInfo, RouteRecordStringComponent } from '@vben/types';
+import type { MenuDto, RouteRecordStringComponent } from '@vben/types';
 
 import { requestClient } from '#/api/request';
 
@@ -12,6 +12,6 @@ export async function getAllMenusApi(): Promise<RouteRecordStringComponent[]> {
 /**
  * 后端过滤路由 - 获取用户所有菜单
  */
-export async function getUserMenusApi() {
-  return requestClient.post<MenuInfo[]>('/system/menu/user/menus');
+export async function getBackendMenusApi() {
+  return requestClient.post<MenuDto[]>('/system/menu/user/menus');
 }

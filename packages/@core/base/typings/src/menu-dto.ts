@@ -53,7 +53,7 @@ enum MenuVisibleEnum {
 /**
  * 菜单信息
  */
-interface MenuInfo extends BaseModel {
+interface MenuDto extends BaseModel {
   /**
    * 菜单图标
    */
@@ -73,7 +73,7 @@ interface MenuInfo extends BaseModel {
   /**
    * 子菜单
    */
-  menus: Nullable<MenuInfo[]>;
+  menus: Nullable<MenuDto[]>;
   /**
    * 菜单排序
    */
@@ -101,4 +101,4 @@ interface MenuInfo extends BaseModel {
   visible: MenuVisibleEnum;
 }
 
-export type { MenuInfo };
+export type { MenuDto };

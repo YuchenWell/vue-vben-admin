@@ -1,7 +1,7 @@
 import type { Component } from 'vue';
 import type { Router, RouteRecordRaw } from 'vue-router';
 
-import type { MenuInfo } from './menu-info';
+import type { MenuDto } from './menu-dto';
 
 interface RouteMeta {
   /**
@@ -138,8 +138,8 @@ type ComponentRecordType = Record<string, () => Promise<Component>>;
 
 interface GenerateMenuAndRoutesOptions {
   fetchMenuListAsync?: () => Promise<RouteRecordStringComponent[]>;
-  fetchUserMenuListAsync?: () => Promise<MenuInfo[]>;
   forbiddenComponent?: RouteRecordRaw['component'];
+  getBackendMenuListAsync?: () => Promise<MenuDto[]>;
   layoutMap?: ComponentRecordType;
   pageMap?: ComponentRecordType;
   permissions?: string[];
