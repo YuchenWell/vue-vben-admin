@@ -12,6 +12,7 @@ export async function perfectionist(): Promise<Linter.Config[]> {
     perfectionistPlugin.configs['recommended-natural'],
     {
       rules: {
+        'perfectionist/sort-enums': 'off',
         'perfectionist/sort-exports': [
           'error',
           {

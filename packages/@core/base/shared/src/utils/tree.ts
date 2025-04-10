@@ -87,11 +87,31 @@ function mapTree<T, V extends Record<string, any>>(
   };
   return tree.map((node) => {
     const mapperNode: Record<string, any> = mapper(node);
-    if (mapperNode[childProps]) {
+    if (mapperNode && mapperNode[childProps]) {
       mapperNode[childProps] = mapTree(mapperNode[childProps], mapper, options);
     }
     return mapperNode as V;
   });
 }
 
-export { filterTree, mapTree, traverseTreeValues };
+function recursiveTree<T extends Record<string, any>>(
+  tree: T[],
+  mapper: (node: T) => void,
+  options?: TreeConfigOptions,
+) {
+  const { childProps } = options || {
+    childProps: 'children',
+  };
+
+  for (const node of tree) {
+    mapper(node);
+
+    const children = node[childProps] as unknown as T[];
+
+    if (Array.isArray(children) && children.length > 0) {
+      recursiveTree(children, mapper, options);
+    }
+  }
+}
+
+export { filterTree, mapTree, recursiveTree, traverseTreeValues };

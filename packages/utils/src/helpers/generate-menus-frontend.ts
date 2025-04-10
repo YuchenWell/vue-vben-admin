@@ -1,17 +1,23 @@
-import type { Router, RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router';
 
-import type { ExRouteRecordRaw, MenuRecordRaw } from '@vben-core/typings';
+import type {
+  ExRouteRecordRaw,
+  GenerateMenuAndRoutesOptions,
+  MenuRecordRaw,
+} from '@vben-core/typings';
 
 import { filterTree, mapTree } from '@vben-core/shared/utils';
 
 /**
- * 根据 routes 生成菜单列表
+ * 根据前端路由生成菜单列表
  * @param routes
  */
-async function generateMenus(
+async function generateMenuFrontend(
   routes: RouteRecordRaw[],
-  router: Router,
+  options: GenerateMenuAndRoutesOptions,
 ): Promise<MenuRecordRaw[]> {
+  const { router } = options;
+
   // 将路由列表转换为一个以 name 为键的对象映射
   // 获取所有router最终的path及name
   const finalRoutesMap: { [key: string]: string } = Object.fromEntries(
@@ -51,6 +57,7 @@ async function generateMenus(
         child.parent = path;
       });
     }
+
     // 隐藏子菜单
     const resultPath = hideChildrenInMenu ? redirect || path : link || path;
     return {
@@ -75,7 +82,8 @@ async function generateMenus(
   const finalMenus = filterTree(menus, (menu) => {
     return !!menu.show;
   });
+
   return finalMenus;
 }
 
-export { generateMenus };
+export { generateMenuFrontend };

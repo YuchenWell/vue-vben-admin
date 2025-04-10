@@ -19,6 +19,7 @@ const defaultPreferences: Preferences = {
     layout: 'sidebar-nav',
     locale: 'zh-CN',
     loginExpiredMode: 'page',
+    menuMode: 'backend',
     name: '海创星智',
     preferencesButtonPosition: 'auto',
     watermark: false,

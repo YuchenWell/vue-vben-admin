@@ -9,6 +9,7 @@ import type {
   LayoutHeaderModeType,
   LayoutType,
   LoginExpiredModeType,
+  MenuModeType,
   NavigationStyleType,
   PageTransitionType,
   PreferencesButtonPositionType,
@@ -53,6 +54,8 @@ interface AppPreferences {
   locale: SupportedLanguagesType;
   /** 登录过期模式 */
   loginExpiredMode: LoginExpiredModeType;
+  /** 菜单模式 */
+  menuMode: MenuModeType;
   /** 应用名 */
   name: string;
   /** 偏好设置按钮位置 */

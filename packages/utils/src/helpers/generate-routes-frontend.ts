@@ -7,12 +7,13 @@ import { filterTree, mapTree } from '@vben-core/shared/utils';
  */
 async function generateRoutesByFrontend(
   routes: RouteRecordRaw[],
-  roles: string[],
+  userRoles: string[] = [],
+  userPermissions: string[] = [],
   forbiddenComponent?: RouteRecordRaw['component'],
 ): Promise<RouteRecordRaw[]> {
   // 根据角色标识过滤路由表,判断当前用户是否拥有指定权限
   const finalRoutes = filterTree(routes, (route) => {
-    return hasAuthority(route, roles);
+    return hasAuthority(route, userRoles, userPermissions);
   });
 
   if (!forbiddenComponent) {
@@ -33,14 +34,33 @@ async function generateRoutesByFrontend(
  * @param route
  * @param access
  */
-function hasAuthority(route: RouteRecordRaw, access: string[]) {
+function hasAuthority(
+  route: RouteRecordRaw,
+  userRoles: string[] = [],
+  userPermissions: string[] = [],
+) {
   const authority = route.meta?.authority;
-  if (!authority) {
+  const permission = route.meta?.permission;
+
+  if (!authority && !permission) {
     return true;
   }
-  const canAccess = access.some((value) => authority.includes(value));
+
+  let canAccess = true;
+
+  if (permission && !isIntersection(userPermissions, [permission])) {
+    canAccess = false;
+  }
+
+  if (authority && !isIntersection(userRoles, authority)) {
+    canAccess = false;
+  }
 
   return canAccess || (!canAccess && menuHasVisibleWithForbidden(route));
+}
+
+function isIntersection(arr1: string[], arr2: string[]) {
+  return arr1.some((value) => arr2.includes(value));
 }
 
 /**

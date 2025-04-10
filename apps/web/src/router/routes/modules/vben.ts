@@ -36,6 +36,7 @@ const routes: RouteRecordRaw[] = [
       icon: 'lucide:copyright',
       title: $t('demos.vben.about'),
       order: 9999,
+      permission: 'home',
     },
   },
 ];

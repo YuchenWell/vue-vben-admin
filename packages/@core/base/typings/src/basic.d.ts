@@ -14,9 +14,14 @@ interface BasicUserInfo {
   email: string;
 
   /**
+   * 默认首页
+   */
+  homePath?: string;
+  /**
    * 权限
    */
   permissions?: string[];
+
   /**
    * 手机号
    */
@@ -43,6 +48,44 @@ interface BasicUserInfo {
   userName: string;
 }
 
+interface BaseModel {
+  /**
+   * 创建人
+   */
+  createBy: string;
+  /**
+   * 创建人名称
+   */
+  createByName: string;
+  /**
+   * 创建时间
+   */
+  createTime: string;
+  /**
+   * 主键
+   */
+  id: string;
+  /**
+   * 更新人工号
+   */
+  updateBy: string;
+  /**
+   * 更新人名称
+   */
+  updateByName: string;
+  /**
+   * 更新时间
+   */
+  updateTime: string;
+}
+
 type ClassType = Array<object | string> | object | string;
 
-export type { BasicOption, BasicUserInfo, ClassType, SelectOption, TabOption };
+export type {
+  BaseModel,
+  BasicOption,
+  BasicUserInfo,
+  ClassType,
+  SelectOption,
+  TabOption,
+};

@@ -64,6 +64,13 @@ type BreadcrumbStyleType = 'background' | 'normal';
 type AccessModeType = 'backend' | 'frontend';
 
 /**
+ * 菜单模式
+ * backend 后端菜单模式
+ * frontend 前端菜单模式
+ */
+type MenuModeType = 'backend' | 'frontend';
+
+/**
  * 导航风格
  * plain 朴素
  * rounded 圆润
@@ -102,6 +109,7 @@ export type {
   LayoutHeaderModeType,
   LayoutType,
   LoginExpiredModeType,
+  MenuModeType,
   NavigationStyleType,
   PageTransitionType,
   PreferencesButtonPositionType,

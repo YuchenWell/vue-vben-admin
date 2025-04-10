@@ -8,6 +8,7 @@ const routes: RouteRecordRaw[] = [
       icon: 'lucide:layout-dashboard',
       order: -1,
       title: $t('page.dashboard.title'),
+      permission: 'system',
     },
     name: 'Dashboard',
     path: '/dashboard',
@@ -20,6 +21,7 @@ const routes: RouteRecordRaw[] = [
           affixTab: true,
           icon: 'lucide:area-chart',
           title: $t('page.dashboard.analytics'),
+          permission: 'system:user',
         },
       },
       {
@@ -29,6 +31,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
           icon: 'carbon:workspace',
           title: $t('page.dashboard.workspace'),
+          permission: 'system:menu',
         },
       },
     ],

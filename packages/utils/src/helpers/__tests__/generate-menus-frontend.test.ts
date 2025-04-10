@@ -1,14 +1,16 @@
 import type { Router, RouteRecordRaw } from 'vue-router';
 
+import type { GenerateMenuAndRoutesOptions } from '@vben-core/typings';
+
 import { createRouter, createWebHistory } from 'vue-router';
 
 import { describe, expect, it, vi } from 'vitest';
 
-import { generateMenus } from '../generate-menus';
+import { generateMenuFrontend } from '../generate-menus-frontend';
 
 // Nested route setup to test child inclusion and hideChildrenInMenu functionality
 
-describe('generateMenus', () => {
+describe('generateMenuFrontend', () => {
   // 模拟路由数据
   const mockRoutes = [
     {
@@ -38,6 +40,10 @@ describe('generateMenus', () => {
       { name: 'team', path: '/about/team' },
     ]),
   };
+
+  const mockOptions = {
+    router: mockRouter,
+  } as unknown as GenerateMenuAndRoutesOptions;
 
   it('the correct menu list should be generated according to the route', async () => {
     const expectedMenus = [
@@ -69,7 +75,7 @@ describe('generateMenus', () => {
       },
     ];
 
-    const menus = await generateMenus(mockRoutes, mockRouter as any);
+    const menus = await generateMenuFrontend(mockRoutes, mockOptions);
     expect(menus).toEqual(expectedMenus);
   });
 
@@ -82,7 +88,10 @@ describe('generateMenus', () => {
       },
     ] as RouteRecordRaw[];
 
-    const menus = await generateMenus(mockRoutesWithMeta, mockRouter as any);
+    const menus = await generateMenuFrontend(
+      mockRoutesWithMeta,
+      mockRouter as any,
+    );
     expect(menus).toEqual([
       {
         badge: undefined,
@@ -109,7 +118,10 @@ describe('generateMenus', () => {
       },
     ] as RouteRecordRaw[];
 
-    const menus = await generateMenus(mockRoutesWithParams, mockRouter as any);
+    const menus = await generateMenuFrontend(
+      mockRoutesWithParams,
+      mockRouter as any,
+    );
     expect(menus).toEqual([
       {
         badge: undefined,
@@ -141,7 +153,7 @@ describe('generateMenus', () => {
       },
     ] as RouteRecordRaw[];
 
-    const menus = await generateMenus(
+    const menus = await generateMenuFrontend(
       mockRoutesWithRedirect,
       mockRouter as any,
     );
@@ -194,8 +206,12 @@ describe('generateMenus', () => {
     routes,
   });
 
+  const options = {
+    router,
+  } as unknown as GenerateMenuAndRoutesOptions;
+
   it('should generate menu list with correct order', async () => {
-    const menus = await generateMenus(routes, router);
+    const menus = await generateMenuFrontend(routes, options);
     const expectedMenus = [
       {
         badge: undefined,
@@ -230,7 +246,7 @@ describe('generateMenus', () => {
 
   it('should handle empty routes', async () => {
     const emptyRoutes: any[] = [];
-    const menus = await generateMenus(emptyRoutes, router);
+    const menus = await generateMenuFrontend(emptyRoutes, options);
     expect(menus).toEqual([]);
   });
 });

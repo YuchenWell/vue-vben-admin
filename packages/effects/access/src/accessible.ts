@@ -3,6 +3,8 @@ import type { Component, DefineComponent } from 'vue';
 import type {
   AccessModeType,
   GenerateMenuAndRoutesOptions,
+  MenuModeType,
+  MenuRecordRaw,
   RouteRecordRaw,
 } from '@vben/types';
 
@@ -10,7 +12,8 @@ import { defineComponent, h } from 'vue';
 
 import {
   cloneDeep,
-  generateMenus,
+  generateMenuFrontend,
+  generateMenusByBackend,
   generateRoutesByBackend,
   generateRoutesByFrontend,
   isFunction,
@@ -19,14 +22,15 @@ import {
 } from '@vben/utils';
 
 async function generateAccessible(
-  mode: AccessModeType,
+  accessMode: AccessModeType,
+  menuMode: MenuModeType,
   options: GenerateMenuAndRoutesOptions,
 ) {
   const { router } = options;
 
   options.routes = cloneDeep(options.routes);
   // 生成路由
-  const accessibleRoutes = await generateRoutes(mode, options);
+  const accessibleRoutes = await generateRoutes(accessMode, options);
 
   const root = router.getRoutes().find((item) => item.path === '/');
 
@@ -58,24 +62,33 @@ async function generateAccessible(
   }
 
   // 生成菜单
-  const accessibleMenus = await generateMenus(accessibleRoutes, options.router);
+  let accessibleMenus: MenuRecordRaw[] = [];
+
+  switch (menuMode) {
+    case 'backend': {
+      accessibleMenus = await generateMenusByBackend(accessibleRoutes, options);
+      break;
+    }
+    case 'frontend': {
+      accessibleMenus = await generateMenuFrontend(accessibleRoutes, options);
+      break;
+    }
+  }
 
   return { accessibleMenus, accessibleRoutes };
 }
 
 /**
  * Generate routes
- * @param mode
- * @param options
  */
 async function generateRoutes(
-  mode: AccessModeType,
+  accessMode: AccessModeType,
   options: GenerateMenuAndRoutesOptions,
 ) {
-  const { forbiddenComponent, roles, routes } = options;
+  const { forbiddenComponent, permissions, roles, routes } = options;
 
   let resultRoutes: RouteRecordRaw[] = routes;
-  switch (mode) {
+  switch (accessMode) {
     case 'backend': {
       resultRoutes = await generateRoutesByBackend(options);
       break;
@@ -84,6 +97,7 @@ async function generateRoutes(
       resultRoutes = await generateRoutesByFrontend(
         routes,
         roles || [],
+        permissions || [],
         forbiddenComponent,
       );
       break;

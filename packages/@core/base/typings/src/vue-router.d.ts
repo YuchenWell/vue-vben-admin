@@ -1,6 +1,8 @@
 import type { Component } from 'vue';
 import type { Router, RouteRecordRaw } from 'vue-router';
 
+import type { MenuInfo } from './menu-info';
+
 interface RouteMeta {
   /**
    * 激活图标（菜单/tab）
@@ -110,6 +112,10 @@ interface RouteMeta {
    */
   order?: number;
   /**
+   * 需要特定的权限才可以访问
+   */
+  permission?: string;
+  /**
    * 菜单所携带的参数
    */
   query?: Recordable;
@@ -132,9 +138,11 @@ type ComponentRecordType = Record<string, () => Promise<Component>>;
 
 interface GenerateMenuAndRoutesOptions {
   fetchMenuListAsync?: () => Promise<RouteRecordStringComponent[]>;
+  fetchUserMenuListAsync?: () => Promise<MenuInfo[]>;
   forbiddenComponent?: RouteRecordRaw['component'];
   layoutMap?: ComponentRecordType;
   pageMap?: ComponentRecordType;
+  permissions?: string[];
   roles?: string[];
   router: Router;
   routes: RouteRecordRaw[];
