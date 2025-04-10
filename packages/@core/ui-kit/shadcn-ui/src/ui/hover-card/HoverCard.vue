@@ -1,9 +1,3 @@
-<template>
-  <HoverCardRoot v-bind="forwarded">
-    <slot></slot>
-  </HoverCardRoot>
-</template>
-
 <script setup lang="ts">
 import type { HoverCardRootEmits, HoverCardRootProps } from 'radix-vue';
 
@@ -14,3 +8,9 @@ const emits = defineEmits<HoverCardRootEmits>();
 
 const forwarded = useForwardPropsEmits(props, emits);
 </script>
+
+<template>
+  <HoverCardRoot v-bind="forwarded">
+    <slot></slot>
+  </HoverCardRoot>
+</template>

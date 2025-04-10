@@ -1,3 +1,11 @@
+<script lang="ts" setup>
+import { cn } from '@vben-core/shared/utils';
+
+const props = defineProps<{
+  class?: any;
+}>();
+</script>
+
 <template>
   <ol
     :class="
@@ -10,11 +18,3 @@
     <slot></slot>
   </ol>
 </template>
-
-<script lang="ts" setup>
-import { cn } from '@vben-core/shared/utils';
-
-const props = defineProps<{
-  class?: any;
-}>();
-</script>

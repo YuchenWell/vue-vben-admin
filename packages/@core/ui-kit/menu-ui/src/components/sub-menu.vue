@@ -1,85 +1,3 @@
-<template>
-  <li
-    :class="[
-      b(),
-      is('opened', opened),
-      is('active', active),
-      is('disabled', disabled),
-    ]"
-    @focus="handleMouseenter"
-    @mouseenter="handleMouseenter"
-    @mouseleave="() => handleMouseleave()"
-  >
-    <template v-if="rootMenu.isMenuPopup">
-      <VbenHoverCard
-        :content-class="[
-          rootMenu.theme,
-          nsMenu.e('popup-container'),
-          is(rootMenu.theme, true),
-          opened ? '' : 'hidden',
-        ]"
-        :content-props="contentProps"
-        :open="true"
-        :open-delay="0"
-      >
-        <template #trigger>
-          <SubMenuContent
-            :class="is('active', active)"
-            :icon="menuIcon"
-            :is-menu-more="isSubMenuMore"
-            :is-top-level-menu-submenu="isTopLevelMenuSubmenu"
-            :level="currentLevel"
-            :path="path"
-            @click.stop="handleClick"
-          >
-            <template #title>
-              <slot name="title"></slot>
-            </template>
-          </SubMenuContent>
-        </template>
-        <div
-          :class="[nsMenu.is(mode, true), nsMenu.e('popup')]"
-          @focus="(e) => handleMouseenter(e, 100)"
-          @mouseenter="(e) => handleMouseenter(e, 100)"
-          @mouseleave="() => handleMouseleave(true)"
-        >
-          <ul
-            :class="[nsMenu.b(), is('rounded', rounded)]"
-            :style="subMenuStyle"
-          >
-            <slot></slot>
-          </ul>
-        </div>
-      </VbenHoverCard>
-    </template>
-
-    <template v-else>
-      <SubMenuContent
-        :class="is('active', active)"
-        :icon="menuIcon"
-        :is-menu-more="isSubMenuMore"
-        :is-top-level-menu-submenu="isTopLevelMenuSubmenu"
-        :level="currentLevel"
-        :path="path"
-        @click.stop="handleClick"
-      >
-        <slot name="content"></slot>
-        <template #title>
-          <slot name="title"></slot>
-        </template>
-      </SubMenuContent>
-      <CollapseTransition>
-        <ul
-          v-show="opened"
-          :class="[nsMenu.b(), is('rounded', rounded)]"
-          :style="subMenuStyle"
-        >
-          <slot></slot>
-        </ul>
-      </CollapseTransition>
-    </template>
-  </li>
-</template>
 <script lang="ts" setup>
 import type { HoverCardContentProps } from '@vben-core/shadcn-ui';
 
@@ -271,3 +189,85 @@ onBeforeUnmount(() => {
   rootMenu?.removeSubMenu?.(item);
 });
 </script>
+<template>
+  <li
+    :class="[
+      b(),
+      is('opened', opened),
+      is('active', active),
+      is('disabled', disabled),
+    ]"
+    @focus="handleMouseenter"
+    @mouseenter="handleMouseenter"
+    @mouseleave="() => handleMouseleave()"
+  >
+    <template v-if="rootMenu.isMenuPopup">
+      <VbenHoverCard
+        :content-class="[
+          rootMenu.theme,
+          nsMenu.e('popup-container'),
+          is(rootMenu.theme, true),
+          opened ? '' : 'hidden',
+        ]"
+        :content-props="contentProps"
+        :open="true"
+        :open-delay="0"
+      >
+        <template #trigger>
+          <SubMenuContent
+            :class="is('active', active)"
+            :icon="menuIcon"
+            :is-menu-more="isSubMenuMore"
+            :is-top-level-menu-submenu="isTopLevelMenuSubmenu"
+            :level="currentLevel"
+            :path="path"
+            @click.stop="handleClick"
+          >
+            <template #title>
+              <slot name="title"></slot>
+            </template>
+          </SubMenuContent>
+        </template>
+        <div
+          :class="[nsMenu.is(mode, true), nsMenu.e('popup')]"
+          @focus="(e) => handleMouseenter(e, 100)"
+          @mouseenter="(e) => handleMouseenter(e, 100)"
+          @mouseleave="() => handleMouseleave(true)"
+        >
+          <ul
+            :class="[nsMenu.b(), is('rounded', rounded)]"
+            :style="subMenuStyle"
+          >
+            <slot></slot>
+          </ul>
+        </div>
+      </VbenHoverCard>
+    </template>
+
+    <template v-else>
+      <SubMenuContent
+        :class="is('active', active)"
+        :icon="menuIcon"
+        :is-menu-more="isSubMenuMore"
+        :is-top-level-menu-submenu="isTopLevelMenuSubmenu"
+        :level="currentLevel"
+        :path="path"
+        @click.stop="handleClick"
+      >
+        <slot name="content"></slot>
+        <template #title>
+          <slot name="title"></slot>
+        </template>
+      </SubMenuContent>
+      <CollapseTransition>
+        <ul
+          v-show="opened"
+          :class="[nsMenu.b(), is('rounded', rounded)]"
+          :style="subMenuStyle"
+        >
+          <slot></slot>
+        </ul>
+      </CollapseTransition>
+    </template>
+  </li>
+</template>

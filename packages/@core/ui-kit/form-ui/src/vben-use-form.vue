@@ -1,45 +1,3 @@
-<template>
-  <Form
-    @keydown.enter="handleKeyDownEnter"
-    v-bind="forward"
-    :collapsed="state.collapsed"
-    :component-bind-event-map="COMPONENT_BIND_EVENT_MAP"
-    :component-map="COMPONENT_MAP"
-    :form="form"
-    :global-common-config="DEFAULT_FORM_COMMON_CONFIG"
-  >
-    <template
-      v-for="slotName in delegatedSlots"
-      :key="slotName"
-      #[slotName]="slotProps"
-    >
-      <slot :name="slotName" v-bind="slotProps"></slot>
-    </template>
-    <template #default="slotProps">
-      <slot v-bind="slotProps">
-        <FormActions
-          v-if="forward.showDefaultActions"
-          :model-value="state.collapsed"
-          @update:model-value="handleUpdateCollapsed"
-        >
-          <template #reset-before="resetSlotProps">
-            <slot name="reset-before" v-bind="resetSlotProps"></slot>
-          </template>
-          <template #submit-before="submitSlotProps">
-            <slot name="submit-before" v-bind="submitSlotProps"></slot>
-          </template>
-          <template #expand-before="expandBeforeSlotProps">
-            <slot name="expand-before" v-bind="expandBeforeSlotProps"></slot>
-          </template>
-          <template #expand-after="expandAfterSlotProps">
-            <slot name="expand-after" v-bind="expandAfterSlotProps"></slot>
-          </template>
-        </FormActions>
-      </slot>
-    </template>
-  </Form>
-</template>
-
 <script setup lang="ts">
 import type { ExtendedFormApi, VbenFormProps } from './types';
 
@@ -115,3 +73,45 @@ onMounted(async () => {
   watch(() => form.values, handleValuesChangeDebounced, { deep: true });
 });
 </script>
+
+<template>
+  <Form
+    @keydown.enter="handleKeyDownEnter"
+    v-bind="forward"
+    :collapsed="state.collapsed"
+    :component-bind-event-map="COMPONENT_BIND_EVENT_MAP"
+    :component-map="COMPONENT_MAP"
+    :form="form"
+    :global-common-config="DEFAULT_FORM_COMMON_CONFIG"
+  >
+    <template
+      v-for="slotName in delegatedSlots"
+      :key="slotName"
+      #[slotName]="slotProps"
+    >
+      <slot :name="slotName" v-bind="slotProps"></slot>
+    </template>
+    <template #default="slotProps">
+      <slot v-bind="slotProps">
+        <FormActions
+          v-if="forward.showDefaultActions"
+          :model-value="state.collapsed"
+          @update:model-value="handleUpdateCollapsed"
+        >
+          <template #reset-before="resetSlotProps">
+            <slot name="reset-before" v-bind="resetSlotProps"></slot>
+          </template>
+          <template #submit-before="submitSlotProps">
+            <slot name="submit-before" v-bind="submitSlotProps"></slot>
+          </template>
+          <template #expand-before="expandBeforeSlotProps">
+            <slot name="expand-before" v-bind="expandBeforeSlotProps"></slot>
+          </template>
+          <template #expand-after="expandAfterSlotProps">
+            <slot name="expand-after" v-bind="expandAfterSlotProps"></slot>
+          </template>
+        </FormActions>
+      </slot>
+    </template>
+  </Form>
+</template>

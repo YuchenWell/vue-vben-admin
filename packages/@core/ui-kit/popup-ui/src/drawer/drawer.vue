@@ -1,3 +1,137 @@
+<script lang="ts" setup>
+import type { DrawerProps, ExtendedDrawerApi } from './drawer';
+
+import { computed, provide, ref, useId, watch } from 'vue';
+
+import {
+  useIsMobile,
+  usePriorityValues,
+  useSimpleLocale,
+} from '@vben-core/composables';
+import { X } from '@vben-core/icons';
+import {
+  Separator,
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  VbenButton,
+  VbenHelpTooltip,
+  VbenIconButton,
+  VbenLoading,
+  VisuallyHidden,
+} from '@vben-core/shadcn-ui';
+import { ELEMENT_ID_MAIN_CONTENT } from '@vben-core/shared/constants';
+import { globalShareState } from '@vben-core/shared/global-state';
+import { cn } from '@vben-core/shared/utils';
+
+interface Props extends DrawerProps {
+  drawerApi?: ExtendedDrawerApi;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  appendToMain: false,
+  closeIconPlacement: 'right',
+  drawerApi: undefined,
+  submitting: false,
+  zIndex: 1000,
+});
+
+const components = globalShareState.getComponents();
+
+const id = useId();
+provide('DISMISSABLE_DRAWER_ID', id);
+
+const wrapperRef = ref<HTMLElement>();
+const { $t } = useSimpleLocale();
+const { isMobile } = useIsMobile();
+
+const state = props.drawerApi?.useStore?.();
+
+const {
+  appendToMain,
+  cancelText,
+  class: drawerClass,
+  closable,
+  closeIconPlacement,
+  closeOnClickModal,
+  closeOnPressEscape,
+  confirmLoading,
+  confirmText,
+  contentClass,
+  description,
+  footer: showFooter,
+  footerClass,
+  header: showHeader,
+  headerClass,
+  loading: showLoading,
+  modal,
+  openAutoFocus,
+  overlayBlur,
+  placement,
+  showCancelButton,
+  showConfirmButton,
+  submitting,
+  title,
+  titleTooltip,
+  zIndex,
+} = usePriorityValues(props, state);
+
+watch(
+  () => showLoading.value,
+  (v) => {
+    if (v && wrapperRef.value) {
+      wrapperRef.value.scrollTo({
+        // behavior: 'smooth',
+        top: 0,
+      });
+    }
+  },
+);
+
+function interactOutside(e: Event) {
+  if (!closeOnClickModal.value || submitting.value) {
+    e.preventDefault();
+  }
+}
+function escapeKeyDown(e: KeyboardEvent) {
+  if (!closeOnPressEscape.value || submitting.value) {
+    e.preventDefault();
+  }
+}
+// pointer-down-outside
+function pointerDownOutside(e: Event) {
+  const target = e.target as HTMLElement;
+  const dismissableDrawer = target?.dataset.dismissableDrawer;
+  if (
+    submitting.value ||
+    !closeOnClickModal.value ||
+    dismissableDrawer !== id
+  ) {
+    e.preventDefault();
+  }
+}
+
+function handerOpenAutoFocus(e: Event) {
+  if (!openAutoFocus.value) {
+    e?.preventDefault();
+  }
+}
+
+function handleFocusOutside(e: Event) {
+  e.preventDefault();
+  e.stopPropagation();
+}
+
+const getAppendTo = computed(() => {
+  return appendToMain.value
+    ? `#${ELEMENT_ID_MAIN_CONTENT}>div:not(.absolute)>div`
+    : undefined;
+});
+</script>
 <template>
   <Sheet
     :modal="false"
@@ -157,137 +291,3 @@
     </SheetContent>
   </Sheet>
 </template>
-<script lang="ts" setup>
-import type { DrawerProps, ExtendedDrawerApi } from './drawer';
-
-import { computed, provide, ref, useId, watch } from 'vue';
-
-import {
-  useIsMobile,
-  usePriorityValues,
-  useSimpleLocale,
-} from '@vben-core/composables';
-import { X } from '@vben-core/icons';
-import {
-  Separator,
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  VbenButton,
-  VbenHelpTooltip,
-  VbenIconButton,
-  VbenLoading,
-  VisuallyHidden,
-} from '@vben-core/shadcn-ui';
-import { ELEMENT_ID_MAIN_CONTENT } from '@vben-core/shared/constants';
-import { globalShareState } from '@vben-core/shared/global-state';
-import { cn } from '@vben-core/shared/utils';
-
-interface Props extends DrawerProps {
-  drawerApi?: ExtendedDrawerApi;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  appendToMain: false,
-  closeIconPlacement: 'right',
-  drawerApi: undefined,
-  submitting: false,
-  zIndex: 1000,
-});
-
-const components = globalShareState.getComponents();
-
-const id = useId();
-provide('DISMISSABLE_DRAWER_ID', id);
-
-const wrapperRef = ref<HTMLElement>();
-const { $t } = useSimpleLocale();
-const { isMobile } = useIsMobile();
-
-const state = props.drawerApi?.useStore?.();
-
-const {
-  appendToMain,
-  cancelText,
-  class: drawerClass,
-  closable,
-  closeIconPlacement,
-  closeOnClickModal,
-  closeOnPressEscape,
-  confirmLoading,
-  confirmText,
-  contentClass,
-  description,
-  footer: showFooter,
-  footerClass,
-  header: showHeader,
-  headerClass,
-  loading: showLoading,
-  modal,
-  openAutoFocus,
-  overlayBlur,
-  placement,
-  showCancelButton,
-  showConfirmButton,
-  submitting,
-  title,
-  titleTooltip,
-  zIndex,
-} = usePriorityValues(props, state);
-
-watch(
-  () => showLoading.value,
-  (v) => {
-    if (v && wrapperRef.value) {
-      wrapperRef.value.scrollTo({
-        // behavior: 'smooth',
-        top: 0,
-      });
-    }
-  },
-);
-
-function interactOutside(e: Event) {
-  if (!closeOnClickModal.value || submitting.value) {
-    e.preventDefault();
-  }
-}
-function escapeKeyDown(e: KeyboardEvent) {
-  if (!closeOnPressEscape.value || submitting.value) {
-    e.preventDefault();
-  }
-}
-// pointer-down-outside
-function pointerDownOutside(e: Event) {
-  const target = e.target as HTMLElement;
-  const dismissableDrawer = target?.dataset.dismissableDrawer;
-  if (
-    submitting.value ||
-    !closeOnClickModal.value ||
-    dismissableDrawer !== id
-  ) {
-    e.preventDefault();
-  }
-}
-
-function handerOpenAutoFocus(e: Event) {
-  if (!openAutoFocus.value) {
-    e?.preventDefault();
-  }
-}
-
-function handleFocusOutside(e: Event) {
-  e.preventDefault();
-  e.stopPropagation();
-}
-
-const getAppendTo = computed(() => {
-  return appendToMain.value
-    ? `#${ELEMENT_ID_MAIN_CONTENT}>div:not(.absolute)>div`
-    : undefined;
-});
-</script>

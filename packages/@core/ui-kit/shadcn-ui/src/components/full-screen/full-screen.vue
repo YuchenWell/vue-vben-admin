@@ -1,9 +1,3 @@
-<template>
-  <VbenIconButton @click="toggle">
-    <Minimize v-if="isFullscreen" class="text-foreground size-4" />
-    <Maximize v-else class="text-foreground size-4" />
-  </VbenIconButton>
-</template>
 <script lang="ts" setup>
 import { Maximize, Minimize } from '@vben-core/icons';
 
@@ -26,3 +20,9 @@ isFullscreen.value = !!(
   document.msFullscreenElement
 );
 </script>
+<template>
+  <VbenIconButton @click="toggle">
+    <Minimize v-if="isFullscreen" class="text-foreground size-4" />
+    <Maximize v-else class="text-foreground size-4" />
+  </VbenIconButton>
+</template>

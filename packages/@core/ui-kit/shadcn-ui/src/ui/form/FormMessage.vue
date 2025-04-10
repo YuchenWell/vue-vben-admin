@@ -1,12 +1,3 @@
-<template>
-  <ErrorMessage
-    :id="formMessageId"
-    :name="toValue(name)"
-    as="p"
-    class="text-destructive text-[0.8rem]"
-  />
-</template>
-
 <script lang="ts" setup>
 import { toValue } from 'vue';
 
@@ -16,3 +7,12 @@ import { useFormField } from './useFormField';
 
 const { formMessageId, name } = useFormField();
 </script>
+
+<template>
+  <ErrorMessage
+    :id="formMessageId"
+    :name="toValue(name)"
+    as="p"
+    class="text-destructive text-[0.8rem]"
+  />
+</template>

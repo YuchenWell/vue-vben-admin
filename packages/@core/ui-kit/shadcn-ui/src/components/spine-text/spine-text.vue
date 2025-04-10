@@ -1,8 +1,3 @@
-<template>
-  <div :style="style" class="vben-spine-text !bg-clip-text text-transparent">
-    <slot></slot>
-  </div>
-</template>
 <script lang="ts" setup>
 import { computed } from 'vue';
 
@@ -20,6 +15,11 @@ const style = computed(() => {
   };
 });
 </script>
+<template>
+  <div :style="style" class="vben-spine-text !bg-clip-text text-transparent">
+    <slot></slot>
+  </div>
+</template>
 <style>
 .vben-spine-text {
   background:

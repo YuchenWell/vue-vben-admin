@@ -1,3 +1,12 @@
+<script lang="ts" setup>
+import type { DropdownMenuProps } from '@vben-core/shadcn-ui';
+
+import { ChevronDown } from '@vben-core/icons';
+import { VbenDropdownMenu } from '@vben-core/shadcn-ui';
+
+defineProps<DropdownMenuProps>();
+</script>
+
 <template>
   <VbenDropdownMenu :menus="menus" :modal="false">
     <div
@@ -7,12 +16,3 @@
     </div>
   </VbenDropdownMenu>
 </template>
-
-<script lang="ts" setup>
-import type { DropdownMenuProps } from '@vben-core/shadcn-ui';
-
-import { ChevronDown } from '@vben-core/icons';
-import { VbenDropdownMenu } from '@vben-core/shadcn-ui';
-
-defineProps<DropdownMenuProps>();
-</script>

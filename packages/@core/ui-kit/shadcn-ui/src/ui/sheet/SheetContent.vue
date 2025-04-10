@@ -1,37 +1,3 @@
-<template>
-  <DialogPortal :to="appendTo">
-    <Transition name="fade">
-      <SheetOverlay
-        v-if="open && modal"
-        :style="{
-          ...(zIndex ? { zIndex } : {}),
-          position,
-          backdropFilter:
-            overlayBlur && overlayBlur > 0 ? `blur(${overlayBlur}px)` : 'none',
-        }"
-      />
-    </Transition>
-    <DialogContent
-      ref="contentRef"
-      :class="cn('z-popup', sheetVariants({ side }), props.class)"
-      :style="{
-        ...(zIndex ? { zIndex } : {}),
-        position,
-      }"
-      @animationend="onAnimationEnd"
-      v-bind="{ ...forwarded, ...$attrs }"
-    >
-      <slot></slot>
-
-      <!-- <DialogClose
-        class="data-[state=open]:bg-secondary absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none"
-      >
-        <Cross2Icon class="h-5 w-" />
-      </DialogClose> -->
-    </DialogContent>
-  </DialogPortal>
-</template>
-
 <script setup lang="ts">
 import type { DialogContentEmits, DialogContentProps } from 'radix-vue';
 
@@ -105,3 +71,37 @@ function onAnimationEnd(event: AnimationEvent) {
   }
 }
 </script>
+
+<template>
+  <DialogPortal :to="appendTo">
+    <Transition name="fade">
+      <SheetOverlay
+        v-if="open && modal"
+        :style="{
+          ...(zIndex ? { zIndex } : {}),
+          position,
+          backdropFilter:
+            overlayBlur && overlayBlur > 0 ? `blur(${overlayBlur}px)` : 'none',
+        }"
+      />
+    </Transition>
+    <DialogContent
+      ref="contentRef"
+      :class="cn('z-popup', sheetVariants({ side }), props.class)"
+      :style="{
+        ...(zIndex ? { zIndex } : {}),
+        position,
+      }"
+      @animationend="onAnimationEnd"
+      v-bind="{ ...forwarded, ...$attrs }"
+    >
+      <slot></slot>
+
+      <!-- <DialogClose
+        class="data-[state=open]:bg-secondary absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none"
+      >
+        <Cross2Icon class="h-5 w-" />
+      </DialogClose> -->
+    </DialogContent>
+  </DialogPortal>
+</template>

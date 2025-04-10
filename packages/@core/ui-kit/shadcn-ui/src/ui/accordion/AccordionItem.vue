@@ -1,9 +1,3 @@
-<template>
-  <AccordionItem v-bind="forwardedProps" :class="cn('border-b', props.class)">
-    <slot></slot>
-  </AccordionItem>
-</template>
-
 <script setup lang="ts">
 import type { AccordionItemProps } from 'radix-vue';
 
@@ -23,3 +17,9 @@ const delegatedProps = computed(() => {
 
 const forwardedProps = useForwardProps(delegatedProps);
 </script>
+
+<template>
+  <AccordionItem v-bind="forwardedProps" :class="cn('border-b', props.class)">
+    <slot></slot>
+  </AccordionItem>
+</template>

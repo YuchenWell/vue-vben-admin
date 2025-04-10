@@ -1,36 +1,3 @@
-<template>
-  <Card :style="rootStyles" aria-labelledby="captcha-title" role="region">
-    <CardHeader class="p-0">
-      <CardTitle id="captcha-title" class="flex items-center justify-between">
-        <template v-if="$slots.title">
-          <slot name="title">{{ $t('ui.captcha.title') }}</slot>
-        </template>
-        <template v-else>
-          <span>{{ title }}</span>
-        </template>
-        <div class="flex items-center justify-end">
-          <slot name="extra"></slot>
-        </div>
-      </CardTitle>
-    </CardHeader>
-    <CardContent class="relative mt-2 flex w-full overflow-hidden rounded p-0">
-      <img
-        v-show="captchaImage"
-        :alt="$t('ui.captcha.alt')"
-        :src="captchaImage"
-        :style="captchaStyles"
-        class="relative z-10"
-        @click="handleClick"
-      />
-      <div class="absolute inset-0">
-        <slot></slot>
-      </div>
-    </CardContent>
-    <CardFooter class="mt-2 flex justify-between p-0">
-      <slot name="footer"></slot>
-    </CardFooter>
-  </Card>
-</template>
 <script setup lang="ts">
 import type { PointSelectionCaptchaCardProps } from '../types';
 
@@ -82,3 +49,36 @@ function handleClick(e: MouseEvent) {
   emit('click', e);
 }
 </script>
+<template>
+  <Card :style="rootStyles" aria-labelledby="captcha-title" role="region">
+    <CardHeader class="p-0">
+      <CardTitle id="captcha-title" class="flex items-center justify-between">
+        <template v-if="$slots.title">
+          <slot name="title">{{ $t('ui.captcha.title') }}</slot>
+        </template>
+        <template v-else>
+          <span>{{ title }}</span>
+        </template>
+        <div class="flex items-center justify-end">
+          <slot name="extra"></slot>
+        </div>
+      </CardTitle>
+    </CardHeader>
+    <CardContent class="relative mt-2 flex w-full overflow-hidden rounded p-0">
+      <img
+        v-show="captchaImage"
+        :alt="$t('ui.captcha.alt')"
+        :src="captchaImage"
+        :style="captchaStyles"
+        class="relative z-10"
+        @click="handleClick"
+      />
+      <div class="absolute inset-0">
+        <slot></slot>
+      </div>
+    </CardContent>
+    <CardFooter class="mt-2 flex justify-between p-0">
+      <slot name="footer"></slot>
+    </CardFooter>
+  </Card>
+</template>

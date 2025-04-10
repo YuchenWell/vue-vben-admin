@@ -1,20 +1,3 @@
-<template>
-  <NumberFieldIncrement
-    data-slot="increment"
-    v-bind="forwarded"
-    :class="
-      cn(
-        'absolute right-0 top-1/2 -translate-y-1/2 p-3 disabled:cursor-not-allowed disabled:opacity-20',
-        props.class,
-      )
-    "
-  >
-    <slot>
-      <Plus class="h-4 w-4" />
-    </slot>
-  </NumberFieldIncrement>
-</template>
-
 <script setup lang="ts">
 import type { NumberFieldIncrementProps } from 'radix-vue';
 
@@ -35,3 +18,20 @@ const delegatedProps = computed(() => {
 
 const forwarded = useForwardProps(delegatedProps);
 </script>
+
+<template>
+  <NumberFieldIncrement
+    data-slot="increment"
+    v-bind="forwarded"
+    :class="
+      cn(
+        'absolute right-0 top-1/2 -translate-y-1/2 p-3 disabled:cursor-not-allowed disabled:opacity-20',
+        props.class,
+      )
+    "
+  >
+    <slot>
+      <Plus class="h-4 w-4" />
+    </slot>
+  </NumberFieldIncrement>
+</template>

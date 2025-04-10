@@ -1,12 +1,3 @@
-<template>
-  <DialogDescription
-    :class="cn('text-muted-foreground text-sm', props.class)"
-    v-bind="delegatedProps"
-  >
-    <slot></slot>
-  </DialogDescription>
-</template>
-
 <script setup lang="ts">
 import type { DialogDescriptionProps } from 'radix-vue';
 
@@ -24,3 +15,12 @@ const delegatedProps = computed(() => {
   return delegated;
 });
 </script>
+
+<template>
+  <DialogDescription
+    :class="cn('text-muted-foreground text-sm', props.class)"
+    v-bind="delegatedProps"
+  >
+    <slot></slot>
+  </DialogDescription>
+</template>

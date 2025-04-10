@@ -1,3 +1,25 @@
+<script lang="ts" setup>
+import type { DropdownMenuProps } from './interface';
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '../../ui';
+
+interface Props extends DropdownMenuProps {}
+
+defineOptions({ name: 'DropdownRadioMenu' });
+withDefaults(defineProps<Props>(), {});
+
+const modelValue = defineModel<string>();
+
+function handleItemClick(value: string) {
+  modelValue.value = value;
+}
+</script>
 <template>
   <DropdownMenu>
     <DropdownMenuTrigger as-child class="flex items-center gap-1">
@@ -28,25 +50,3 @@
     </DropdownMenuContent>
   </DropdownMenu>
 </template>
-<script lang="ts" setup>
-import type { DropdownMenuProps } from './interface';
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '../../ui';
-
-interface Props extends DropdownMenuProps {}
-
-defineOptions({ name: 'DropdownRadioMenu' });
-withDefaults(defineProps<Props>(), {});
-
-const modelValue = defineModel<string>();
-
-function handleItemClick(value: string) {
-  modelValue.value = value;
-}
-</script>

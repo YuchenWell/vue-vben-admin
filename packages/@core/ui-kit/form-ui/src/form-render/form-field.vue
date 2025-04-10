@@ -1,97 +1,3 @@
-<template>
-  <FormField
-    v-if="isIf"
-    v-bind="fieldProps"
-    v-slot="slotProps"
-    :name="fieldName"
-  >
-    <FormItem
-      v-show="isShow"
-      :class="{
-        'form-valid-error': isInValid,
-        'form-is-required': shouldRequired,
-        'flex-col': isVertical,
-        'flex-row items-center': !isVertical,
-        'pb-6': !compact,
-        'pb-2': compact,
-      }"
-      class="relative flex"
-      v-bind="$attrs"
-    >
-      <FormLabel
-        v-if="!hideLabel"
-        :class="
-          cn(
-            'flex leading-6',
-            {
-              'mr-2 flex-shrink-0 justify-end': !isVertical,
-              'mb-1 flex-row': isVertical,
-            },
-            labelClass,
-          )
-        "
-        :help="help"
-        :colon="colon"
-        :label="label"
-        :required="shouldRequired && !hideRequiredMark"
-        :style="labelStyle"
-      >
-        <template v-if="label">
-          <VbenRenderContent :content="label" />
-        </template>
-      </FormLabel>
-      <div class="flex-auto overflow-hidden p-[1px]">
-        <div :class="cn('relative flex w-full items-center', wrapperClass)">
-          <FormControl :class="cn(controlClass)">
-            <slot
-              v-bind="{
-                ...slotProps,
-                ...createComponentProps(slotProps),
-                disabled: shouldDisabled,
-                isInValid,
-              }"
-            >
-              <component
-                :is="FieldComponent"
-                ref="fieldComponentRef"
-                :class="{
-                  'border-destructive focus:border-destructive hover:border-destructive/80 focus:shadow-[0_0_0_2px_rgba(255,38,5,0.06)]':
-                    isInValid,
-                }"
-                v-bind="createComponentProps(slotProps)"
-                :disabled="shouldDisabled"
-              >
-                <template
-                  v-for="name in renderContentKey"
-                  :key="name"
-                  #[name]="renderSlotProps"
-                >
-                  <VbenRenderContent
-                    :content="customContentRender[name]"
-                    v-bind="{ ...renderSlotProps, formContext: slotProps }"
-                  />
-                </template>
-                <!-- <slot></slot> -->
-              </component>
-            </slot>
-          </FormControl>
-          <!-- 自定义后缀 -->
-          <div v-if="suffix" class="ml-1">
-            <VbenRenderContent :content="suffix" />
-          </div>
-          <FormDescription v-if="description" class="ml-1">
-            <VbenRenderContent :content="description" />
-          </FormDescription>
-        </div>
-
-        <Transition name="slide-up">
-          <FormMessage class="absolute bottom-1" />
-        </Transition>
-      </div>
-    </FormItem>
-  </FormField>
-</template>
-
 <script setup lang="ts">
 import type { ZodType } from 'zod';
 
@@ -372,3 +278,97 @@ onUnmounted(() => {
   }
 });
 </script>
+
+<template>
+  <FormField
+    v-if="isIf"
+    v-bind="fieldProps"
+    v-slot="slotProps"
+    :name="fieldName"
+  >
+    <FormItem
+      v-show="isShow"
+      :class="{
+        'form-valid-error': isInValid,
+        'form-is-required': shouldRequired,
+        'flex-col': isVertical,
+        'flex-row items-center': !isVertical,
+        'pb-6': !compact,
+        'pb-2': compact,
+      }"
+      class="relative flex"
+      v-bind="$attrs"
+    >
+      <FormLabel
+        v-if="!hideLabel"
+        :class="
+          cn(
+            'flex leading-6',
+            {
+              'mr-2 flex-shrink-0 justify-end': !isVertical,
+              'mb-1 flex-row': isVertical,
+            },
+            labelClass,
+          )
+        "
+        :help="help"
+        :colon="colon"
+        :label="label"
+        :required="shouldRequired && !hideRequiredMark"
+        :style="labelStyle"
+      >
+        <template v-if="label">
+          <VbenRenderContent :content="label" />
+        </template>
+      </FormLabel>
+      <div class="flex-auto overflow-hidden p-[1px]">
+        <div :class="cn('relative flex w-full items-center', wrapperClass)">
+          <FormControl :class="cn(controlClass)">
+            <slot
+              v-bind="{
+                ...slotProps,
+                ...createComponentProps(slotProps),
+                disabled: shouldDisabled,
+                isInValid,
+              }"
+            >
+              <component
+                :is="FieldComponent"
+                ref="fieldComponentRef"
+                :class="{
+                  'border-destructive focus:border-destructive hover:border-destructive/80 focus:shadow-[0_0_0_2px_rgba(255,38,5,0.06)]':
+                    isInValid,
+                }"
+                v-bind="createComponentProps(slotProps)"
+                :disabled="shouldDisabled"
+              >
+                <template
+                  v-for="name in renderContentKey"
+                  :key="name"
+                  #[name]="renderSlotProps"
+                >
+                  <VbenRenderContent
+                    :content="customContentRender[name]"
+                    v-bind="{ ...renderSlotProps, formContext: slotProps }"
+                  />
+                </template>
+                <!-- <slot></slot> -->
+              </component>
+            </slot>
+          </FormControl>
+          <!-- 自定义后缀 -->
+          <div v-if="suffix" class="ml-1">
+            <VbenRenderContent :content="suffix" />
+          </div>
+          <FormDescription v-if="description" class="ml-1">
+            <VbenRenderContent :content="description" />
+          </FormDescription>
+        </div>
+
+        <Transition name="slide-up">
+          <FormMessage class="absolute bottom-1" />
+        </Transition>
+      </div>
+    </FormItem>
+  </FormField>
+</template>

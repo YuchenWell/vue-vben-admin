@@ -1,20 +1,3 @@
-<template>
-  <ToggleGroupItem
-    v-bind="forwardedProps"
-    :class="
-      cn(
-        toggleVariants({
-          variant: context?.variant || variant,
-          size: context?.size || size,
-        }),
-        props.class,
-      )
-    "
-  >
-    <slot></slot>
-  </ToggleGroupItem>
-</template>
-
 <script setup lang="ts">
 import type { VariantProps } from 'class-variance-authority';
 import type { ToggleGroupItemProps } from 'radix-vue';
@@ -46,3 +29,20 @@ const delegatedProps = computed(() => {
 
 const forwardedProps = useForwardProps(delegatedProps);
 </script>
+
+<template>
+  <ToggleGroupItem
+    v-bind="forwardedProps"
+    :class="
+      cn(
+        toggleVariants({
+          variant: context?.variant || variant,
+          size: context?.size || size,
+        }),
+        props.class,
+      )
+    "
+  >
+    <slot></slot>
+  </ToggleGroupItem>
+</template>

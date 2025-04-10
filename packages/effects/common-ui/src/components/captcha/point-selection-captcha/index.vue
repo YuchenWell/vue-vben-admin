@@ -1,66 +1,3 @@
-<template>
-  <CaptchaCard
-    :captcha-image="captchaImage"
-    :height="height"
-    :padding-x="paddingX"
-    :padding-y="paddingY"
-    :title="title"
-    :width="width"
-    @click="handleClick"
-  >
-    <template #title>
-      <slot name="title">{{ $t('ui.captcha.title') }}</slot>
-    </template>
-
-    <template #extra>
-      <VbenIconButton
-        :aria-label="$t('ui.captcha.refreshAriaLabel')"
-        class="ml-1"
-        @click="handleRefresh"
-      >
-        <RotateCw class="size-5" />
-      </VbenIconButton>
-      <VbenButton
-        v-if="showConfirm"
-        :aria-label="$t('ui.captcha.confirmAriaLabel')"
-        class="ml-2"
-        size="sm"
-        @click="handleConfirm"
-      >
-        {{ $t('ui.captcha.confirm') }}
-      </VbenButton>
-    </template>
-
-    <div
-      v-for="(point, index) in points"
-      :key="index"
-      :aria-label="$t('ui.captcha.pointAriaLabel') + (index + 1)"
-      :style="{
-        top: `${point.y - POINT_OFFSET}px`,
-        left: `${point.x - POINT_OFFSET}px`,
-      }"
-      class="bg-primary text-primary-50 border-primary-50 absolute z-20 flex h-5 w-5 cursor-default items-center justify-center rounded-full border-2"
-      role="button"
-      tabindex="0"
-    >
-      {{ index + 1 }}
-    </div>
-    <template #footer>
-      <img
-        v-if="hintImage"
-        :alt="$t('ui.captcha.alt')"
-        :src="hintImage"
-        class="border-border h-10 w-full rounded border"
-      />
-      <div
-        v-else-if="hintText"
-        class="border-border flex-center h-10 w-full rounded border"
-      >
-        {{ `${$t('ui.captcha.clickInOrder')}` + `【${hintText}】` }}
-      </div>
-    </template>
-  </CaptchaCard>
-</template>
 <script setup lang="ts">
 import type { CaptchaPoint, PointSelectionCaptchaProps } from '../types';
 
@@ -174,3 +111,66 @@ function handleConfirm() {
   }
 }
 </script>
+<template>
+  <CaptchaCard
+    :captcha-image="captchaImage"
+    :height="height"
+    :padding-x="paddingX"
+    :padding-y="paddingY"
+    :title="title"
+    :width="width"
+    @click="handleClick"
+  >
+    <template #title>
+      <slot name="title">{{ $t('ui.captcha.title') }}</slot>
+    </template>
+
+    <template #extra>
+      <VbenIconButton
+        :aria-label="$t('ui.captcha.refreshAriaLabel')"
+        class="ml-1"
+        @click="handleRefresh"
+      >
+        <RotateCw class="size-5" />
+      </VbenIconButton>
+      <VbenButton
+        v-if="showConfirm"
+        :aria-label="$t('ui.captcha.confirmAriaLabel')"
+        class="ml-2"
+        size="sm"
+        @click="handleConfirm"
+      >
+        {{ $t('ui.captcha.confirm') }}
+      </VbenButton>
+    </template>
+
+    <div
+      v-for="(point, index) in points"
+      :key="index"
+      :aria-label="$t('ui.captcha.pointAriaLabel') + (index + 1)"
+      :style="{
+        top: `${point.y - POINT_OFFSET}px`,
+        left: `${point.x - POINT_OFFSET}px`,
+      }"
+      class="bg-primary text-primary-50 border-primary-50 absolute z-20 flex h-5 w-5 cursor-default items-center justify-center rounded-full border-2"
+      role="button"
+      tabindex="0"
+    >
+      {{ index + 1 }}
+    </div>
+    <template #footer>
+      <img
+        v-if="hintImage"
+        :alt="$t('ui.captcha.alt')"
+        :src="hintImage"
+        class="border-border h-10 w-full rounded border"
+      />
+      <div
+        v-else-if="hintText"
+        class="border-border flex-center h-10 w-full rounded border"
+      >
+        {{ `${$t('ui.captcha.clickInOrder')}` + `【${hintText}】` }}
+      </div>
+    </template>
+  </CaptchaCard>
+</template>

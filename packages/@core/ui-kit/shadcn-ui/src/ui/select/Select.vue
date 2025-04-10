@@ -1,9 +1,3 @@
-<template>
-  <SelectRoot v-bind="forwarded">
-    <slot></slot>
-  </SelectRoot>
-</template>
-
 <script setup lang="ts">
 import type { SelectRootEmits, SelectRootProps } from 'radix-vue';
 
@@ -14,3 +8,9 @@ const emits = defineEmits<SelectRootEmits>();
 
 const forwarded = useForwardPropsEmits(props, emits);
 </script>
+
+<template>
+  <SelectRoot v-bind="forwarded">
+    <slot></slot>
+  </SelectRoot>
+</template>

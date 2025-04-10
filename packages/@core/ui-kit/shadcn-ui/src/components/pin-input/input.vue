@@ -1,36 +1,3 @@
-<template>
-  <PinInput
-    :id="id"
-    v-model="inputValue"
-    :disabled="disabled"
-    class="flex w-full justify-between"
-    otp
-    placeholder="○"
-    type="number"
-    @complete="handleComplete"
-  >
-    <div class="relative flex w-full">
-      <PinInputGroup class="mr-2">
-        <PinInputInput
-          v-for="(item, index) in codeLength"
-          :key="item"
-          :index="index"
-        />
-      </PinInputGroup>
-      <VbenButton
-        :disabled="disabled"
-        :loading="btnLoading"
-        class="flex-grow"
-        size="lg"
-        variant="outline"
-        @click="handleSend"
-      >
-        {{ btnText }}
-      </VbenButton>
-    </div>
-  </PinInput>
-</template>
-
 <script setup lang="ts">
 import type { PinInputProps } from './types';
 
@@ -118,3 +85,36 @@ onBeforeUnmount(() => {
 
 const id = useId();
 </script>
+
+<template>
+  <PinInput
+    :id="id"
+    v-model="inputValue"
+    :disabled="disabled"
+    class="flex w-full justify-between"
+    otp
+    placeholder="○"
+    type="number"
+    @complete="handleComplete"
+  >
+    <div class="relative flex w-full">
+      <PinInputGroup class="mr-2">
+        <PinInputInput
+          v-for="(item, index) in codeLength"
+          :key="item"
+          :index="index"
+        />
+      </PinInputGroup>
+      <VbenButton
+        :disabled="disabled"
+        :loading="btnLoading"
+        class="flex-grow"
+        size="lg"
+        variant="outline"
+        @click="handleSend"
+      >
+        {{ btnText }}
+      </VbenButton>
+    </div>
+  </PinInput>
+</template>

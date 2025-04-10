@@ -1,7 +1,3 @@
-<template>
-  <img :alt="appName" :src="logo" :width="size" />
-</template>
-
 <script lang="ts" setup>
 import { computed } from 'vue';
 
@@ -19,3 +15,7 @@ defineProps<Props>();
 const appName = computed(() => preferences.app.name);
 const logo = computed(() => preferences.logo.smallSource);
 </script>
+
+<template>
+  <img :alt="appName" :src="logo" :width="size" />
+</template>

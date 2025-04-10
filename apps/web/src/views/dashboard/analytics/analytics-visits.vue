@@ -1,7 +1,3 @@
-<template>
-  <EchartsUI ref="chartRef" />
-</template>
-
 <script lang="ts" setup>
 import type { EchartsUIType } from '@vben/plugins/echarts';
 
@@ -53,3 +49,7 @@ onMounted(() => {
   });
 });
 </script>
+
+<template>
+  <EchartsUI ref="chartRef" />
+</template>

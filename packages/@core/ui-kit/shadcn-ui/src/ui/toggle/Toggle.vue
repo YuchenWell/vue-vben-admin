@@ -1,12 +1,3 @@
-<template>
-  <Toggle
-    v-bind="forwarded"
-    :class="cn(toggleVariants({ variant, size }), props.class)"
-  >
-    <slot></slot>
-  </Toggle>
-</template>
-
 <script setup lang="ts">
 import type { ToggleEmits, ToggleProps } from 'radix-vue';
 
@@ -45,3 +36,12 @@ const delegatedProps = computed(() => {
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
+
+<template>
+  <Toggle
+    v-bind="forwarded"
+    :class="cn(toggleVariants({ variant, size }), props.class)"
+  >
+    <slot></slot>
+  </Toggle>
+</template>

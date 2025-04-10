@@ -1,12 +1,3 @@
-<template>
-  <ToggleGroupRoot
-    v-bind="forwarded"
-    :class="cn('flex items-center justify-center gap-1', props.class)"
-  >
-    <slot></slot>
-  </ToggleGroupRoot>
-</template>
-
 <script setup lang="ts">
 import type { VariantProps } from 'class-variance-authority';
 import type { ToggleGroupRootEmits, ToggleGroupRootProps } from 'radix-vue';
@@ -42,3 +33,12 @@ const delegatedProps = computed(() => {
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
+
+<template>
+  <ToggleGroupRoot
+    v-bind="forwarded"
+    :class="cn('flex items-center justify-center gap-1', props.class)"
+  >
+    <slot></slot>
+  </ToggleGroupRoot>
+</template>

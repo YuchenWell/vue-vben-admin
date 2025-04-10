@@ -1,116 +1,3 @@
-<template>
-  <TreeRoot
-    :get-key="(item) => get(item, valueField)"
-    :get-children="(item) => get(item, childrenField)"
-    :items="treeData"
-    :model-value="treeValue"
-    v-model:expanded="expanded as string[]"
-    :default-expanded="defaultExpandedKeys as string[]"
-    :propagate-select="!checkStrictly"
-    :multiple="multiple"
-    :disabled="disabled"
-    :selection-behavior="allowClear || multiple ? 'toggle' : 'replace'"
-    @update:model-value="updateModelValue"
-    v-slot="{ flattenItems }"
-    :class="
-      cn(
-        'text-blackA11 container select-none list-none rounded-lg p-2 text-sm font-medium',
-        $attrs.class as unknown as ClassType,
-        bordered ? 'border' : '',
-      )
-    "
-  >
-    <div class="w-full" v-if="$slots.header">
-      <slot name="header"> </slot>
-    </div>
-    <TransitionGroup :name="transition ? 'fade' : ''">
-      <TreeItem
-        v-for="item in flattenItems"
-        v-slot="{
-          isExpanded,
-          isSelected,
-          isIndeterminate,
-          handleSelect,
-          handleToggle,
-        }"
-        :key="item._id"
-        :style="{ 'padding-left': `${item.level - 0.5}rem` }"
-        :class="
-          cn('cursor-pointer', getNodeClass?.(item), {
-            'data-[selected]:bg-accent': !multiple,
-          })
-        "
-        v-bind="item.bind"
-        @select="
-          (event) => {
-            if (event.detail.originalEvent.type === 'click') {
-              event.preventDefault();
-            }
-            onSelect(item, event.detail.isSelected);
-          }
-        "
-        @toggle="
-          (event) => {
-            if (event.detail.originalEvent.type === 'click') {
-              event.preventDefault();
-            }
-            onToggle(item);
-          }
-        "
-        class="tree-node focus:ring-grass8 my-0.5 flex items-center rounded px-2 py-1 outline-none focus:ring-2"
-      >
-        <ChevronRight
-          v-if="item.hasChildren"
-          class="size-4 cursor-pointer transition"
-          :class="{ 'rotate-90': isExpanded }"
-          @click.stop="
-            () => {
-              handleToggle();
-              onToggle(item);
-            }
-          "
-        />
-        <div v-else class="h-4 w-4">
-          <!-- <IconifyIcon v-if="item.value.icon" :icon="item.value.icon" /> -->
-        </div>
-        <Checkbox
-          v-if="multiple"
-          :checked="isSelected"
-          :indeterminate="isIndeterminate"
-          @click="
-            () => {
-              handleSelect();
-              // onSelect(item, !isSelected);
-            }
-          "
-        />
-        <div
-          class="flex items-center gap-1 pl-2"
-          @click="
-            (_event) => {
-              // $event.stopPropagation();
-              // $event.preventDefault();
-              handleSelect();
-              // onSelect(item, !isSelected);
-            }
-          "
-        >
-          <slot name="node" v-bind="item">
-            <IconifyIcon
-              class="size-4"
-              v-if="showIcon && get(item.value, iconField)"
-              :icon="get(item.value, iconField)"
-            />
-            {{ get(item.value, labelField) }}
-          </slot>
-        </div>
-      </TreeItem>
-    </TransitionGroup>
-    <div class="w-full" v-if="$slots.footer">
-      <slot name="footer"> </slot>
-    </div>
-  </TreeRoot>
-</template>
 <script lang="ts" setup>
 import type { Arrayable } from '@vueuse/core';
 import type { FlattenedItem } from 'radix-vue';
@@ -297,6 +184,119 @@ defineExpose({
   getItemByValue,
 });
 </script>
+<template>
+  <TreeRoot
+    :get-key="(item) => get(item, valueField)"
+    :get-children="(item) => get(item, childrenField)"
+    :items="treeData"
+    :model-value="treeValue"
+    v-model:expanded="expanded as string[]"
+    :default-expanded="defaultExpandedKeys as string[]"
+    :propagate-select="!checkStrictly"
+    :multiple="multiple"
+    :disabled="disabled"
+    :selection-behavior="allowClear || multiple ? 'toggle' : 'replace'"
+    @update:model-value="updateModelValue"
+    v-slot="{ flattenItems }"
+    :class="
+      cn(
+        'text-blackA11 container select-none list-none rounded-lg p-2 text-sm font-medium',
+        $attrs.class as unknown as ClassType,
+        bordered ? 'border' : '',
+      )
+    "
+  >
+    <div class="w-full" v-if="$slots.header">
+      <slot name="header"> </slot>
+    </div>
+    <TransitionGroup :name="transition ? 'fade' : ''">
+      <TreeItem
+        v-for="item in flattenItems"
+        v-slot="{
+          isExpanded,
+          isSelected,
+          isIndeterminate,
+          handleSelect,
+          handleToggle,
+        }"
+        :key="item._id"
+        :style="{ 'padding-left': `${item.level - 0.5}rem` }"
+        :class="
+          cn('cursor-pointer', getNodeClass?.(item), {
+            'data-[selected]:bg-accent': !multiple,
+          })
+        "
+        v-bind="item.bind"
+        @select="
+          (event) => {
+            if (event.detail.originalEvent.type === 'click') {
+              event.preventDefault();
+            }
+            onSelect(item, event.detail.isSelected);
+          }
+        "
+        @toggle="
+          (event) => {
+            if (event.detail.originalEvent.type === 'click') {
+              event.preventDefault();
+            }
+            onToggle(item);
+          }
+        "
+        class="tree-node focus:ring-grass8 my-0.5 flex items-center rounded px-2 py-1 outline-none focus:ring-2"
+      >
+        <ChevronRight
+          v-if="item.hasChildren"
+          class="size-4 cursor-pointer transition"
+          :class="{ 'rotate-90': isExpanded }"
+          @click.stop="
+            () => {
+              handleToggle();
+              onToggle(item);
+            }
+          "
+        />
+        <div v-else class="h-4 w-4">
+          <!-- <IconifyIcon v-if="item.value.icon" :icon="item.value.icon" /> -->
+        </div>
+        <Checkbox
+          v-if="multiple"
+          :checked="isSelected"
+          :indeterminate="isIndeterminate"
+          @click="
+            () => {
+              handleSelect();
+              // onSelect(item, !isSelected);
+            }
+          "
+        />
+        <div
+          class="flex items-center gap-1 pl-2"
+          @click="
+            (_event) => {
+              // $event.stopPropagation();
+              // $event.preventDefault();
+              handleSelect();
+              // onSelect(item, !isSelected);
+            }
+          "
+        >
+          <slot name="node" v-bind="item">
+            <IconifyIcon
+              class="size-4"
+              v-if="showIcon && get(item.value, iconField)"
+              :icon="get(item.value, iconField)"
+            />
+            {{ get(item.value, labelField) }}
+          </slot>
+        </div>
+      </TreeItem>
+    </TransitionGroup>
+    <div class="w-full" v-if="$slots.footer">
+      <slot name="footer"> </slot>
+    </div>
+  </TreeRoot>
+</template>
 <style lang="scss" scoped>
 .container {
   position: relative;

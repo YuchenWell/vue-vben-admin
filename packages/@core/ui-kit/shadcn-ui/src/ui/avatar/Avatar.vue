@@ -1,9 +1,3 @@
-<template>
-  <AvatarRoot :class="cn(avatarVariant({ size, shape }), props.class)">
-    <slot></slot>
-  </AvatarRoot>
-</template>
-
 <script setup lang="ts">
 import type { AvatarVariants } from './avatar';
 
@@ -25,3 +19,9 @@ const props = withDefaults(
   },
 );
 </script>
+
+<template>
+  <AvatarRoot :class="cn(avatarVariant({ size, shape }), props.class)">
+    <slot></slot>
+  </AvatarRoot>
+</template>

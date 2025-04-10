@@ -1,58 +1,3 @@
-<template>
-  <div @keydown.enter.prevent="handleSubmit">
-    <div
-      v-if="logo"
-      class="absolute left-0 top-0 z-10 flex flex-1"
-      @click="clickLogo"
-    >
-      <div
-        class="text-foreground lg:text-foreground ml-4 mt-4 flex flex-1 items-center sm:left-6 sm:top-6"
-      >
-        <img
-          :alt="$t('authentication.appName')"
-          :src="logo"
-          class="mr-2"
-          width="242"
-        />
-      </div>
-    </div>
-
-    <slot name="title">
-      <Title>
-        <template #title>
-          {{ title || `${$t('authentication.appName')}` }}
-        </template>
-
-        <template #welcome> {{ $t('authentication.welcomeLogin') }} </template>
-      </Title>
-    </slot>
-
-    <Form />
-
-    <div v-if="showRememberMe" class="mb-6 flex justify-between">
-      <div class="flex-center">
-        <VbenCheckbox
-          v-if="showRememberMe"
-          v-model:checked="rememberMe"
-          name="rememberMe"
-        >
-          {{ $t('authentication.rememberMe') }}
-        </VbenCheckbox>
-      </div>
-    </div>
-
-    <VbenButton
-      :class="{ 'cursor-wait': loading }"
-      :loading="loading"
-      aria-label="login"
-      class="w-full"
-      @click="handleSubmit"
-    >
-      {{ submitButtonText || $t('common.login') }}
-    </VbenButton>
-  </div>
-</template>
-
 <script setup lang="ts">
 import type { Recordable } from '@vben/types';
 
@@ -140,3 +85,58 @@ defineExpose({
   getFormApi: () => formApi,
 });
 </script>
+
+<template>
+  <div @keydown.enter.prevent="handleSubmit">
+    <div
+      v-if="logo"
+      class="absolute left-0 top-0 z-10 flex flex-1"
+      @click="clickLogo"
+    >
+      <div
+        class="text-foreground lg:text-foreground ml-4 mt-4 flex flex-1 items-center sm:left-6 sm:top-6"
+      >
+        <img
+          :alt="$t('authentication.appName')"
+          :src="logo"
+          class="mr-2"
+          width="242"
+        />
+      </div>
+    </div>
+
+    <slot name="title">
+      <Title>
+        <template #title>
+          {{ title || `${$t('authentication.appName')}` }}
+        </template>
+
+        <template #welcome> {{ $t('authentication.welcomeLogin') }} </template>
+      </Title>
+    </slot>
+
+    <Form />
+
+    <div v-if="showRememberMe" class="mb-6 flex justify-between">
+      <div class="flex-center">
+        <VbenCheckbox
+          v-if="showRememberMe"
+          v-model:checked="rememberMe"
+          name="rememberMe"
+        >
+          {{ $t('authentication.rememberMe') }}
+        </VbenCheckbox>
+      </div>
+    </div>
+
+    <VbenButton
+      :class="{ 'cursor-wait': loading }"
+      :loading="loading"
+      aria-label="login"
+      class="w-full"
+      @click="handleSubmit"
+    >
+      {{ submitButtonText || $t('common.login') }}
+    </VbenButton>
+  </div>
+</template>

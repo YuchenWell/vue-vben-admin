@@ -1,74 +1,3 @@
-<template>
-  <LockModal
-    v-if="preferences.widget.lockScreen"
-    :avatar="avatar"
-    :text="text"
-    @submit="handleSubmitLock"
-  />
-
-  <LogoutModal
-    :cancel-text="$t('common.cancel')"
-    :confirm-text="$t('common.confirm')"
-    :fullscreen-button="false"
-    :title="$t('common.prompt')"
-    centered
-    content-class="px-8 min-h-10"
-    footer-class="border-none mb-3 mr-3"
-    header-class="border-none"
-  >
-    {{ $t('ui.widgets.logoutTip') }}
-  </LogoutModal>
-
-  <DropdownMenu v-model:open="openPopover">
-    <DropdownMenuTrigger ref="refTrigger" :disabled="props.trigger === 'hover'">
-      <div class="hover:bg-accent ml-1 mr-2 cursor-pointer p-1.5">
-        <div class="hover:text-accent-foreground flex-center">
-          <VbenAvatar :alt="text" :src="avatar" class="size-6" />
-          <span class="ml-1">{{ text }}</span>
-        </div>
-      </div>
-    </DropdownMenuTrigger>
-    <DropdownMenuContent class="mr-2 min-w-[240px] p-0 pb-1">
-      <div ref="refContent">
-        <DropdownMenuItem
-          v-for="menu in menus"
-          :key="menu.text"
-          class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
-          @click="menu.handler"
-        >
-          <VbenIcon :icon="menu.icon" class="mr-2 size-4" />
-          {{ menu.text }}
-        </DropdownMenuItem>
-
-        <DropdownMenuSeparator v-if="menus.length > 0" />
-
-        <DropdownMenuItem
-          v-if="preferences.widget.lockScreen"
-          class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
-          @click="handleOpenLock"
-        >
-          <LockKeyhole class="mr-2 size-4" />
-          {{ $t('ui.widgets.lockScreen.title') }}
-          <DropdownMenuShortcut v-if="enableLockScreenShortcutKey">
-            {{ altView }} L
-          </DropdownMenuShortcut>
-        </DropdownMenuItem>
-
-        <DropdownMenuItem
-          class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
-          @click="handleLogout"
-        >
-          <LogOut class="mr-2 size-4" />
-          {{ $t('common.logout') }}
-          <DropdownMenuShortcut v-if="enableLogoutShortcutKey">
-            {{ altView }} Q
-          </DropdownMenuShortcut>
-        </DropdownMenuItem>
-      </div>
-    </DropdownMenuContent>
-  </DropdownMenu>
-</template>
-
 <script setup lang="ts">
 import type { Component } from 'vue';
 
@@ -231,3 +160,74 @@ if (enableShortcutKey.value) {
   });
 }
 </script>
+
+<template>
+  <LockModal
+    v-if="preferences.widget.lockScreen"
+    :avatar="avatar"
+    :text="text"
+    @submit="handleSubmitLock"
+  />
+
+  <LogoutModal
+    :cancel-text="$t('common.cancel')"
+    :confirm-text="$t('common.confirm')"
+    :fullscreen-button="false"
+    :title="$t('common.prompt')"
+    centered
+    content-class="px-8 min-h-10"
+    footer-class="border-none mb-3 mr-3"
+    header-class="border-none"
+  >
+    {{ $t('ui.widgets.logoutTip') }}
+  </LogoutModal>
+
+  <DropdownMenu v-model:open="openPopover">
+    <DropdownMenuTrigger ref="refTrigger" :disabled="props.trigger === 'hover'">
+      <div class="hover:bg-accent ml-1 mr-2 cursor-pointer p-1.5">
+        <div class="hover:text-accent-foreground flex-center">
+          <VbenAvatar :alt="text" :src="avatar" class="size-6" />
+          <span class="ml-1">{{ text }}</span>
+        </div>
+      </div>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent class="mr-2 min-w-[240px] p-0 pb-1">
+      <div ref="refContent">
+        <DropdownMenuItem
+          v-for="menu in menus"
+          :key="menu.text"
+          class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
+          @click="menu.handler"
+        >
+          <VbenIcon :icon="menu.icon" class="mr-2 size-4" />
+          {{ menu.text }}
+        </DropdownMenuItem>
+
+        <DropdownMenuSeparator v-if="menus.length > 0" />
+
+        <DropdownMenuItem
+          v-if="preferences.widget.lockScreen"
+          class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
+          @click="handleOpenLock"
+        >
+          <LockKeyhole class="mr-2 size-4" />
+          {{ $t('ui.widgets.lockScreen.title') }}
+          <DropdownMenuShortcut v-if="enableLockScreenShortcutKey">
+            {{ altView }} L
+          </DropdownMenuShortcut>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem
+          class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
+          @click="handleLogout"
+        >
+          <LogOut class="mr-2 size-4" />
+          {{ $t('common.logout') }}
+          <DropdownMenuShortcut v-if="enableLogoutShortcutKey">
+            {{ altView }} Q
+          </DropdownMenuShortcut>
+        </DropdownMenuItem>
+      </div>
+    </DropdownMenuContent>
+  </DropdownMenu>
+</template>

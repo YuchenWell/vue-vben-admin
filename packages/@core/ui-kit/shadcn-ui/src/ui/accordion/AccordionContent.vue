@@ -1,14 +1,3 @@
-<template>
-  <AccordionContent
-    v-bind="delegatedProps"
-    class="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm"
-  >
-    <div :class="cn('pb-4 pt-0', props.class)">
-      <slot></slot>
-    </div>
-  </AccordionContent>
-</template>
-
 <script setup lang="ts">
 import type { AccordionContentProps } from 'radix-vue';
 
@@ -26,3 +15,14 @@ const delegatedProps = computed(() => {
   return delegated;
 });
 </script>
+
+<template>
+  <AccordionContent
+    v-bind="delegatedProps"
+    class="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm"
+  >
+    <div :class="cn('pb-4 pt-0', props.class)">
+      <slot></slot>
+    </div>
+  </AccordionContent>
+</template>

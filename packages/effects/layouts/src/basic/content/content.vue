@@ -1,30 +1,3 @@
-<template>
-  <div class="relative h-full">
-    <IFrameRouterView />
-    <RouterView v-slot="{ Component, route }">
-      <Transition :name="getTransitionName(route)" appear mode="out-in">
-        <KeepAlive
-          v-if="keepAlive"
-          :exclude="getExcludeCachedTabs"
-          :include="getCachedTabs"
-        >
-          <component
-            :is="transformComponent(Component, route)"
-            v-if="renderRouteView"
-            v-show="!route.meta.iframeSrc"
-            :key="route.fullPath"
-          />
-        </KeepAlive>
-        <component
-          :is="Component"
-          v-else-if="renderRouteView"
-          :key="route.fullPath"
-        />
-      </Transition>
-    </RouterView>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import type { VNode } from 'vue';
 import type {
@@ -112,3 +85,30 @@ function transformComponent(
   return component;
 }
 </script>
+
+<template>
+  <div class="relative h-full">
+    <IFrameRouterView />
+    <RouterView v-slot="{ Component, route }">
+      <Transition :name="getTransitionName(route)" appear mode="out-in">
+        <KeepAlive
+          v-if="keepAlive"
+          :exclude="getExcludeCachedTabs"
+          :include="getCachedTabs"
+        >
+          <component
+            :is="transformComponent(Component, route)"
+            v-if="renderRouteView"
+            v-show="!route.meta.iframeSrc"
+            :key="route.fullPath"
+          />
+        </KeepAlive>
+        <component
+          :is="Component"
+          v-else-if="renderRouteView"
+          :key="route.fullPath"
+        />
+      </Transition>
+    </RouterView>
+  </div>
+</template>

@@ -1,18 +1,3 @@
-<template>
-  <component
-    :is="component"
-    v-bind="bindProps"
-    :placeholder="$attrs.placeholder"
-    ref="componentRef"
-  >
-    <template v-for="item in Object.keys($slots)" #[item]="data">
-      <slot :name="item" v-bind="data || {}"></slot>
-    </template>
-    <template v-if="loadingSlot && loading" #[loadingSlot]>
-      <LoaderCircle class="animate-spin" />
-    </template>
-  </component>
-</template>
 <script lang="ts" setup>
 import type { Component } from 'vue';
 
@@ -221,3 +206,18 @@ defineExpose({
   },
 });
 </script>
+<template>
+  <component
+    :is="component"
+    v-bind="bindProps"
+    :placeholder="$attrs.placeholder"
+    ref="componentRef"
+  >
+    <template v-for="item in Object.keys($slots)" #[item]="data">
+      <slot :name="item" v-bind="data || {}"></slot>
+    </template>
+    <template v-if="loadingSlot && loading" #[loadingSlot]>
+      <LoaderCircle class="animate-spin" />
+    </template>
+  </component>
+</template>

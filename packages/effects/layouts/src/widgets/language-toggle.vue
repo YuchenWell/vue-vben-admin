@@ -1,17 +1,3 @@
-<template>
-  <div>
-    <VbenDropdownRadioMenu
-      :menus="SUPPORT_LANGUAGES"
-      :model-value="preferences.app.locale"
-      @update:model-value="handleUpdate"
-    >
-      <VbenIconButton>
-        <Languages class="text-foreground size-4" />
-      </VbenIconButton>
-    </VbenDropdownRadioMenu>
-  </div>
-</template>
-
 <script setup lang="ts">
 import type { SupportedLanguagesType } from '@vben/locales';
 
@@ -36,3 +22,17 @@ async function handleUpdate(value: string) {
   await loadLocaleMessages(locale);
 }
 </script>
+
+<template>
+  <div>
+    <VbenDropdownRadioMenu
+      :menus="SUPPORT_LANGUAGES"
+      :model-value="preferences.app.locale"
+      @update:model-value="handleUpdate"
+    >
+      <VbenIconButton>
+        <Languages class="text-foreground size-4" />
+      </VbenIconButton>
+    </VbenDropdownRadioMenu>
+  </div>
+</template>

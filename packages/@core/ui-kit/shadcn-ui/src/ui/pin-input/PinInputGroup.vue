@@ -1,12 +1,3 @@
-<template>
-  <Primitive
-    v-bind="forwardedProps"
-    :class="cn('flex items-center', props.class)"
-  >
-    <slot></slot>
-  </Primitive>
-</template>
-
 <script setup lang="ts">
 import type { PrimitiveProps } from 'radix-vue';
 
@@ -23,3 +14,12 @@ const delegatedProps = computed(() => {
 });
 const forwardedProps = useForwardProps(delegatedProps);
 </script>
+
+<template>
+  <Primitive
+    v-bind="forwardedProps"
+    :class="cn('flex items-center', props.class)"
+  >
+    <slot></slot>
+  </Primitive>
+</template>

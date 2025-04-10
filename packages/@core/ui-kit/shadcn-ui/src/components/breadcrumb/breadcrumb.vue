@@ -1,3 +1,38 @@
+<script lang="ts" setup>
+import type { BreadcrumbProps } from './types';
+
+import { ChevronDown } from '@vben-core/icons';
+
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '../../ui';
+import { VbenIcon } from '../icon';
+
+interface Props extends BreadcrumbProps {}
+
+defineOptions({ name: 'Breadcrumb' });
+withDefaults(defineProps<Props>(), {
+  showIcon: false,
+});
+
+const emit = defineEmits<{ select: [string] }>();
+
+function handleClick(path?: string) {
+  if (!path) {
+    return;
+  }
+  emit('select', path);
+}
+</script>
 <template>
   <Breadcrumb>
     <BreadcrumbList>
@@ -61,38 +96,3 @@
     </BreadcrumbList>
   </Breadcrumb>
 </template>
-<script lang="ts" setup>
-import type { BreadcrumbProps } from './types';
-
-import { ChevronDown } from '@vben-core/icons';
-
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '../../ui';
-import { VbenIcon } from '../icon';
-
-interface Props extends BreadcrumbProps {}
-
-defineOptions({ name: 'Breadcrumb' });
-withDefaults(defineProps<Props>(), {
-  showIcon: false,
-});
-
-const emit = defineEmits<{ select: [string] }>();
-
-function handleClick(path?: string) {
-  if (!path) {
-    return;
-  }
-  emit('select', path);
-}
-</script>

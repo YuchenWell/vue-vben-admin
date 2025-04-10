@@ -1,10 +1,3 @@
-<template>
-  <VueJsonViewer v-bind="bindProps">
-    <template #copy="slotProps">
-      <slot name="copy" v-bind="slotProps"></slot>
-    </template>
-  </VueJsonViewer>
-</template>
 <script lang="ts" setup>
 import type { SetupContext } from 'vue';
 
@@ -93,6 +86,13 @@ const bindProps = computed<Recordable<any>>(() => {
   };
 });
 </script>
+<template>
+  <VueJsonViewer v-bind="bindProps">
+    <template #copy="slotProps">
+      <slot name="copy" v-bind="slotProps"></slot>
+    </template>
+  </VueJsonViewer>
+</template>
 <style lang="scss">
 @use './style.scss';
 </style>

@@ -1,23 +1,3 @@
-<template>
-  <div
-    ref="actionRef"
-    :class="{
-      'transition-width !left-0 duration-300': toLeft,
-      'rounded-md': isDragging,
-    }"
-    :style="style"
-    class="bg-background dark:bg-accent absolute left-0 top-0 flex h-full cursor-move items-center justify-center px-3.5 shadow-md"
-    name="captcha-action"
-  >
-    <Slot :is-passing="isPassing" class="text-foreground/60 size-4">
-      <slot name="icon">
-        <ChevronsRight v-if="!isPassing" />
-        <Check v-else />
-      </slot>
-    </Slot>
-  </div>
-</template>
-
 <script setup lang="ts">
 import type { CSSProperties } from 'vue';
 
@@ -63,3 +43,23 @@ defineExpose({
   },
 });
 </script>
+
+<template>
+  <div
+    ref="actionRef"
+    :class="{
+      'transition-width !left-0 duration-300': toLeft,
+      'rounded-md': isDragging,
+    }"
+    :style="style"
+    class="bg-background dark:bg-accent absolute left-0 top-0 flex h-full cursor-move items-center justify-center px-3.5 shadow-md"
+    name="captcha-action"
+  >
+    <Slot :is-passing="isPassing" class="text-foreground/60 size-4">
+      <slot name="icon">
+        <ChevronsRight v-if="!isPassing" />
+        <Check v-else />
+      </slot>
+    </Slot>
+  </div>
+</template>

@@ -1,9 +1,3 @@
-<template>
-  <div :class="cn(props.class)">
-    <slot></slot>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import { provide, useId } from 'vue';
 
@@ -18,3 +12,9 @@ const props = defineProps<{
 const id = useId() as string;
 provide(FORM_ITEM_INJECTION_KEY, id);
 </script>
+
+<template>
+  <div :class="cn(props.class)">
+    <slot></slot>
+  </div>
+</template>

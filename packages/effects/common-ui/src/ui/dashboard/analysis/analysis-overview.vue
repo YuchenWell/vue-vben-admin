@@ -1,3 +1,29 @@
+<script setup lang="ts">
+import type { AnalysisOverviewItem } from '../typing';
+
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+  VbenCountToAnimator,
+  VbenIcon,
+} from '@vben-core/shadcn-ui';
+
+interface Props {
+  items: AnalysisOverviewItem[];
+}
+
+defineOptions({
+  name: 'AnalysisOverview',
+});
+
+withDefaults(defineProps<Props>(), {
+  items: () => [],
+});
+</script>
+
 <template>
   <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
     <template v-for="item in items" :key="item.title">
@@ -27,29 +53,3 @@
     </template>
   </div>
 </template>
-
-<script setup lang="ts">
-import type { AnalysisOverviewItem } from '../typing';
-
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-  VbenCountToAnimator,
-  VbenIcon,
-} from '@vben-core/shadcn-ui';
-
-interface Props {
-  items: AnalysisOverviewItem[];
-}
-
-defineOptions({
-  name: 'AnalysisOverview',
-});
-
-withDefaults(defineProps<Props>(), {
-  items: () => [],
-});
-</script>

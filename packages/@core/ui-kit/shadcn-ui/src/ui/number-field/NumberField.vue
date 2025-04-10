@@ -1,9 +1,3 @@
-<template>
-  <NumberFieldRoot v-bind="forwarded" :class="cn('grid gap-1.5', props.class)">
-    <slot></slot>
-  </NumberFieldRoot>
-</template>
-
 <script setup lang="ts">
 import type { NumberFieldRootEmits, NumberFieldRootProps } from 'radix-vue';
 
@@ -24,3 +18,9 @@ const delegatedProps = computed(() => {
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
+
+<template>
+  <NumberFieldRoot v-bind="forwarded" :class="cn('grid gap-1.5', props.class)">
+    <slot></slot>
+  </NumberFieldRoot>
+</template>

@@ -1,13 +1,3 @@
-<template>
-  <PaginationLast v-bind="delegatedProps">
-    <Button :class="cn('size-8 p-0', props.class)" variant="outline">
-      <slot>
-        <ChevronsRight class="size-4" />
-      </slot>
-    </Button>
-  </PaginationLast>
-</template>
-
 <script setup lang="ts">
 import type { PaginationLastProps } from 'radix-vue';
 
@@ -33,3 +23,13 @@ const delegatedProps = computed(() => {
   return delegated;
 });
 </script>
+
+<template>
+  <PaginationLast v-bind="delegatedProps">
+    <Button :class="cn('size-8 p-0', props.class)" variant="outline">
+      <slot>
+        <ChevronsRight class="size-4" />
+      </slot>
+    </Button>
+  </PaginationLast>
+</template>

@@ -1,9 +1,3 @@
-<template>
-  <SelectGroup :class="cn('w-full p-1', props.class)" v-bind="delegatedProps">
-    <slot></slot>
-  </SelectGroup>
-</template>
-
 <script setup lang="ts">
 import type { SelectGroupProps } from 'radix-vue';
 
@@ -21,3 +15,9 @@ const delegatedProps = computed(() => {
   return delegated;
 });
 </script>
+
+<template>
+  <SelectGroup :class="cn('w-full p-1', props.class)" v-bind="delegatedProps">
+    <slot></slot>
+  </SelectGroup>
+</template>

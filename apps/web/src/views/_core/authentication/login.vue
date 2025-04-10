@@ -1,11 +1,3 @@
-<template>
-  <AuthenticationLogin
-    :form-schema="formSchema"
-    :loading="authStore.loginLoading"
-    @submit="authStore.authLogin"
-  />
-</template>
-
 <script lang="ts" setup>
 import type { VbenFormSchema } from '@vben/common-ui';
 
@@ -43,3 +35,11 @@ const formSchema = computed((): VbenFormSchema[] => {
   ];
 });
 </script>
+
+<template>
+  <AuthenticationLogin
+    :form-schema="formSchema"
+    :loading="authStore.loginLoading"
+    @submit="authStore.authLogin"
+  />
+</template>

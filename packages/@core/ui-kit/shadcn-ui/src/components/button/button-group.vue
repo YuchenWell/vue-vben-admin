@@ -1,3 +1,17 @@
+<script lang="ts" setup>
+import { cn } from '@vben-core/shared/utils';
+
+defineOptions({ name: 'VbenButtonGroup' });
+
+withDefaults(
+  defineProps<{
+    border?: boolean;
+    gap?: number;
+    size?: 'large' | 'middle' | 'small';
+  }>(),
+  { border: false, gap: 0, size: 'middle' },
+);
+</script>
 <template>
   <div
     :class="
@@ -13,20 +27,6 @@
     <slot></slot>
   </div>
 </template>
-<script lang="ts" setup>
-import { cn } from '@vben-core/shared/utils';
-
-defineOptions({ name: 'VbenButtonGroup' });
-
-withDefaults(
-  defineProps<{
-    border?: boolean;
-    gap?: number;
-    size?: 'large' | 'middle' | 'small';
-  }>(),
-  { border: false, gap: 0, size: 'middle' },
-);
-</script>
 
 <style lang="scss" scoped>
 .vben-button-group {

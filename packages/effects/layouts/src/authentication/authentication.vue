@@ -1,3 +1,34 @@
+<script setup lang="ts">
+import type { ToolbarType } from './types';
+
+import { preferences, usePreferences } from '@vben/preferences';
+
+import { AppFullLogo } from '../basic/app-logo';
+import { Copyright } from '../basic/copyright';
+import AuthenticationFormView from './form.vue';
+import SloganIcon from './icons/slogan.vue';
+import Toolbar from './toolbar.vue';
+
+interface Props {
+  appName?: string;
+  sloganImage?: string;
+  toolbar?: boolean;
+  copyright?: boolean;
+  toolbarList?: ToolbarType[];
+}
+
+withDefaults(defineProps<Props>(), {
+  appName: '',
+  copyright: true,
+  sloganImage: '',
+  toolbar: true,
+  toolbarList: () => ['language'],
+});
+
+const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
+  usePreferences();
+</script>
+
 <template>
   <div
     :class="[isDark]"
@@ -99,37 +130,6 @@
     </AuthenticationFormView>
   </div>
 </template>
-
-<script setup lang="ts">
-import type { ToolbarType } from './types';
-
-import { preferences, usePreferences } from '@vben/preferences';
-
-import { AppFullLogo } from '../basic/app-logo';
-import { Copyright } from '../basic/copyright';
-import AuthenticationFormView from './form.vue';
-import SloganIcon from './icons/slogan.vue';
-import Toolbar from './toolbar.vue';
-
-interface Props {
-  appName?: string;
-  sloganImage?: string;
-  toolbar?: boolean;
-  copyright?: boolean;
-  toolbarList?: ToolbarType[];
-}
-
-withDefaults(defineProps<Props>(), {
-  appName: '',
-  copyright: true,
-  sloganImage: '',
-  toolbar: true,
-  toolbarList: () => ['language'],
-});
-
-const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
-  usePreferences();
-</script>
 
 <style scoped>
 .login-background {

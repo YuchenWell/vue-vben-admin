@@ -1,9 +1,3 @@
-<template>
-  <DropdownMenuRoot v-bind="forwarded">
-    <slot></slot>
-  </DropdownMenuRoot>
-</template>
-
 <script setup lang="ts">
 import type { DropdownMenuRootEmits, DropdownMenuRootProps } from 'radix-vue';
 
@@ -16,3 +10,9 @@ const emits = defineEmits<DropdownMenuRootEmits>();
 
 const forwarded = useForwardPropsEmits(props, emits);
 </script>
+
+<template>
+  <DropdownMenuRoot v-bind="forwarded">
+    <slot></slot>
+  </DropdownMenuRoot>
+</template>
