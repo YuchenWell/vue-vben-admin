@@ -58,7 +58,7 @@ const defaultPreferences: Preferences = {
   navigation: {
     accordion: true,
     split: true,
-    styleType: 'plain',
+    styleType: 'rounded',
   },
   shortcutKeys: {
     enable: true,
