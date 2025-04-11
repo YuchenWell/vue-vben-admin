@@ -27,8 +27,10 @@ async function generateMenusByBackend(
   const permissionRouteMap = getRouteByPermissionMap(routes);
 
   const menus: MenuRecordRaw[] = menuDtos
-    .map((menu) => buildMenu(menu, permissionRouteMap))
-    .filter((menu) => !!menu)
+    .map((menuDto) => {
+      return buildMenu({ menuDto, permissionRouteMap, routes, options });
+    })
+    .filter((menuDto) => !!menuDto)
     .sort((a, b) => (a?.order ?? 999) - (b?.order ?? 999));
 
   const finalMenus = filterTree(menus, (menu) => !!menu.show);
@@ -51,10 +53,15 @@ const getRouteByPermissionMap = (
 };
 
 const buildMenu = (
-  menuDto: MenuDto,
-  permissionRouteMap: Map<string, RouteRecordRaw>,
+  data: {
+    menuDto: MenuDto;
+    options: GenerateMenuAndRoutesOptions;
+    permissionRouteMap: Map<string, RouteRecordRaw>;
+    routes: RouteRecordRaw[];
+  },
   parentPath?: string,
 ): MenuRecordRaw | null => {
+  const { menuDto, permissionRouteMap } = data;
   const route = permissionRouteMap.get(menuDto.permission);
 
   if (!route) {
@@ -75,9 +82,14 @@ const buildMenu = (
 
   const children: MenuRecordRaw[] = menuDto.menus
     ? menuDto.menus
-        .map((child) => buildMenu(child, permissionRouteMap, path))
+        .map((child) => buildMenu({ ...data, menuDto: child }, path))
         .filter((child) => !!child)
     : [];
+
+  const menuTitle = menuDto.menuName || routeMeta?.title || '';
+  if (routeMeta) {
+    routeMeta.title = menuTitle;
+  }
 
   const menuRecordRaw: MenuRecordRaw = {
     activeIcon: routeMeta?.activeIcon ?? '',
@@ -86,7 +98,7 @@ const buildMenu = (
     badgeVariants: routeMeta?.badgeVariants,
     children,
     icon: routeMeta?.icon ?? '',
-    name: menuDto.menuName || routeMeta?.title || '',
+    name: menuTitle,
     order: menuDto.menuSort,
     parent: parentPath,
     path: resultPath as string,

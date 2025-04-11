@@ -19,7 +19,6 @@ import {
   isFunction,
   isString,
   mapTree,
-  recursiveTree,
 } from '@vben/utils';
 
 async function generateAccessible(
@@ -30,6 +29,7 @@ async function generateAccessible(
   const { router } = options;
 
   options.routes = cloneDeep(options.routes);
+
   // 生成路由
   const accessibleRoutes = await generateRoutes(accessMode, options);
 
@@ -46,8 +46,6 @@ async function generateAccessible(
       break;
     }
   }
-
-  modifyRouteByMenu(accessibleRoutes, accessibleMenus);
 
   const root = router.getRoutes().find((item) => item.path === '/');
 
@@ -79,19 +77,6 @@ async function generateAccessible(
   }
 
   return { accessibleMenus, accessibleRoutes };
-}
-
-function modifyRouteByMenu(routes: RouteRecordRaw[], menus: MenuRecordRaw[]) {
-  const menuMap = new Map<string, MenuRecordRaw>();
-
-  recursiveTree(menus, (menu) => menuMap.set(menu.path, menu));
-
-  recursiveTree(routes, (route) => {
-    const menu = menuMap.get(route.path);
-    if (menu && route.meta) {
-      route.meta.title = menu.name;
-    }
-  });
 }
 
 /**
