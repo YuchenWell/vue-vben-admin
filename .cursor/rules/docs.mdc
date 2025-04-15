@@ -1,0 +1,12 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Your rule content
+
+- 文档或者注释时，尽量使用中文
+- 打日志时，尽量使用知恩文
+- 建议使用 markdown 类型的文档
+
