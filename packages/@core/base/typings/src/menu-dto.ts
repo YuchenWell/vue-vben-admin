@@ -15,10 +15,6 @@ enum YesNoNumberEnum {
 
 enum MenuType {
   /**
-   * 按钮
-   */
-  Button = 3,
-  /**
    * 目录
    */
   Directory = 1,
@@ -26,28 +22,26 @@ enum MenuType {
    * 菜单
    */
   Menu = 2,
+
+  /**
+   * 按钮
+   */
+  Button = 3,
 }
 
-enum LinkType {
+enum MenuLinkType {
   /**
    * 外部
    */
-  External = 1,
+  Inner = 0,
   /**
-   * 内部
+   * 新窗口
    */
-  Internal = 0,
-}
-
-enum MenuVisibleEnum {
+  NewWindow = 1,
   /**
-   * 显示
+   * 嵌入
    */
-  Visible = 0,
-  /**
-   * 隐藏
-   */
-  Hidden = 1,
+  Embed = 2,
 }
 
 /**
@@ -65,7 +59,7 @@ interface MenuDto extends BaseModel {
   /**
    * 链接类型 0-内部 1-外部
    */
-  linkType: Nullable<LinkType>;
+  linkType: Nullable<MenuLinkType>;
   /**
    * 菜单名称
    */
@@ -96,9 +90,9 @@ interface MenuDto extends BaseModel {
   status: YesNoNumberEnum;
 
   /**
-   * 是否可见
+   * 是否可见 0-显示 1-隐藏
    */
-  visible: MenuVisibleEnum;
+  visible: number;
 }
 
-export type { MenuDto };
+export type { MenuDto, MenuLinkType };

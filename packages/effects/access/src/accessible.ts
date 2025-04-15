@@ -113,7 +113,7 @@ async function generateRoutes(
   resultRoutes = mapTree(resultRoutes, (route) => {
     // 重新包装component，使用与路由名称相同的name以支持keep-alive的条件缓存。
     if (
-      route.meta?.keepAlive &&
+      route.meta?.keepAlive !== false &&
       isFunction(route.component) &&
       route.name &&
       isString(route.name)

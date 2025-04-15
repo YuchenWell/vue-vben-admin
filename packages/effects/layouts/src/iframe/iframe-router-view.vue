@@ -53,6 +53,7 @@ function canRender(tabItem: RouteLocationNormalized) {
   ) {
     return false;
   }
+
   return tabbarStore.getTabs.some((tab) => tab.name === name);
 }
 

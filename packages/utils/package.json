@@ -12,6 +12,7 @@
     }
   },
   "dependencies": {
+    "@vben-core/enums": "workspace:*",
     "@vben-core/shared": "workspace:*",
     "@vben-core/typings": "workspace:*",
     "vue-router": "catalog:"

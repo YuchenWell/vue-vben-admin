@@ -4,7 +4,9 @@ import type {
 } from '@vben/types';
 
 import { generateAccessible } from '@vben/access';
+import { useAppConfig } from '@vben/hooks';
 import { preferences } from '@vben/preferences';
+import { useAccessStore } from '@vben/stores';
 
 import { message } from 'ant-design-vue';
 
@@ -21,6 +23,9 @@ async function generateAccess(options: GenerateMenuAndRoutesOptions) {
     BasicLayout,
     IFrameView,
   };
+
+  const accessStore = useAccessStore();
+  const { v2URL } = useAppConfig(import.meta.env, import.meta.env.PROD);
 
   return await generateAccessible(
     preferences.app.accessMode,
@@ -40,6 +45,9 @@ async function generateAccess(options: GenerateMenuAndRoutesOptions) {
           duration: 0.5,
         });
         return await getBackendMenusApi();
+      },
+      getV2Url: (pagePermission: string) => {
+        return `${v2URL}/#/embed-in-v3?token=${accessStore.accessToken}&pagePermission=${pagePermission}`;
       },
       // 可以指定没有权限跳转403页面
       forbiddenComponent,

@@ -140,6 +140,7 @@ interface GenerateMenuAndRoutesOptions {
   fetchMenuListAsync?: () => Promise<RouteRecordStringComponent[]>;
   forbiddenComponent?: RouteRecordRaw['component'];
   getBackendMenuListAsync?: () => Promise<MenuDto[]>;
+  getV2Url?: (pagePermission: string) => string;
   layoutMap?: ComponentRecordType;
   pageMap?: ComponentRecordType;
   permissions?: string[];

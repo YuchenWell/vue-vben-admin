@@ -125,7 +125,7 @@ function clearPreferencesAndLogout() {
     <slot name="breadcrumb"></slot>
   </div>
 
-  <div class="inline-flex h-full w-full">
+  <div class="inline-flex h-full w-full overflow-hidden">
     <slot name="tabbar"></slot>
   </div>
 

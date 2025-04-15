@@ -20,7 +20,8 @@ const routes: RouteRecordRaw[] = [
         meta: {
           affixTab: true,
           title: $t('page.dashboard.analytics'),
-          permission: 'system:user',
+          permission: 'system:role',
+          keepAlive: true,
         },
       },
       {

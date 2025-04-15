@@ -12,6 +12,7 @@ const routes: RouteRecordRaw[] = [
       icon: VBEN_LOGO_URL,
       order: 9998,
       title: $t('demos.vben.title'),
+      permission: 'system',
     },
     name: 'VbenProject',
     path: '/vben-admin',
@@ -24,20 +25,10 @@ const routes: RouteRecordRaw[] = [
           icon: 'lucide:book-open-text',
           link: VBEN_DOC_URL,
           title: $t('demos.vben.document'),
+          permission: 'system:user',
         },
       },
     ],
-  },
-  {
-    name: 'VbenAbout',
-    path: '/vben-admin/about',
-    component: () => import('#/views/_core/about/index.vue'),
-    meta: {
-      icon: 'lucide:copyright',
-      title: $t('demos.vben.about'),
-      order: 9999,
-      permission: 'home',
-    },
   },
 ];
 

@@ -3,14 +3,20 @@ import type { CSSProperties } from 'vue';
 
 import { computed } from 'vue';
 
+import { cn } from '@vben-core/shared/utils';
+
 interface Props {
+  /**
+   * 类名
+   */
+  class?: any;
   /**
    * 高度
    */
   height: number;
 }
 
-const props = withDefaults(defineProps<Props>(), {});
+const props = defineProps<Props>();
 
 const style = computed((): CSSProperties => {
   const { height } = props;
@@ -23,7 +29,12 @@ const style = computed((): CSSProperties => {
 <template>
   <section
     :style="style"
-    class="border-border bg-background flex w-full border-b transition-all"
+    :class="
+      cn(
+        'border-border bg-background flex w-full border-b transition-all',
+        props.class,
+      )
+    "
   >
     <slot></slot>
   </section>

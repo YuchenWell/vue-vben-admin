@@ -15,8 +15,6 @@ import { useAccessStore } from '@vben/stores';
 
 import { message } from 'ant-design-vue';
 
-import { useAuthStore } from '#/store';
-
 import { refreshTokenApi } from './core';
 
 const { apiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
@@ -33,15 +31,14 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
   async function doReAuthenticate() {
     console.warn('Access token or refresh token is invalid or expired. ');
     const accessStore = useAccessStore();
-    const authStore = useAuthStore();
+
     accessStore.setAccessToken(null);
+
     if (
       preferences.app.loginExpiredMode === 'modal' &&
       accessStore.isAccessChecked
     ) {
       accessStore.setLoginExpired(true);
-    } else {
-      await authStore.logout();
     }
   }
 

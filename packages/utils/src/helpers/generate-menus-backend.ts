@@ -6,7 +6,39 @@ import type {
   MenuRecordRaw,
 } from '@vben-core/typings';
 
+import { YesNoNumberEnum } from '@vben-core/enums';
 import { filterTree, recursiveTree } from '@vben-core/shared/utils';
+
+enum MenuType {
+  /**
+   * 目录
+   */
+  Directory = 1,
+  /**
+   * 菜单
+   */
+  Menu = 2,
+
+  /**
+   * 按钮
+   */
+  Button = 3,
+}
+
+enum MenuLinkType {
+  /**
+   * 外部
+   */
+  Inner = 0,
+  /**
+   * 新窗口
+   */
+  NewWindow = 1,
+  /**
+   * 嵌入
+   */
+  Embed = 2,
+}
 
 /**
  * 根据后端接口配置生成菜单列表
@@ -61,12 +93,21 @@ const buildMenu = (
   },
   parentPath?: string,
 ): MenuRecordRaw | null => {
-  const { menuDto, permissionRouteMap } = data;
-  const route = permissionRouteMap.get(menuDto.permission);
+  const { menuDto, permissionRouteMap, routes } = data;
+
+  if (
+    menuDto.status === YesNoNumberEnum.NO ||
+    menuDto.menuType === MenuType.Button ||
+    menuDto.visible === 1
+  ) {
+    return null;
+  }
+
+  let route = permissionRouteMap.get(menuDto.permission);
 
   if (!route) {
-    console.error(`权限 ${menuDto.permission} 没有找到对应的路由`);
-    return null;
+    route = handleExtMenu(data);
+    routes.push(route);
   }
 
   // 转换为菜单结构
@@ -87,6 +128,7 @@ const buildMenu = (
     : [];
 
   const menuTitle = menuDto.menuName || routeMeta?.title || '';
+
   if (routeMeta) {
     routeMeta.title = menuTitle;
   }
@@ -102,10 +144,53 @@ const buildMenu = (
     order: menuDto.menuSort,
     parent: parentPath,
     path: resultPath as string,
-    show: !route?.meta?.hideInMenu,
+    show: !route?.meta?.hideInMenu && menuDto.visible !== 1, // `0` 表示隐藏
   };
 
   return menuRecordRaw;
+};
+
+const handleExtMenu = (data: {
+  menuDto: MenuDto;
+  options: GenerateMenuAndRoutesOptions;
+  permissionRouteMap: Map<string, RouteRecordRaw>;
+  routes: RouteRecordRaw[];
+}): RouteRecordRaw => {
+  const { menuDto, options } = data;
+
+  const { IFrameView } = options.layoutMap || {};
+
+  if (!IFrameView) {
+    throw new Error('IFrameView is required');
+  }
+
+  if (
+    menuDto.linkType === MenuLinkType.Embed ||
+    menuDto.linkType === MenuLinkType.NewWindow
+  ) {
+    return {
+      name: menuDto.menuName,
+      component: IFrameView,
+      path: `/ext/${encodeURIComponent(menuDto.link || '')}`,
+      meta: {
+        title: menuDto.menuName,
+        iframeSrc: menuDto.link || '',
+      },
+    };
+  }
+
+  const encodedMenuName = btoa(encodeURIComponent(menuDto.menuName || ''));
+
+  return {
+    name: menuDto.menuName,
+    component: IFrameView,
+    path: `/v2/${encodedMenuName}`,
+    meta: {
+      title: menuDto.menuName,
+      keepAlive: true,
+      iframeSrc: options.getV2Url?.(menuDto.permission),
+    },
+  };
 };
 
 export { generateMenusByBackend };
