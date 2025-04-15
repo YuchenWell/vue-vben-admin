@@ -22,6 +22,7 @@
     "@yyb-electron/preload": "workspace:*",
     "electron": "catalog:",
     "electron-builder": "catalog:",
+    "electron-log": "catalog:",
     "electron-updater": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:"
