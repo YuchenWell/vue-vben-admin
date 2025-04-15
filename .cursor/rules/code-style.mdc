@@ -1,0 +1,13 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Your rule content
+
+- 函数间、块级代码间、最后一个import方法后请使用空白行分隔。
+- 有强关联关系的代码，在一个文件里时应放一起。
+- 一个文件可以分为多个强关联的代码部分，请使用 `#region ...` 和 `#endregion` 分隔。
+- 导出时，尽量在文件末尾使用 `export { ... }` 统一导出。
+
