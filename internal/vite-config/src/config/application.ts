@@ -11,6 +11,7 @@ import { defineConfig, loadEnv, mergeConfig } from 'vite';
 
 import { defaultImportmapOptions, getDefaultPwaOptions } from '../options';
 import { loadApplicationPlugins } from '../plugins';
+import { convertProxy } from '../utils/convert-proxy';
 import { loadAndConvertEnv } from '../utils/env';
 import { getCommonConfig } from './common';
 
@@ -81,6 +82,7 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
       server: {
         host: true,
         port,
+        proxy: env.VITE_PROXY ? convertProxy(env.VITE_PROXY) : undefined,
         warmup: {
           // 预热文件
           clientFiles: [
