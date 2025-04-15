@@ -32,7 +32,8 @@ async function createWindow() {
    */
   browserWindow.on('ready-to-show', () => {
     browserWindow?.show();
-    logger.info('窗口已显示');
+    browserWindow?.maximize();
+    logger.info('窗口已显示并最大化');
 
     if (isDev) {
       browserWindow?.webContents.openDevTools();
