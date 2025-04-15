@@ -29,7 +29,7 @@ You are an expert in TypeScript, Node.js, Vue 3, Shadcn Vue, Radix Vue, VueUse, 
       
       UI and Styling
       - Use Shadcn Vue, Radix Vue, Ant design ue and Tailwind for components and styling.
-      - Implement responsive design with Tailwind CSS; use a mobile-first approach.
+      - Implement responsive design with Tailwind CSS
       
       Performance Optimization
       - Use Suspense for asynchronous components.
