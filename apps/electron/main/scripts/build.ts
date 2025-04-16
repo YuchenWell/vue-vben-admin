@@ -8,17 +8,22 @@ import { fileURLToPath } from 'node:url';
 
 import { build, Platform } from 'electron-builder';
 
+// #region 基础配置
+// eslint-disable-next-line no-console
+const log = console.log;
+
 const version = process.env.VITE_APP_VERSION;
 const isDev = process.env.NODE_ENV === 'development';
 const appName = isDev ? 'ElectronAppDev' : 'ElectronApp';
 const appId = isDev ? 'com.electron.app' : 'com.electron-dev.app';
 const shortcutName = isDev ? 'Electron App Dev' : 'Electron App';
-
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-console.log('是否是测试环境：', isDev, appName);
-console.log('APP 版本号：', version);
+log('是否是测试环境：', isDev, appName);
+log('APP 版本号：', version);
+// #endregion
 
+// #region 文件复制
 const workDir = path.join(__dirname, '../');
 
 const copySyncOptions: CopySyncOptions = {
@@ -40,7 +45,9 @@ cpSync(
   path.join(workDir, './dist/preload'),
   copySyncOptions,
 );
+// #endregion
 
+// #region 打包配置
 const options: Configuration = {
   appId,
   productName: appName,
@@ -63,7 +70,7 @@ const options: Configuration = {
     schemes: ['electronapp'],
   },
 
-  // "store” | “normal” | "maximum". - For testing builds, use 'store' to reduce build time significantly.
+  // "store" | "normal" | "maximum". - For testing builds, use 'store' to reduce build time significantly.
   compression: 'normal',
   removePackageScripts: true,
 
@@ -113,7 +120,7 @@ const options: Configuration = {
   linux: {
     desktop: {
       StartupNotify: 'false',
-      Encoding: 'UTF-8',
+      Encoding: 'utf8',
       MimeType: 'x-scheme-handler/deeplink',
     },
     target: ['AppImage', 'rpm', 'deb'],
@@ -126,7 +133,9 @@ const options: Configuration = {
     },
   ],
 };
+// #endregion
 
+// #region 执行打包
 // 要打包的目标平台
 const targetPlatform: Platform = {
   darwin: Platform.MAC,
@@ -140,14 +149,14 @@ build({
   publish: process.env.CI ? 'always' : 'never',
 })
   .then((result) => {
-    console.log(JSON.stringify(result));
-    const outDir = path.join(workDir, options.directories!.output!);
-    console.log(
-      '\u001B[32m',
-      `打包完成🎉🎉🎉你要的都在 ${outDir} 目录里🤪🤪🤪`,
-    );
+    log(JSON.stringify(result));
+    const directories = options.directories || {};
+    const outputDir = directories.output || '../../out';
+    const outDir = path.join(workDir, outputDir);
+    log(`打包完成🎉🎉🎉你要的都在 ${outDir} 目录里🤪🤪🤪`);
   })
   .catch((error) => {
-    console.log('\u001B[31m', '打包失败，错误信息：', error);
+    log('打包失败，错误信息：', error);
     exit(1);
   });
+// #endregion
