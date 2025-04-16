@@ -1,7 +1,9 @@
 {
   "name": "@yyb-electron/main",
   "version": "1.0.0",
+  "description": "运营宝MVP",
   "private": true,
+  "author": "海创星智",
   "type": "commonjs",
   "scripts": {
     "bundle": "npx rimraf ./dist && webpack --config webpack.config.js",
@@ -20,6 +22,7 @@
     "@types/node": "catalog:",
     "@vben/eslint-config": "workspace:",
     "@yyb-electron/preload": "workspace:*",
+    "chalk": "catalog:",
     "electron": "catalog:",
     "electron-builder": "catalog:",
     "electron-log": "catalog:",

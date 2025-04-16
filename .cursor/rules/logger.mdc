@@ -1,0 +1,49 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# 日志规则
+
+## 日志格式化规范
+
+- 使用chalk库进行终端颜色增强，提高日志可读性
+- 日志分为四种类型：INFO、DONE、WARN、ERROR，分别使用不同背景色标签区分
+- 日志标签使用背景色块展示，例如 `chalk.bgBlue(' INFO ')`，标签文本两侧添加空格增加可读性
+- 日志内容使用对应的前景色，保持视觉一致性
+- 根据linter规则，避免使用console.log，优先使用console.warn和console.error
+- 日志格式统一为: `${带背景色的标签} ${带前景色的消息内容}`
+
+## 颜色规范
+
+- INFO: 蓝色背景标签，青色消息内容
+- DONE: 绿色背景标签，亮绿色消息内容
+- WARN: 黄色背景标签，亮黄色消息内容
+- ERROR: 红色背景标签，亮红色消息内容
+
+## 实现示例
+
+```typescript
+/** 日志工具 */
+const logger = {
+  info: (message: string, ...args: any[]) => {
+    console.warn(`${chalk.bgBlue(' INFO ')} ${chalk.cyan(message)}`, ...args);
+  },
+  success: (message: string, ...args: any[]) => {
+    console.warn(`${chalk.bgGreen(' DONE ')} ${chalk.greenBright(message)}`, ...args);
+  },
+  warn: (message: string, ...args: any[]) => {
+    console.warn(`${chalk.bgYellow(' WARN ')} ${chalk.yellowBright(message)}`, ...args);
+  },
+  error: (message: string, ...args: any[]) => {
+    console.error(`${chalk.bgRed(' ERROR ')} ${chalk.redBright(message)}`, ...args);
+  }
+};
+```
+
+## 使用建议
+
+- 保持消息简洁明了
+- 重要参数使用chalk.bold()或其他强调方式突出显示
+- 在关键流程节点使用success记录成功状态
+- 确保错误信息提供足够的上下文以便调试

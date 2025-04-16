@@ -6,21 +6,49 @@ import path, { dirname } from 'node:path';
 import process, { exit, platform } from 'node:process';
 import { fileURLToPath } from 'node:url';
 
+import chalk from 'chalk';
 import { build, Platform } from 'electron-builder';
 
 // #region 基础配置
-// eslint-disable-next-line no-console
-const log = console.log;
+/** 日志工具 */
+const logger = {
+  info: (message: string, ...args: any[]) => {
+    console.warn(`${chalk.bgBlue(' INFO ')} ${chalk.cyan(message)}`, ...args);
+  },
+  success: (message: string, ...args: any[]) => {
+    console.warn(
+      `${chalk.bgGreen(' DONE ')} ${chalk.greenBright(message)}`,
+      ...args,
+    );
+  },
+  warn: (message: string, ...args: any[]) => {
+    console.warn(
+      `${chalk.bgYellow(' WARN ')} ${chalk.yellowBright(message)}`,
+      ...args,
+    );
+  },
+  error: (message: string, ...args: any[]) => {
+    console.error(
+      `${chalk.bgRed(' ERROR ')} ${chalk.redBright(message)}`,
+      ...args,
+    );
+  },
+};
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const version = process.env.VITE_APP_VERSION;
 const isDev = process.env.NODE_ENV === 'development';
 const appName = isDev ? 'ElectronAppDev' : 'ElectronApp';
 const appId = isDev ? 'com.electron.app' : 'com.electron-dev.app';
 const shortcutName = isDev ? 'Electron App Dev' : 'Electron App';
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
-log('是否是测试环境：', isDev, appName);
-log('APP 版本号：', version);
+logger.info(
+  `是否是测试环境：${
+    isDev ? chalk.yellow('是') : chalk.blue('否')
+  }，应用名称：${chalk.bold(appName)}`,
+);
+logger.info(`APP 版本号：${chalk.bold(version)}`);
 // #endregion
 
 // #region 文件复制
@@ -34,17 +62,21 @@ const copySyncOptions: CopySyncOptions = {
   filter: (src) => !src.endsWith('.map') && !src.endsWith('.d.ts'),
 };
 
+logger.info('开始复制Web资源...');
 cpSync(
-  path.join(workDir, '../web/dist'),
+  path.join(workDir, '../../web/dist'),
   path.join(workDir, './dist/web'),
   copySyncOptions,
 );
+logger.success('Web资源复制完成');
 
+logger.info('开始复制Preload资源...');
 cpSync(
   path.join(workDir, '../preload/dist'),
   path.join(workDir, './dist/preload'),
   copySyncOptions,
 );
+logger.success('Preload资源复制完成');
 // #endregion
 
 // #region 打包配置
@@ -58,10 +90,10 @@ const options: Configuration = {
   extraMetadata: {
     version,
     name: appName,
-    main: 'dist/main.cjs',
+    main: 'dist/index.cjs',
   },
   directories: {
-    output: '../../out',
+    output: '../../../out',
     buildResources: 'buildResources',
   },
   files: ['dist', 'resources'],
@@ -125,13 +157,7 @@ const options: Configuration = {
     },
     target: ['AppImage', 'rpm', 'deb'],
   },
-  publish: [
-    {
-      provider: 'github',
-      releaseType: 'draft',
-      // private: true,
-    },
-  ],
+  publish: null,
 };
 // #endregion
 
@@ -143,20 +169,24 @@ const targetPlatform: Platform = {
   linux: Platform.LINUX,
 }[platform];
 
+logger.info(`开始为 ${chalk.bold(platform)} 平台构建应用...`);
+
 build({
   targets: targetPlatform.createTarget(),
   config: options,
   publish: process.env.CI ? 'always' : 'never',
 })
   .then((result) => {
-    log(JSON.stringify(result));
+    logger.success('构建过程完成');
+    logger.info(`构建结果详情：${chalk.gray(JSON.stringify(result))}`);
     const directories = options.directories || {};
     const outputDir = directories.output || '../../out';
     const outDir = path.join(workDir, outputDir);
-    log(`打包完成🎉🎉🎉你要的都在 ${outDir} 目录里🤪🤪🤪`);
+    logger.success(`打包完成，输出目录: ${chalk.bold.underline(outDir)}`);
   })
   .catch((error) => {
-    log('打包失败，错误信息：', error);
+    logger.error('打包失败，错误信息：');
+    console.error(error);
     exit(1);
   });
 // #endregion

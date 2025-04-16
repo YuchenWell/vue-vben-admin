@@ -607,6 +607,9 @@ importers:
       '@yyb-electron/preload':
         specifier: workspace:*
         version: link:../preload
+      chalk:
+        specifier: 'catalog:'
+        version: 5.4.1
       electron:
         specifier: 'catalog:'
         version: 35.1.3
