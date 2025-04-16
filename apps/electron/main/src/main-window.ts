@@ -42,7 +42,7 @@ async function createWindow() {
   });
 
   const pageUrl =
-    isDev && import.meta.env.VITE_DEV_SERVER_URL !== undefined
+    !isPackaged && import.meta.env.VITE_DEV_SERVER_URL !== undefined
       ? import.meta.env.VITE_DEV_SERVER_URL
       : `file://${join(__dirname, './web/index.html')}`;
 

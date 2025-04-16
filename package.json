@@ -9,7 +9,6 @@
     "dev:app": "tsx scripts/run-app-dev/index.ts --mode development",
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build",
     "build:analyze": "turbo build:analyze",
-    "build:web": "pnpm run build --filter=@yyb",
     "check": "pnpm run check:circular && pnpm run check:dep && pnpm run check:type && pnpm check:cspell",
     "check:circular": "vsh check-circular",
     "check:cspell": "cspell lint **/*.ts **/README.md .changeset/*.md --no-progress",

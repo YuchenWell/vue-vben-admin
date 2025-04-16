@@ -52,8 +52,8 @@ const defaultPreferences: Preferences = {
   },
   logo: {
     enable: true,
-    fullSource: '/brand/images/logo-full.png',
-    smallSource: '/brand/images/logo.png',
+    fullSource: './brand/images/logo-full.png',
+    smallSource: './brand/images/logo.png',
   },
   navigation: {
     accordion: true,

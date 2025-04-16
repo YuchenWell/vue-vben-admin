@@ -39,9 +39,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const version = process.env.VITE_APP_VERSION;
 const isDev = process.env.NODE_ENV === 'development';
-const appName = isDev ? 'ElectronAppDev' : 'ElectronApp';
-const appId = isDev ? 'com.electron.app' : 'com.electron-dev.app';
-const shortcutName = isDev ? 'Electron App Dev' : 'Electron App';
+const appName = isDev ? '运营宝(Dev)' : '运营宝';
+const appId = isDev ? 'hcxz.yyb-dev.app' : 'hcxz.yyb.app';
+const shortcutName = isDev ? '运营宝(Dev)' : '运营宝';
 
 logger.info(
   `是否是测试环境：${
@@ -98,8 +98,8 @@ const options: Configuration = {
   },
   files: ['dist', 'resources'],
   protocols: {
-    name: 'ElectronApp Example',
-    schemes: ['electronapp'],
+    name: '运营宝',
+    schemes: ['yyb'],
   },
 
   // "store" | "normal" | "maximum". - For testing builds, use 'store' to reduce build time significantly.
@@ -111,7 +111,6 @@ const options: Configuration = {
   // },
   nodeGypRebuild: false,
   buildDependenciesFromSource: false,
-
   win: {
     icon: 'icon.ico',
     target: [

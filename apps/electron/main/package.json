@@ -6,17 +6,18 @@
   "author": "海创星智",
   "type": "commonjs",
   "scripts": {
-    "bundle": "npx rimraf ./dist && webpack --config webpack.config.js",
-    "build:dev": "vite build --mode development && pnpm bundle",
-    "build:prod": "vite build && pnpm bundle",
+    "build:dev": "vite build --mode development",
+    "build:prod": "vite build --mode production",
     "pack:app": "npx tsx scripts/build.ts",
     "pack:dev": "pnpm build:dev && dotenvx run -f .env.development -- pnpm pack:app",
     "pack:prod": "pnpm build:prod && dotenvx run -f .env.production -- pnpm pack:app",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test": "electron ./scripts/test.mjs",
     "postinstall": "cross-env ELECTRON_RUN_AS_NODE=1 electron ./scripts/update-electron-vendors.mjs"
   },
   "main": "dist/index.cjs",
+  "dependencies": {
+    "electron-log": "catalog:"
+  },
   "devDependencies": {
     "@electron/notarize": "catalog:",
     "@types/node": "catalog:",
@@ -25,7 +26,6 @@
     "chalk": "catalog:",
     "electron": "catalog:",
     "electron-builder": "catalog:",
-    "electron-log": "catalog:",
     "electron-updater": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:"

@@ -427,7 +427,7 @@ catalogs:
       specifier: ^4.15.0
       version: 4.15.0
     vite:
-      specifier: ^6.2.6
+      specifier: 6.2.6
       version: 6.2.6
     vite-plugin-compression:
       specifier: ^0.5.1
@@ -594,6 +594,10 @@ importers:
         version: 2.1.10(typescript@5.8.3)
 
   apps/electron/main:
+    dependencies:
+      electron-log:
+        specifier: 'catalog:'
+        version: 5.3.3
     devDependencies:
       '@electron/notarize':
         specifier: 'catalog:'
@@ -616,9 +620,6 @@ importers:
       electron-builder:
         specifier: 'catalog:'
         version: 25.1.8(electron-builder-squirrel-windows@25.1.8)
-      electron-log:
-        specifier: 'catalog:'
-        version: 5.3.3
       electron-updater:
         specifier: 'catalog:'
         version: 6.6.2
@@ -637,7 +638,7 @@ importers:
     devDependencies:
       vite-plugin-dts:
         specifier: 'catalog:'
-        version: 4.5.3(@types/node@22.14.1)(rollup@4.40.0)(typescript@5.8.3)(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(sass@1.86.3)(terser@5.39.0)(yaml@2.7.1))
+        version: 4.5.3(@types/node@22.14.1)(rollup@4.40.0)(typescript@5.8.3)(vite@6.3.0(@types/node@22.14.1)(jiti@2.4.2)(sass@1.86.3)(terser@5.39.0)(yaml@2.7.1))
 
   apps/web:
     dependencies:
@@ -9475,6 +9476,46 @@ packages:
 
   vite@6.2.6:
     resolution: {integrity: sha512-9xpjNl3kR4rVDZgPNdTL0/c6ao4km69a/2ihNQbcANz8RuCOK3hQBmLSJf3bRKVQjVMda+YvizNE8AwvogcPbw==}
+    engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': ^18.0.0 || ^20.0.0 || >=22.0.0
+      jiti: '>=1.21.0'
+      less: '*'
+      lightningcss: ^1.21.0
+      sass: '*'
+      sass-embedded: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.16.0
+      tsx: ^4.8.1
+      yaml: ^2.4.2
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      jiti:
+        optional: true
+      less:
+        optional: true
+      lightningcss:
+        optional: true
+      sass:
+        optional: true
+      sass-embedded:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+      tsx:
+        optional: true
+      yaml:
+        optional: true
+
+  vite@6.3.0:
+    resolution: {integrity: sha512-9aC0n4pr6hIbvi1YOpFjwQ+QOTGssvbJKoeYkuHHGWwlXfdxQlI8L2qNMo9awEEcCPSiS+5mJZk5jH1PAqoDeQ==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
@@ -18538,6 +18579,25 @@ snapshots:
       - rollup
       - supports-color
 
+  vite-plugin-dts@4.5.3(@types/node@22.14.1)(rollup@4.40.0)(typescript@5.8.3)(vite@6.3.0(@types/node@22.14.1)(jiti@2.4.2)(sass@1.86.3)(terser@5.39.0)(yaml@2.7.1)):
+    dependencies:
+      '@microsoft/api-extractor': 7.52.2(@types/node@22.14.1)
+      '@rollup/pluginutils': 5.1.4(rollup@4.40.0)
+      '@volar/typescript': 2.4.12
+      '@vue/language-core': 2.2.0(typescript@5.8.3)
+      compare-versions: 6.1.1
+      debug: 4.4.0
+      kolorist: 1.8.0
+      local-pkg: 1.1.1
+      magic-string: 0.30.17
+      typescript: 5.8.3
+    optionalDependencies:
+      vite: 6.3.0(@types/node@22.14.1)(jiti@2.4.2)(sass@1.86.3)(terser@5.39.0)(yaml@2.7.1)
+    transitivePeerDependencies:
+      - '@types/node'
+      - rollup
+      - supports-color
+
   vite-plugin-html@3.2.2(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(sass@1.86.3)(terser@5.39.0)(yaml@2.7.1)):
     dependencies:
       '@rollup/pluginutils': 4.2.1
@@ -18623,7 +18683,7 @@ snapshots:
     dependencies:
       esbuild: 0.24.0
       postcss: 8.5.3
-      rollup: 4.39.0
+      rollup: 4.40.0
     optionalDependencies:
       '@types/node': 22.14.1
       fsevents: 2.3.3
@@ -18634,7 +18694,7 @@ snapshots:
     dependencies:
       esbuild: 0.24.0
       postcss: 8.5.3
-      rollup: 4.39.0
+      rollup: 4.40.0
     optionalDependencies:
       '@types/node': 22.14.1
       fsevents: 2.3.3
@@ -18642,6 +18702,23 @@ snapshots:
       sass: 1.86.3
       terser: 5.39.0
       yaml: 2.7.1
+
+  vite@6.3.0(@types/node@22.14.1)(jiti@2.4.2)(sass@1.86.3)(terser@5.39.0)(yaml@2.7.1):
+    dependencies:
+      esbuild: 0.24.0
+      fdir: 6.4.3(picomatch@4.0.2)
+      picomatch: 4.0.2
+      postcss: 8.5.3
+      rollup: 4.40.0
+      tinyglobby: 0.2.12
+    optionalDependencies:
+      '@types/node': 22.14.1
+      fsevents: 2.3.3
+      jiti: 2.4.2
+      sass: 1.86.3
+      terser: 5.39.0
+      yaml: 2.7.1
+    optional: true
 
   vitest@2.1.9(@types/node@22.14.1)(happy-dom@16.8.1)(sass@1.86.3)(terser@5.39.0):
     dependencies:

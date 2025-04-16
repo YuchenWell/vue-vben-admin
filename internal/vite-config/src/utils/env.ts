@@ -105,7 +105,7 @@ async function loadAndConvertEnv(
   return {
     appTitle: getString(VITE_APP_TITLE, 'Vben Admin'),
     archiver: getBoolean(VITE_ARCHIVER),
-    base: getString(VITE_BASE, '/'),
+    base: getString(VITE_BASE, './'),
     compress: compressTypes.length > 0,
     compressTypes,
     devtools: getBoolean(VITE_DEVTOOLS),
