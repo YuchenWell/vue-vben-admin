@@ -88,10 +88,7 @@ describe('generateMenuFrontend', () => {
       },
     ] as RouteRecordRaw[];
 
-    const menus = await generateMenuFrontend(
-      mockRoutesWithMeta,
-      mockRouter as any,
-    );
+    const menus = await generateMenuFrontend(mockRoutesWithMeta, mockOptions);
     expect(menus).toEqual([
       {
         badge: undefined,
@@ -118,10 +115,7 @@ describe('generateMenuFrontend', () => {
       },
     ] as RouteRecordRaw[];
 
-    const menus = await generateMenuFrontend(
-      mockRoutesWithParams,
-      mockRouter as any,
-    );
+    const menus = await generateMenuFrontend(mockRoutesWithParams, mockOptions);
     expect(menus).toEqual([
       {
         badge: undefined,
@@ -142,6 +136,7 @@ describe('generateMenuFrontend', () => {
   it('processes routes with redirects correctly', async () => {
     const mockRoutesWithRedirect = [
       {
+        meta: {},
         name: 'redirectedRoute',
         path: '/old-path',
         redirect: '/new-path',
@@ -155,10 +150,9 @@ describe('generateMenuFrontend', () => {
 
     const menus = await generateMenuFrontend(
       mockRoutesWithRedirect,
-      mockRouter as any,
+      mockOptions,
     );
     expect(menus).toEqual([
-      // Assuming your generateMenus function excludes redirect routes from the menu
       {
         badge: undefined,
         badgeType: undefined,
