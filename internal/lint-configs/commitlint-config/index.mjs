@@ -99,6 +99,25 @@ const userConfig = {
      * ^^^^^^^^^^^^^^
      */
     'footer-leading-blank': [1, 'always'],
+    'footer-max-line-length': [
+      2,
+      'always',
+      (parsed) => {
+        if (parsed.type === 'sync') {
+          return [true];
+        }
+        if (!parsed.footer) {
+          return [true];
+        }
+        // footer按行分割，逐行判断
+        const lines = parsed.footer.split(/\r?\n/);
+        const over = lines.find((line) => line.length > 108);
+        if (over) {
+          return [false, `footer 单行不能超过 108 个字符`];
+        }
+        return [true];
+      },
+    ],
     /**
      * type[scope]: [function] description
      *      ^^^^^
@@ -119,7 +138,6 @@ const userConfig = {
      *      ^^^^^
      */
     'header-max-length': [2, 'always', 108],
-
     'scope-enum': [0],
     'subject-case': [0],
     'subject-empty': [2, 'never'],
@@ -145,6 +163,7 @@ const userConfig = {
         'revert',
         'types',
         'release',
+        'sync',
       ],
     ],
   },
