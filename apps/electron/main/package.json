@@ -28,6 +28,7 @@
     "electron": "catalog:",
     "electron-builder": "catalog:",
     "electron-updater": "catalog:",
+    "prettier": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:"
   }

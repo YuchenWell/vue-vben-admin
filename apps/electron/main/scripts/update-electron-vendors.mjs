@@ -8,6 +8,7 @@ import path, { dirname } from 'node:path';
 import process from 'node:process';
 
 import chalk from 'chalk';
+import { format } from 'prettier';
 
 const logger = console;
 
@@ -28,7 +29,7 @@ function safeWriteFileSync(filePath, content, encoding = 'utf8') {
 /**
  * 更新Electron供应商缓存和浏览器列表配置
  */
-function updateElectronVendors() {
+async function updateElectronVendors() {
   try {
     // 获取当前Electron环境的版本信息
     const electronRelease = process.versions;
@@ -52,11 +53,13 @@ function updateElectronVendors() {
       '.browserslistrc',
     );
 
-    // 写入版本缓存文件
-    safeWriteFileSync(
-      cacheFilePath,
+    const content = await format(
       JSON.stringify({ chrome: chromeVersion, node: nodeVersion }, null, 2),
+      { parser: 'json' },
     );
+
+    // 写入版本缓存文件
+    safeWriteFileSync(cacheFilePath, content);
 
     // 更新浏览器兼容性配置
     safeWriteFileSync(browserslistrcPath, `Chrome ${chromeVersion}`);
