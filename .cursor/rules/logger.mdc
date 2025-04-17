@@ -1,6 +1,6 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
 # 日志规则
@@ -21,24 +21,38 @@ alwaysApply: false
 - WARN: 黄色背景标签，亮黄色消息内容
 - ERROR: 红色背景标签，亮红色消息内容
 
-## 实现示例
+## 实现位置
+
+日志工具已实现在 `internal/node-utils/src/logger.ts` 中，提供了以下导出：
+
+- `chalk`: 颜色库实例
+- `createColorfulLogger`: 创建自定义日志工具的工厂函数
+- `logger`: 默认的日志工具实例（基于console）
+
+## 适用范围
+
+此日志工具**仅适用于Node.js环境**，如Electron主进程、构建脚本等。不适用于浏览器环境，因为chalk库依赖于Node.js的终端功能。
+
+## 使用示例
 
 ```typescript
-/** 日志工具 */
-const logger = {
-  info: (message: string, ...args: any[]) => {
-    console.warn(`${chalk.bgBlue(' INFO ')} ${chalk.cyan(message)}`, ...args);
-  },
-  success: (message: string, ...args: any[]) => {
-    console.warn(`${chalk.bgGreen(' DONE ')} ${chalk.greenBright(message)}`, ...args);
-  },
-  warn: (message: string, ...args: any[]) => {
-    console.warn(`${chalk.bgYellow(' WARN ')} ${chalk.yellowBright(message)}`, ...args);
-  },
-  error: (message: string, ...args: any[]) => {
-    console.error(`${chalk.bgRed(' ERROR ')} ${chalk.redBright(message)}`, ...args);
-  }
-};
+// 导入默认日志工具
+import { logger } from '@vben/node-utils';
+
+// 在Electron主进程中，可以从utils中导入
+import { logger } from '/@/utils';
+
+// 使用日志工具
+logger.info('这是一条信息');
+logger.success('操作成功');
+logger.warn('警告信息');
+logger.error('错误信息', new Error('错误详情'));
+
+// 或者创建自定义日志工具
+import { createColorfulLogger } from 'internal/node-utils';
+
+const customLogger = createColorfulLogger(yourLoggerInstance);
+customLogger.info('自定义日志实例');
 ```
 
 ## 使用建议

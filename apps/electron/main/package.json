@@ -16,14 +16,15 @@
   },
   "main": "dist/index.cjs",
   "dependencies": {
+    "chalk": "catalog:",
     "electron-log": "catalog:"
   },
   "devDependencies": {
     "@electron/notarize": "catalog:",
     "@types/node": "catalog:",
     "@vben/eslint-config": "workspace:",
+    "@vben/node-utils": "workspace:*",
     "@yyb-electron/preload": "workspace:*",
-    "chalk": "catalog:",
     "electron": "catalog:",
     "electron-builder": "catalog:",
     "electron-updater": "catalog:",

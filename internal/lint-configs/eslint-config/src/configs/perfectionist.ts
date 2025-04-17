@@ -25,11 +25,13 @@ export async function perfectionist(): Promise<Linter.Config[]> {
           {
             customGroups: {
               type: {
+                'electron-type': ['^electron$', '^electron-.+'],
                 'vben-core-type': ['^@vben-core/.+'],
                 'vben-type': ['^@vben/.+'],
                 'vue-type': ['^vue$', '^vue-.+', '^@vue/.+'],
               },
               value: {
+                electron: ['^electron$', '^electron-.+'],
                 vben: ['^@vben/.+'],
                 'vben-core': ['^@vben-core/.+'],
                 vue: ['^vue$', '^vue-.+', '^@vue/.+'],
@@ -38,12 +40,14 @@ export async function perfectionist(): Promise<Linter.Config[]> {
             environment: 'node',
             groups: [
               ['external-type', 'builtin-type', 'type'],
+              'electron-type',
               'vue-type',
               'vben-type',
               'vben-core-type',
               ['parent-type', 'sibling-type', 'index-type'],
               ['internal-type'],
               'builtin',
+              'electron',
               'vue',
               'vben',
               'vben-core',

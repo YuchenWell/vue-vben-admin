@@ -1,40 +1,17 @@
-import type { Configuration } from 'electron-builder';
 import type { CopySyncOptions } from 'node:fs';
+
+import type { Configuration } from 'electron-builder';
 
 import { cpSync } from 'node:fs';
 import path, { dirname } from 'node:path';
 import process, { exit, platform } from 'node:process';
 import { fileURLToPath } from 'node:url';
 
-import chalk from 'chalk';
 import { build, Platform } from 'electron-builder';
 
-// #region 基础配置
-/** 日志工具 */
-const logger = {
-  info: (message: string, ...args: any[]) => {
-    console.warn(`${chalk.bgBlue(' INFO ')} ${chalk.cyan(message)}`, ...args);
-  },
-  success: (message: string, ...args: any[]) => {
-    console.warn(
-      `${chalk.bgGreen(' DONE ')} ${chalk.greenBright(message)}`,
-      ...args,
-    );
-  },
-  warn: (message: string, ...args: any[]) => {
-    console.warn(
-      `${chalk.bgYellow(' WARN ')} ${chalk.yellowBright(message)}`,
-      ...args,
-    );
-  },
-  error: (message: string, ...args: any[]) => {
-    console.error(
-      `${chalk.bgRed(' ERROR ')} ${chalk.redBright(message)}`,
-      ...args,
-    );
-  },
-};
+import { colors as chalk, logger } from '@vben/node-utils';
 
+// #region 基础配置
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const version = process.env.VITE_APP_VERSION;

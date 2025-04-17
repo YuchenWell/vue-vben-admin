@@ -4,6 +4,7 @@ export * from './fs';
 export * from './git';
 export { getStagedFiles, add as gitAdd } from './git';
 export { generatorContentHash } from './hash';
+export { logger } from './logger';
 export * from './monorepo';
 export { toPosixPath } from './path';
 export { prettierFormat } from './prettier';
