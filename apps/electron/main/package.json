@@ -16,7 +16,6 @@
   },
   "main": "dist/index.cjs",
   "dependencies": {
-    "chalk": "catalog:",
     "electron-log": "catalog:"
   },
   "devDependencies": {
@@ -25,6 +24,7 @@
     "@vben/eslint-config": "workspace:",
     "@vben/node-utils": "workspace:*",
     "@yyb-electron/preload": "workspace:*",
+    "chalk": "catalog:",
     "electron": "catalog:",
     "electron-builder": "catalog:",
     "electron-updater": "catalog:",

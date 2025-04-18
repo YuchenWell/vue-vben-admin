@@ -117,10 +117,6 @@ interface HeaderPreferences {
 interface LogoPreferences {
   /** logo是否可见 */
   enable: boolean;
-  /** logo地址 */
-  fullSource: string;
-  /** logo地址 */
-  smallSource: string;
 }
 
 interface NavigationPreferences {

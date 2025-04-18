@@ -3,19 +3,11 @@ import { computed } from 'vue';
 
 import { preferences } from '@vben/preferences';
 
-interface Props {
-  /**
-   * @zh_CN 是否显示logo
-   */
-  size?: number;
-}
-
-defineProps<Props>();
+defineOptions({ name: 'AppSmallLogo' });
 
 const appName = computed(() => preferences.app.name);
-const logo = computed(() => preferences.logo.smallSource);
 </script>
 
 <template>
-  <img :alt="appName" :src="logo" :width="size" />
+  <img :alt="appName" src="/brand/images/logo.png" class="block" />
 </template>

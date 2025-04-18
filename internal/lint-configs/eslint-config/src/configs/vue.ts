@@ -70,6 +70,7 @@ export async function vue(): Promise<Linter.Config[]> {
         'vue/define-macros-order': [
           'error',
           {
+            defineExposeLast: true,
             order: [
               'defineOptions',
               'defineProps',

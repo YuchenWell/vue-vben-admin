@@ -214,6 +214,7 @@ const headerSlots = computed(() => {
       <AppFullLogo
         @click="clickLogo"
         class="h-full w-full object-contain object-left px-2 py-2"
+        :theme="sidebarTheme"
         v-if="!logoCollapsed"
       />
     </template>
