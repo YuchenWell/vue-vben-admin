@@ -598,9 +598,6 @@ importers:
 
   apps/electron/main:
     dependencies:
-      chalk:
-        specifier: 'catalog:'
-        version: 5.4.1
       electron-log:
         specifier: 'catalog:'
         version: 5.3.3
@@ -620,6 +617,9 @@ importers:
       '@yyb-electron/preload':
         specifier: workspace:*
         version: link:../preload
+      chalk:
+        specifier: 'catalog:'
+        version: 5.4.1
       electron:
         specifier: 'catalog:'
         version: 35.1.3
