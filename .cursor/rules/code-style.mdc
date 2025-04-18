@@ -3,11 +3,50 @@ description:
 globs: 
 alwaysApply: true
 ---
+# 代码风格规则
 
-# Your rule content
+文件组织
+- 函数间、代码块间、最后一个 import 后使用空行分隔
+- 强耦合代码应放在一起，遵循高内聚原则
+- 使用 `#region 名称` 和 `#endregion` 分隔逻辑代码区块
+- 导出优先使用文件末尾 `export { ... }` 统一导出模式
+- 保持单一职责原则，一个文件不应承担过多不相关功能
 
-- 函数间、块级代码间、最后一个import方法后请使用空白行分隔。
-- 有强关联关系的代码，在一个文件里时应放一起。
-- 一个文件可以分为多个强关联的代码部分，请使用 `#region ...` 和 `#endregion` 分隔。
-- 导出时，尽量在文件末尾使用 `export { ... }` 统一导出。
+Vue 组件规范
+- 所有组件必须使用 `<script setup lang="ts">` 语法
+- Props 定义使用 `defineProps<{...}>()` 类型声明
+- 事件使用 `defineEmits<{...}>()` 类型声明
+- 按以下顺序组织组件代码：
+  1. Props/Emits 定义
+  2. 导入的依赖
+  3. 组件状态
+  4. 计算属性
+  5. 生命周期钩子
+  6. 方法
+  7. 副作用（watch/watchEffect）
 
+状态管理
+- 使用 Pinia 进行状态管理，遵循模块化组织
+- Store 按业务领域划分，每个 Store 职责单一
+- 复杂异步逻辑放在 actions 中处理
+- 避免在组件中直接修改 state，使用 actions 封装
+
+样式规范
+- 优先使用 Tailwind CSS 进行样式开发
+- 使用 `@apply` 抽取重复的 Tailwind 组合
+- 复杂样式可使用 Less，但应减少使用
+- 组件样式使用 scoped 或 CSS Module 确保隔离
+
+命名规范
+- 组件名使用 PascalCase（如 UserProfile）
+- 文件名使用 kebab-case（如 user-profile.vue）
+- Pinia store 使用 `use[StoreName]Store` 格式命名
+- 组合式函数使用 `use` 前缀（如 useUserData）
+- 常量使用 UPPER_SNAKE_CASE
+- 类型/接口使用 PascalCase 并添加语义后缀（如 UserData, ConfigOptions）
+
+Monorepo 开发规范
+- 遵循包的职责边界，避免循环依赖
+- 共享代码放在公共包中
+- 使用相对路径引用同包内文件，使用包名引用其他包
+- 确保每个包有明确定义的公共 API

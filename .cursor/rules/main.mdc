@@ -3,48 +3,57 @@ description:
 globs: 
 alwaysApply: true
 ---
-You are an expert in TypeScript, Node.js, Vue 3, Shadcn Vue, Radix Vue, VueUse, Electron, VbenJS and Tailwind.
-      
-      Code Style and Structure
-      - Write concise, technical TypeScript code with accurate examples.
-      - Use composition API and declarative programming patterns; avoid options API.
-      - Prefer iteration and modularization over code duplication.
-      - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
-      - Structure files: exported component, composables, helpers, static content, types.
-      
-      Naming Conventions
-      - Use lowercase with dashes for directories (e.g., components/auth-wizard).
-      - Use PascalCase for component names (e.g., AuthWizard.vue).
-      - Use camelCase for composables (e.g., useAuthState.ts).
-      
-      TypeScript Usage
-      - Use TypeScript for all code; prefer types over interfaces.
-      - Avoid enums; use const objects instead.
-      - Use Vue 3 with TypeScript, leveraging defineComponent and PropType.
-      
-      Syntax and Formatting
-      - Use arrow functions for methods and computed properties.
-      - Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
-      - Use template syntax for declarative rendering.
-      
-      UI and Styling
-      - Use Shadcn Vue, Radix Vue, Ant design ue and Tailwind for components and styling.
-      - Implement responsive design with Tailwind CSS
-      
-      Performance Optimization
-      - Use Suspense for asynchronous components.
-      - Implement lazy loading for routes and components.
-      - Optimize images: use WebP format, include size data, implement lazy loading.
-      
-      Key Conventions
-      - Use VueUse for common composables and utility functions.
-      - Use Pinia for state management.
-      - Optimize Web Vitals (LCP, CLS, FID).
-      
-      Vue 3 and Composition API Best Practices
-      - Use <script setup> syntax for concise component definitions.
-      - Leverage ref, reactive, and computed for reactive state management.
-      - Use provide/inject for dependency injection when appropriate.
-      - Implement custom composables for reusable logic.
-      
-      Follow the official Vben.js and Vue.js documentation for up-to-date best practices on Data Fetching, Rendering, and Routing.
+你是 TypeScript、Node.js、Vue 3、Shadcn Vue、Radix Vue、VueUse、Electron、VbenJS 和 Tailwind 专家。
+
+技术栈特性
+- 这是一个基于 pnpm workspace 的 monorepo 项目
+- 包含 web 应用和 electron 应用
+- 使用 Turbo 进行构建和任务管理
+- 遵循 Vben 架构风格和设计模式
+
+代码风格与结构
+- 编写简洁、准确的 TypeScript 代码
+- 仅使用组合式 API 和声明式编程模式，禁用选项式 API
+- 优先使用迭代和模块化方案，避免代码重复
+- 使用描述性变量名，配合助动词（如 isLoading、hasError）
+- 文件结构：导出组件、组合式函数、辅助函数、静态内容、类型定义
+
+命名约定
+- 目录使用小写加连字符（如 components/auth-wizard）
+- 组件名使用 PascalCase（如 AuthWizard）
+- 组合式函数使用 camelCase（如 useAuthState.ts）
+- 文件名使用 kebab-case
+
+TypeScript 使用规范
+- 所有代码必须使用 TypeScript，优先使用 type 而非 interface
+- 避免使用枚举，改用 const 对象
+- Vue 3 结合 TypeScript 时，充分利用 defineComponent 和 PropType
+
+语法与格式
+- 方法和计算属性使用箭头函数
+- 条件语句中避免不必要的花括号；简单语句使用简洁语法
+- 使用模板语法进行声明式渲染
+- 遵循项目 ESLint 和 Prettier 配置
+
+UI 与样式
+- 使用 Shadcn Vue、Radix Vue、Ant Design Vue 和 Tailwind 组件与样式
+- 使用 Tailwind CSS 实现响应式设计
+- 复杂组件样式可使用 Scss
+
+性能优化
+- 使用 Suspense 处理异步组件
+- 实现路由和组件的懒加载
+- 图片优化：使用 WebP 格式，包含尺寸数据，实现懒加载
+- 优化核心 Web 指标（LCP、CLS、FID）
+
+核心约定
+- 使用 VueUse 获取通用组合式函数和工具函数
+- 使用 Pinia 进行状态管理
+- 适当使用 Monorepo 的跨包引用能力
+- 在 electron 应用中正确处理主进程和渲染进程通信
+
+Vue 3 与组合式 API 最佳实践
+- 使用 `<script setup lang="ts">` 语法简化组件定义
+- 利用 ref、reactive 和 computed 进行响应式状态管理
+- 适当使用 provide/inject 进行依赖注入，
+- 实现自定义组合式函数以复用逻辑
