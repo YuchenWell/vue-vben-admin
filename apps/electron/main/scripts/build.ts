@@ -64,28 +64,17 @@ const options: Configuration = {
   // eslint-disable-next-line no-template-curly-in-string
   artifactName: '${productName}_${arch}_${version}.${ext}',
   asar: true,
-  extraMetadata: {
-    version,
-    name: appName,
-    main: 'dist/index.cjs',
-  },
+  extraMetadata: { version, name: appName, main: 'dist/index.cjs' },
   directories: {
     output: '../../../out',
     buildResources: 'buildResources',
   },
   files: ['dist', 'resources'],
-  protocols: {
-    name: '运营宝',
-    schemes: ['yyb'],
-  },
+  protocols: { name: '运营宝', schemes: ['yyb'] },
 
   // "store" | "normal" | "maximum". - For testing builds, use 'store' to reduce build time significantly.
   compression: 'normal',
   removePackageScripts: true,
-
-  // afterSign: async (context) => {
-  //   await notarizeMac(context)
-  // },
   nodeGypRebuild: false,
   buildDependenciesFromSource: false,
   win: {
@@ -106,14 +95,12 @@ const options: Configuration = {
     shortcutName,
   },
 
-  dmg: {
-    sign: true,
-  },
+  dmg: { sign: true },
   mac: {
     target: [
       {
         target: 'default',
-        arch: ['x64', 'arm64'],
+        arch: ['arm64'],
       },
     ],
     icon: 'icon.icns',
