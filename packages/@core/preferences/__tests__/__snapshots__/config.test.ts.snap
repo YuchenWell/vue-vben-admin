@@ -52,8 +52,6 @@ exports[`defaultPreferences immutability test > should not modify the config obj
   },
   "logo": {
     "enable": true,
-    "fullSource": "./brand/images/logo-full.png",
-    "smallSource": "./brand/images/logo.png",
   },
   "navigation": {
     "accordion": true,
@@ -86,9 +84,9 @@ exports[`defaultPreferences immutability test > should not modify the config obj
     "inHeader": true,
     "keepAlive": true,
     "maxCount": 0,
-    "middleClickToClose": false,
+    "middleClickToClose": true,
     "persist": true,
-    "showIcon": true,
+    "showIcon": false,
     "showMaximize": false,
     "showMore": false,
     "styleType": "brisk",
@@ -103,7 +101,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
     "mode": "light",
     "radius": "0",
     "semiDarkHeader": false,
-    "semiDarkSidebar": false,
+    "semiDarkSidebar": true,
   },
   "transition": {
     "enable": true,
