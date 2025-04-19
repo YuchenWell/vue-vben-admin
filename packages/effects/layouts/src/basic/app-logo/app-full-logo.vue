@@ -23,8 +23,8 @@ const appName = computed(() => preferences.app.name);
 
 const logoSrc = computed(() => {
   return props.theme === 'light'
-    ? '/brand/images/logo-full-light.png'
-    : '/brand/images/logo-full-dark.png';
+    ? new URL('/brand/images/logo-full-light.png', import.meta.url).href
+    : new URL('/brand/images/logo-full-dark.png', import.meta.url).href;
 });
 </script>
 <template>
