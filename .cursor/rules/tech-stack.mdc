@@ -1,0 +1,74 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# 技术栈指南
+
+## 前端核心
+
+- **框架**: Vue 3.5+
+- **构建工具**: Vite 6.0+
+- **包管理器**: pnpm
+- **Monorepo 工具**: Turborepo
+- **语言**: TypeScript
+- **CSS 框架**: Tailwind CSS 3.0+
+- **UI 组件库**:
+  - Shadcn Vue
+  - Radix Vue
+  - Ant Design Vue 4.0+
+
+## 桌面应用
+
+- **框架**: Electron
+
+## 状态管理
+
+- **库**: Pinia
+
+## 路由
+
+- **库**: Vue Router
+
+## 工具库
+
+- **实用工具**: VueUse
+- **HTTP 客户端**: Axios
+- **表单验证**: vee-validate
+- **日期处理**: dayjs
+- **国际化**: vue-i18n
+
+## 测试
+
+- **单元测试**: Vitest
+- **端到端测试**: Playwright
+
+## 代码质量
+
+- **Linter**: ESLint
+- **格式化**: Prettier
+- **类型检查**: TypeScript
+- **拼写检查**: CSpell
+- **样式检查**: Stylelint
+- **Git Hooks**: simple-git-hooks
+
+## CI/CD
+
+- **自动化工具**: GitHub Actions
+
+## 设计系统
+
+项目遵循一致的设计系统，包括：
+
+- **颜色系统**: 遵循品牌色彩指南
+- **排版**: 基于定义的字体规模
+- **间距**: 统一的间距单位
+- **组件**: 原子设计系统
+
+## 开发环境
+
+推荐使用：
+
+- Cursor
+- 安装推荐的扩展（在 .vscode/extensions.json 中定义）
+- Node.js v18+

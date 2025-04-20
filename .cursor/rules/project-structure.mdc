@@ -1,0 +1,94 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# 项目结构指南
+
+## Monorepo 结构
+
+这是一个基于 pnpm workspace 的 Monorepo 项目，包含以下主要目录：
+
+- `apps/` - 包含所有应用程序
+  - `web/` - Vue 3 Web 应用
+  - `electron/` - Electron 桌面应用
+    - `main/` - 主进程
+    - `preload/` - 预加载脚本
+  - `backend-mock/` - 模拟后端服务
+- `packages/` - 包含所有共享包
+  - `@core/` - 核心功能和组件
+    - `base/` - 基础包
+      - `design/` - 设计相关
+      - `icons/` - 图标
+      - `shared/` - 共享
+      - `typings/` - 类型定义
+    - `composables/` - 组合式 API
+    - `preferences/` - 偏好设置
+    - `ui-kit/` - UI 组件集合
+      - `layout-ui/` - 布局 UI
+      - `menu-ui/` - 菜单 UI
+      - `shadcn-ui/` - shadcn UI
+      - `tabs-ui/` - 标签页 UI
+  - `effects/` - 副作用相关包
+    - `access/` - 访问控制
+    - `plugins/` - 第三方大型依赖插件
+    - `common-ui/` - 通用 UI
+    - `hooks/` - 组合式 API
+    - `layouts/` - 布局
+    - `request/` - 请求
+  - `types/` - 全局类型定义
+  - `utils/` - 通用工具函数
+  - `stores/` - 共享状态管理
+  - `constants/` - 全局常量
+  - `locales/` - 国际化资源
+  - `icons/` - 图标资源
+  - `styles/` - 共享样式
+  - `preferences/` - 用户偏好设置
+- `internal/` - 内部工具目录
+  - `lint-configs/` - 代码检查配置
+    - `commitlint-config/` - Commitlint 配置
+    - `eslint-config/` - ESLint 配置
+    - `prettier-config/` - Prettier 配置
+    - `stylelint-config/` - Stylelint 配置
+  - `node-utils/` - Node.js 工具
+  - `tailwind-config/` - Tailwind 配置
+  - `tsconfig/` - 通用 tsconfig 配置
+  - `vite-config/` - 通用Vite 配置
+- `playground/` - 演示目录
+- `scripts/` - 脚本目录
+  - `vsh/` - VSH 脚本
+  - `run-app-dev/` - 应用开发运行脚本
+  - `clean.mjs` - 清理脚本
+
+## Web 应用结构
+
+Web 应用 [apps/web/src/main.ts](mdc:apps/web/src/main.ts) 结构如下：
+
+- `components/` - 应用级组件
+- `views/` - 页面视图
+- `store/` - 应用状态管理
+- `router/` - 路由配置
+- `api/` - API 请求封装
+- `layouts/` - 布局组件
+- `locales/` - 本地化资源
+- `adapter/` - 适配器层
+
+## Electron 应用结构
+
+Electron 应用包含两个主要部分：
+
+- `main/` - 主进程代码
+- `preload/` - 预加载脚本
+
+## 构建与任务管理
+
+项目使用 [turbo.json](mdc:turbo.json) 进行构建和任务管理，工作区配置位于 [pnpm-workspace.yaml](mdc:pnpm-workspace.yaml)。
+
+## 根目录文件
+
+- `README.md` - 项目说明文档
+- `cspell.json` - CSpell 配置文件
+- `eslint.config.mjs` - ESLint 配置文件
+- `stylelint.config.mjs` - Stylelint 配置文件
+- `turbo.json` - Turbo 配置文件
+- `vitest.config.ts` - Vitest 配置文件

@@ -1,0 +1,94 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# 组件开发指南
+
+## 组件创建
+
+创建新组件时，请遵循以下步骤：
+
+1. 确定组件类型（原子、分子、有机体）
+2. 确定组件所属的域（全局、业务）
+3. 使用适当的命名规范
+4. 使用 TypeScript 定义类型
+5. 实现组件逻辑和模板
+
+## 组件结构
+
+每个组件文件应包含以下部分：
+
+```vue
+<script setup lang="ts">
+// 1. 定义 Props 和 Emits
+const props = defineProps<{
+  // 属性定义
+}>();
+
+const emit = defineEmits<{
+  // 事件定义
+}>();
+
+// 2. 引入依赖
+import { ref, computed, onMounted } from 'vue';
+import { useXXX } from '@/composables/xxx';
+
+// 3. 组件状态
+const state = ref(...);
+
+// 4. 计算属性
+const computedValue = computed(() => {...});
+
+// 5. 生命周期钩子
+onMounted(() => {...});
+
+// 6. 方法
+const handleEvent = () => {...};
+
+// 7. 副作用
+watch(state, () => {...});
+</script>
+
+<template>
+  <!-- 组件模板 -->
+</template>
+
+<style scoped>
+/* 组件样式（如果需要） */
+</style>
+```
+
+## 组件命名
+
+- 组件文件名：使用 kebab-case（如 `user-profile.vue`）
+- 组件名：使用 PascalCase（如 `UserProfile`）
+- 组件导入：使用 PascalCase（如 `import UserProfile from './user-profile.vue'`）
+- 组件使用：使用 PascalCase（如 `<UserProfile />`）
+
+## Props 和 Events
+
+- Props 使用驼峰命名（如 `userName`）
+- 事件使用驼峰命名并使用主动语态（如 `onClick`、`onSubmit`）
+- 为所有 Props 提供类型定义
+- 为所有事件提供详细类型定义
+
+## 组件复用
+
+- 尽可能提高组件的复用性
+- 使用组合式函数抽取复杂逻辑
+- 使用插槽提供灵活的内容结构
+- 考虑使用继承或组合模式
+
+## 性能考虑
+
+- 使用 `shallowRef` 优化大型对象
+- 为重复渲染的组件提供 key
+- 使用 `v-once` 优化静态内容
+- 使用 `v-memo` 优化条件渲染
+- 大型列表考虑虚拟滚动
+
+## 可访问性
+
+- 确保键盘可访问性
+- 遵循颜色对比度标准

@@ -1,0 +1,116 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# 开发工作流指南
+
+## 开发环境设置
+
+1. 使用 pnpm 安装依赖：
+   ```bash
+   pnpm install
+   ```
+
+2. 项目使用 Turbo 管理构建流程，通过 [turbo.json](mdc:turbo.json) 配置任务。
+
+## 开发命令
+
+- 启动 Web 开发服务器：
+  ```bash
+  pnpm dev
+  # 或
+  pnpm dev:web
+  ```
+
+- 启动 Electron 应用开发：
+  ```bash
+  pnpm dev:app
+  ```
+
+- 构建所有项目：
+  ```bash
+  pnpm build
+  ```
+
+- 打包 Electron 应用：
+  ```bash
+  # 开发环境
+  pnpm pack:dev
+
+  # 生产环境
+  pnpm pack:prod
+  ```
+
+- 代码检查：
+  ```bash
+  pnpm check
+  ```
+
+- 格式化和Lint：
+  ```bash
+  # 格式化
+  pnpm format
+
+  # Lint检查
+  pnpm lint
+  ```
+
+- 测试：
+  ```bash
+  pnpm test:unit
+  ```
+
+## 分支管理
+
+- 主分支：`main`
+- 功能分支：`feature/功能名称`
+- 修复分支：`fix/问题描述`
+- 发布分支：`release/版本号`
+
+## 提交规范
+
+遵循 [Conventional Commits](https://www.conventionalcommits.org/zh-hans/) 规范：
+
+- `feat`: 新功能
+- `fix`: 修复 Bug
+- `docs`: 文档更新
+- `style`: 代码风格修改
+- `refactor`: 重构代码
+- `perf`: 性能优化
+- `test`: 测试相关
+- `build`: 构建系统相关
+- `ci`: CI 配置相关
+- `chore`: 其他修改
+
+使用交互式提交工具：
+```bash
+pnpm commit
+```
+
+## 代码审查
+
+- 每个拉取请求至少需要一个审查者
+- 审查重点：
+  - 功能正确性
+  - 代码质量
+  - 性能影响
+  - 代码风格
+
+## 测试
+
+- 所有新功能必须有对应的单元测试
+- 使用 Vitest 进行测试
+- 运行测试命令：
+  ```bash
+  pnpm test:unit
+  ```
+
+## 发布流程
+
+1. 更新版本号
+2. 创建发布分支
+3. 构建项目
+4. 测试构建结果
+5. 合并到主分支
+6. 创建发布标签

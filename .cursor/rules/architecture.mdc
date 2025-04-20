@@ -1,0 +1,59 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# 项目架构指南
+
+## 整体架构
+
+项目遵循前后端分离架构，采用 Monorepo 组织代码，按功能模块划分包。
+
+## 前端架构
+
+前端采用 Vue 3 + TypeScript 技术栈，遵循以下架构原则：
+
+- 使用组合式 API 和 `<script setup>` 语法
+- 采用分层架构：
+  - 视图层 (Views)
+  - 组件层 (Components)
+  - 状态管理层 (Stores)
+  - 服务层 (Services)
+  - 适配器层 (Adapters)
+  - API 层 (API)
+
+## 状态管理
+
+- 使用 Pinia 进行状态管理
+- 状态按领域划分，保持 Store 职责单一
+- 全局状态存放在 `packages/stores`
+- 局部状态放在对应的应用中
+
+## 组件设计
+
+- 遵循原子设计思想，按复杂度分类组件：
+  - 原子组件 (Atoms)：最基本 UI 元素
+  - 分子组件 (Molecules)：由多个原子组件组成
+  - 有机体组件 (Organisms)：由多个分子组件组合成的复杂 UI 部分
+  - 模板 (Templates)：页面布局
+  - 页面 (Pages)：具体页面实现
+
+## 数据流
+
+- 采用单向数据流
+- Props 向下传递，Events 向上触发
+- 使用 Pinia 管理跨组件共享状态
+- 复杂组件使用依赖注入 (provide/inject)
+
+## 路由组织
+
+- 使用 Vue Router 管理路由
+- 按功能模块组织路由配置
+- 实现路由懒加载
+
+## API 调用
+
+- 使用 Axios 封装 API 请求
+- API 请求统一在 API 层处理
+- 使用拦截器处理请求/响应
+- 错误处理统一管理
