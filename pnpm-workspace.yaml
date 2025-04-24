@@ -194,3 +194,4 @@ catalog:
   minimist: ^1.2.8
   '@types/minimist': '^1.2.5'
   electron-log: ^5.3.3
+  esbuild: 0.24.0
