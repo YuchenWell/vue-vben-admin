@@ -442,16 +442,16 @@ $namespace: vben;
   --menu-item-collapse-margin-x: 0px;
   --menu-item-radius: 0px;
   --menu-item-indent: 16px;
-  --menu-font-size: 14px;
+  --menu-font-size: 13px;
 
   &.is-dark {
     --menu-background-color: hsl(var(--menu));
     // --menu-submenu-opened-background-color: hsl(var(--menu-opened-dark));
     --menu-item-background-color: var(--menu-background-color);
-    --menu-item-color: hsl(var(--foreground));
+    --menu-item-color: #fff;
     --menu-item-hover-color: hsl(var(--accent-foreground));
     --menu-item-hover-background-color: hsl(var(--accent));
-    --menu-item-active-color: hsl(var(--accent-foreground));
+    --menu-item-active-color: #fff;
     --menu-item-active-background-color: hsl(var(--primary));
     --menu-submenu-hover-color: hsl(var(--foreground));
     --menu-submenu-hover-background-color: hsl(var(--accent));
