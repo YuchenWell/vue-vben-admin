@@ -48,7 +48,6 @@ const shadcnUiColors = {
   foreground: {
     DEFAULT: 'hsl(var(--foreground))',
   },
-
   input: {
     background: 'hsl(var(--input-background))',
     DEFAULT: 'hsl(var(--input))',
@@ -171,6 +170,13 @@ export default {
           'var(--font-family)',
           //  ...defaultTheme.fontFamily.sans
         ],
+      },
+      fontSize: {
+        // lg: '14px',
+        md: '13px',
+        sm: '13px',
+        // xl: '16px',
+        xs: '13px',
       },
       keyframes: {
         'accordion-down': {
